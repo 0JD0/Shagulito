@@ -1,0 +1,19 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+header nav{
+    background: #233142;
+    border: none;
+}
+
+header img{
+    width: 150px;
+    height: 65px;
+}
+
+header img.background{
+    width: 400px;
+    height: 400px;
+}
