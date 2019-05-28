@@ -10,7 +10,6 @@ class Dashboard{
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <!--Se conecta con el css-->
-            <link type="image/png" rel="icon" href="../../resources/img/logo.pn"/>
             <link rel="stylesheet" href="../../resources/css/font_materialize.css">
             <link rel="stylesheet" href="../../resources/css/materialize.css">
             <link rel="stylesheet" href="../../resources/css/index.css">
@@ -154,9 +153,10 @@ class Dashboard{
             </footer>
         <script type="text/javascript" src="../../libraries/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="../../resources/js/materialize.js"></script>
-        <script type="text/javascript" src="../../resources/js/login.js"></script>
         <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+        <script type="text/javascript" src="../../resources/js/login.js"></script>
         <script type="text/javascript" src="../../core/helpers/functions.js"></script>
+        <script type="text/javascript" src="../../core/controllers/dashboard/account.js"></script>
         <script type="text/javascript" src="../../core/controllers/dashboard/'.$controller.'"></script>
     </body>
 
