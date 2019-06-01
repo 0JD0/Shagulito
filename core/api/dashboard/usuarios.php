@@ -7,7 +7,7 @@ require_once('../../core/models/usuarios.php');
 if ( isset($_GET['action'])) {
     session_start();
     $usuario = new Usuarios;
-    $result = array('status' => 0, 'exception' => '');
+    $result = array('status' => 0, 'message' => null, 'exception' => null);
     //Se verifica si existe una sesión iniciada como administrador para realizar las operaciones correspondientes
     if (isset($_SESSION['idUsuario'])) {
         switch ($_GET['action']) {
@@ -210,7 +210,8 @@ if ( isset($_GET['action'])) {
             default:
                 exit('Acción no disponible');
         }
-    }  else{ switch ($_GET['action']) {
+    }  else{
+        switch ($_GET['action']) {
             case 'read':
                 if ($usuario->readUsuarios()) {
                     $result['status'] = 1;
