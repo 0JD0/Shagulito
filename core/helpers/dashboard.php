@@ -10,7 +10,7 @@ class Dashboard{
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <!--Se conecta con el css-->
-            <link type="image/png" rel="icon" href="../../resources/img/logo.pn"/>
+            <link type="image/png" rel="icon" href="../../resources/img/icono.png"/>
             <link rel="stylesheet" href="../../resources/css/font_materialize.css">
             <link rel="stylesheet" href="../../resources/css/materialize.css">
             <link rel="stylesheet" href="../../resources/css/index.css">
@@ -123,39 +123,40 @@ class Dashboard{
                 </nav>
             </div>
             </header>
-            <section>
+            <main>
         ');
     }
 }
 }
-    public static function footerTempleate($controller){
+    public static function footerTemplate($controller){
         print('
-        </section>
-         </body>
+        </main>
             <footer class="page-footer">
                 <div class="container">
                     <div class="row">
-                        <div class="col s12 m6 l6">
-                            <h5 class="white-text">Dashboard</h5>
+                        <div class="col s12 m6 l6 ">
+                            <h5 class="white-text center-align">Dashboard</h5>
                             <a class="white-text" href="mailto:daniel.hdez2018@gmail.com"><i class="material-icons left">email</i>Ayuda</a>
                         </div>
                         <div class="col s12 m6 l6">
-                            <h5 class="white-text">Enlaces</h5>
+                            <h5 class="white-text center-align">Enlaces</h5>
                             <a class="white-text" href="http://localhost/phpmyadmin/" target="_blank"><i class="material-icons left">cloud</i>phpMyAdmin</a>
                         </div>
                     </div>
                 </div>
-                <div class="footer-copyright">
+                <div class="footer-copyright black">
                     <div class="container">
-                        <span>© Shagulito, todos los derechos reservados.</span>
-                        <span class="white-text right">Diseñado con <a class="red-text text-accent-1" href="http://materializecss.com/" target="_blank"><b>Materialize</b></a></span>
+                        <div class="row">
+                            <div class="col s12 m6 l6 center-align"><span>© Shagulito, todos los derechos reservados.</span></div>
+                            <div class="col s12 m6 l6 center-align"><span class="white-text ">Diseñado con <a class="red-text text-accent-1" href="http://materializecss.com/" target="_blank"><b>Materialize</b></a></span></div>
+                        </div>
                     </div>
                 </div>
             </footer>
         <script type="text/javascript" src="../../libraries/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="../../resources/js/materialize.js"></script>
-        <script type="text/javascript" src="../../resources/js/login.js"></script>
         <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+        <script type="text/javascript" src="../../resources/js/dashboard.js"></script>
         <script type="text/javascript" src="../../core/helpers/functions.js"></script>
         <script type="text/javascript" src="../../core/controllers/dashboard/'.$controller.'"></script>
     </body>

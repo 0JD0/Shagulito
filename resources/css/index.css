@@ -10,7 +10,14 @@ header nav{
 
 header img{
     width: 150px;
-    height: 65px;
+    height: 95px;
+    margin-top: -6px;
+}
+
+@media only screen and (max-width: 500px) {
+    .brand-logo img {
+     height: 87px;
+    }
 }
 
 header img.background{
@@ -19,11 +26,20 @@ header img.background{
 }
 
 footer.page-footer{
-    background: #233142;
+    background: #20324b;
     border: none;
 }
 
-footer div.footer-copyright{
-    background: #233142;
-    border: none;
+.footer-copyright{
+    margin-bottom: -20px;
 }
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }

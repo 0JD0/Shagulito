@@ -27,5 +27,5 @@ Dashboard::headerTemplate('Iniciar Sesión');
 
 </div>
 <?php
-Dashboard::footerTempleate('.js');
+Dashboard::footerTemplate('.js');
 ?>
