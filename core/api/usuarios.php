@@ -1,7 +1,7 @@
 <?php
-require_once('../core/helpers/database.php');
-require_once('../core/helpers/validador.php');
-require_once('../core/models/usuarios.php');
+require_once('../../core/helpers/database.php');
+require_once('../../core/helpers/validator.php');
+require_once('../../core/models/usuarios.php');
 
 //Se comprueba si existe una petición del sitio web y la acción a realizar, de lo contrario se muestra una página de error
 if (isset($_GET['site']) && isset($_GET['action'])) {
@@ -221,21 +221,20 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                     $result['exception'] = 'No existen usuarios registrados';
                 }
                 break;
-            case 'register':
+                case 'register':
                 $_POST = $usuario->validateForm($_POST);
                 if ($usuario->setNombres($_POST['nombres'])) {
                     if ($usuario->setApellidos($_POST['apellidos'])){
                         if($usuario->setTelefono($_POST['telefono'])){
                             if ($usuario->setCorreo($_POST['correo'])) {
-                                if ($usuario->setFecha($_POST['fecha'])){
                                     if ($usuario->setAlias($_POST['alias'])){
                                         if ($_POST['clave1'] == $_POST['clave2']) {
                                             if ($usuario->setClave($_POST['clave1'])) {
-                                                if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
-                                                    if($usuario->setImagen($_POST['create_archivo'])){
+                                                if (is_uploaded_file($_FILES['archivo']['tmp_name'])) {
+                                                    if($usuario->setImagen($_POST['archivo'], null)){
                                                         if ($usuario->createUsuario()) {
                                                             $result['status'] = 1;
-                                                            if ($usuario->saveFile($_FILES['create_archivo'], $usuario->getRuta(), $usuario->getImagen())) {
+                                                            if ($usuario->saveFile($_FILES['archivo'], $usuario->getRuta(), $usuario->getImagen())) {
                                                                 $result['message'] = 'Usuario agregado correctamente';
                                                             } else {
                                                                 $result['message'] = 'Usuario no creado. No se guardó el archivo';
@@ -244,7 +243,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                                                             $result['exception'] = 'Operación fallida';
                                                         }
                                                     } else {
-                                                        $result['exception'] = $categoria->getImageError();
+                                                        $result['exception'] = $usuario->getImageError();
                                                     }
                                                 }else{
                                                     $result['exception'] = 'Seleccione una imagen';
@@ -258,9 +257,6 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                                     } else {
                                         $result['exception'] = 'Alias incorrecto';
                                     }
-                                } else{
-                                $result['exception'] = 'Fecha mala';
-                                }
                             } else {
                                 $result['exception'] = 'Numero mal escrito';
                             }
@@ -284,16 +280,16 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                                 $_SESSION['aliasUsuario'] = $usuario->getAlias();
                                 $result['status'] = 1;
                             } else {
-                                $result['exception'] = 'Contraseña inexistente';
+                                $result['exception'] = 'Clave inexistente';
                             }
                         } else {
-                            $result['exception'] = 'Contraseña menor a 6 caracteres';
+                            $result['exception'] = 'Clave menor a 6 caracteres';
                         }
                     } else {
-                        $result['exception'] = 'Nombre inexistente';
+                        $result['exception'] = 'Alias inexistente';
                     }
                 } else {
-                    $result['exception'] = 'Nombre incorrecto';
+                    $result['exception'] = 'Alias incorrecto';
                 }
                 break;
             default:
