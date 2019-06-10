@@ -138,7 +138,7 @@
                     <!-- Botón para abrir ventana de agregar -->
                     <div class="input-field center-align col s2 m2">
                         <!-- Modal Trigger -->
-                        <a href="#modal-create" class="btn waves-effect btn-floating green tooltipped modal-trigger"
+                        <a href="#" onclick="modalCreate()" class="btn waves-effect btn-floating green tooltipped modal-trigger"
                             data-tooltip="Agregar">
                             <i class="material-icons">add</i>
                         </a>
