@@ -9,7 +9,7 @@
     <!--Import Google Icon Font-->
     <link type="text/css" rel="stylesheet" href="../../resources/css/icons.css">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="../../resources/css/materialize.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../resources/css/materialize.min.css" media="screen,projection" />
     <link rel="stylesheet" href="../../resources/css/index.css">
 </head>
 <?php
@@ -72,7 +72,7 @@
             </li>
             <li>
                 <a href="categorias.php">
-                    <i class="material-icons">description</i>Categorias
+                    <i class="material-icons">description</i>Categorías
                 </a>
             </li>
             <li>
@@ -207,7 +207,7 @@
                                         <i class="material-icons prefix">assignment</i>
                                         <input type="text" id="create_descripcion" name="create_descripcion"
                                             class="validate" required />
-                                        <label for="create_descripcion">Descripcion</label>
+                                        <label for="create_descripcion">Descripción</label>
                                     </div>
                                     <div class="input-field col s12 m6">
                                         <i class="material-icons prefix">book</i>
@@ -326,7 +326,7 @@
                     </div>
 
                     <!-- Modal Structure -->
-                    <div id="modal-eliminar" class="modal">
+                    <!--                    <div id="modal-eliminar" class="modal">
                         <div class="modal-content center-align">
                             <i class="large material-icons orange-text">info_outline</i>
                             <h4>Advertencia</h4>
@@ -337,19 +337,19 @@
                             <a href="#modal-exito"
                                 class="modal-close waves-effect waves-green btn modal-trigger">Eliminar</a>
                         </div>
-                    </div>
+                    </div>-->
 
                     <!-- Modal Structure -->
-                    <div id="modal-exito" class="modal">
+                    <!--                    <div id="modal-exito" class="modal">
                         <div class="modal-content center-align">
                             <i class="large material-icons green-text">check_circle_outline</i>
-                            <h4>Exito</h4>
-                            <p>Accion exitosa</p>
+                            <h4>Éxito</h4>
+                            <p>Acción exitosa</p>
                         </div>
                         <div class="modal-footer">
                             <a href="#!" class="modal-close waves-effect waves-green btn">Aceptar</a>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -378,7 +378,7 @@
         </div>
     </footer>
     <script type="text/javascript" src="../../libraries/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="../../resources/js/materialize.js"></script>
+    <script type="text/javascript" src="../../resources/js/materialize.min.js"></script>
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
     <script type="text/javascript" src="../../resources/js/dashboard.js"></script>
     <script type="text/javascript" src="../../core/helpers/functions.js"></script>
