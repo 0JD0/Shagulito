@@ -119,25 +119,27 @@
                 <div class="col s12">
                     <h3 class="center-align grey-text">Administrar Productos</h3>
                     <!-- autocomplete para búscar -->
-                    <div class="input-field col s6 m6">
-                        <i class="material-icons prefix">search</i>
-                        <!-- el search de la izquierda muetrael icono que quires que se vea -->
-                        <input type="text" id="search" name="search" />
-                        <label for="search">Buscador</label>
-                    </div>
-                    <div class="input-field col s2 m2">
-                        <button type="submit" class="btn waves-effect btn-floating indigo tooltipped"
-                            data-tooltip="Buscar">
-                            <i class="material-icons">check</i>
-                        </button>
-                        <!-- el check circle es lo mismo q el comentario de arriba -->
-                    </div>
+                    <form method="post" id="form-search">
+                        <div class="input-field col s6 m6">
+                            <i class="material-icons prefix">search</i>
+                            <!-- el search de la izquierda muetrael icono que quires que se vea -->
+                            <input type="text" id="search" name="search" />
+                            <label for="search">Buscador</label>
+                        </div>
+                        <div class="input-field col s2 m2">
+                            <button type="submit" class="btn waves-effect btn-floating indigo tooltipped"
+                                data-tooltip="Buscar">
+                                <i class="material-icons">check</i>
+                            </button>
+                            <!-- el check circle es lo mismo q el comentario de arriba -->
+                        </div>
+                    </form>
 
                     <!-- Botón para abrir ventana de agregar -->
                     <div class="input-field center-align col s2 m2">
                         <!-- Modal Trigger -->
                         <a href="#modal-create" class="btn waves-effect btn-floating green tooltipped modal-trigger"
-                        data-tooltip="Agregar">
+                            data-tooltip="Agregar">
                             <i class="material-icons">add</i>
                         </a>
                     </div>
@@ -149,7 +151,7 @@
                                 <table class="centered striped responsive-table">
                                     <thead>
                                         <tr>
-                                            <th>IMAGEN</th>     
+                                            <th>IMAGEN</th>
                                             <th>NOMBRE</th>
                                             <th>PRECIO($)</th>
                                             <th>CATEGORÍA</th>
@@ -184,50 +186,50 @@
                     </div>
 
                     <!-- modal para agregar -->
-
-                    <!-- Modal Structure -->
-                    <div id="modal-agregar" class="modal">
+                    <div id="modal-create" class="modal">
                         <div class="modal-content">
                             <h4 class="center-align">Agregar Producto</h4>
-                            <div class="row">
-                                <div class="input-field col s12 m6">
-                                    <i class="material-icons prefix">cake</i>
-                                    <input type="text" id="autocomplete-input" class="validate" />
-                                    <label for="autocomplete-input">Nombre</label>
+                            <form method="post" id="form-create" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="input-field col s12 m6">
+                                        <i class="material-icons prefix">cake</i>
+                                        <input type="text" id="create-nombre" name="create-nombre" class="validate" required/>
+                                        <label for="create-nombre">Nombre</label>
+                                    </div>
+                                    <div class="input-field col s12 m6">
+                                        <i class="material-icons prefix">attach_money</i>
+                                        <input type="number" id="create-precio" name="create-precio" max="999.99" min=".01" step="any" class="validate" required/>
+                                        <label for="autocomplete-input">Precio $</label>
+                                    </div>
+                                    <div class="input-field col s12 m6">
+                                        <i class="material-icons prefix">assignment</i>
+                                        <input type="text" id="autocomplete-input" class="validate" />
+                                        <label for="autocomplete-input">Descripcion</label>
+                                    </div>
+                                    <div class="input-field col s12 m6">
+                                        <i class="material-icons prefix">book</i>
+                                        <select>
+                                            <option value="" disabled selected>Seleccione una opcion</option>
+                                            <option value="1">Pan Frances</option>
+                                            <option value="2">Pan dulce</option>
+                                            <option value="3">Menudos</option>
+                                            <option value="4">Postres</option>
+                                            <option value="">Bebidas</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="input-field col s12 m6">
-                                    <i class="material-icons prefix">attach_money</i>
-                                    <input type="text" id="autocomplete-input" class="validate" />
-                                    <label for="autocomplete-input">Precio</label>
+                                <div class="row center-align">
+                                    <a href="#" class="modal-close btn waves-effect red tooltipped "
+                                        data-tooltip="Cancelar">
+                                        <i class="material-icons">cancel</i>
+                                    </a>
+                                    <button href="#modal-exito" type="submit"
+                                        class="modal-close btn waves-effect green tooltipped modal-trigger"
+                                        data-tooltip="Crear">
+                                        <i class="material-icons">save</i>
+                                    </button>
                                 </div>
-                                <div class="input-field col s12 m6">
-                                    <i class="material-icons prefix">assignment</i>
-                                    <input type="text" id="autocomplete-input" class="validate" />
-                                    <label for="autocomplete-input">Descripcion</label>
-                                </div>
-                                <div class="input-field col s12 m6">
-                                    <i class="material-icons prefix">book</i>
-                                    <select>
-                                        <option value="" disabled selected>Seleccione una opcion</option>
-                                        <option value="1">Pan Frances</option>
-                                        <option value="2">Pan dulce</option>
-                                        <option value="3">Menudos</option>
-                                        <option value="4">Postres</option>
-                                        <option value="">Bebidas</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row center-align">
-                                <a href="#" class="modal-close btn waves-effect red tooltipped "
-                                    data-tooltip="Cancelar">
-                                    <i class="material-icons">cancel</i>
-                                </a>
-                                <button href="#modal-exito" type="submit"
-                                    class="modal-close btn waves-effect green tooltipped modal-trigger"
-                                    data-tooltip="Crear">
-                                    <i class="material-icons">save</i>
-                                </button>
-                            </div>
+                            </form>
                         </div>
                     </div>
 
