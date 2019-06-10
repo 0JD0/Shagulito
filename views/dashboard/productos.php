@@ -201,12 +201,12 @@
                                         <i class="material-icons prefix">attach_money</i>
                                         <input type="number" id="create_precio" name="create_precio" max="999.99"
                                             min=".01" step="any" class="validate" required />
-                                        <label for="autocomplete-input">Precio $</label>
+                                        <label for="create_precio">Precio $</label>
                                     </div>
                                     <div class="input-field col s12 m6">
                                         <i class="material-icons prefix">assignment</i>
                                         <input type="text" id="create_descripcion" name="create_descripcion"
-                                            class="validate" />
+                                            class="validate" required />
                                         <label for="create_descripcion">Descripcion</label>
                                     </div>
                                     <div class="input-field col s12 m6">
@@ -259,28 +259,54 @@
                         <div class="modal-content">
                             <h4 class="center-align">Editar Producto</h4>
                             <form method="post" id="form-update" enctype="multipart/form-data">
-                            <input type="hidden" id="id_producto" name="id_producto"/>
-                            <input type="hidden" id="imagen_producto" name="imagen_producto"/>
+                                <input type="hidden" id="id_producto" name="id_producto" />
+                                <input type="hidden" id="imagen_producto" name="imagen_producto" />
                                 <div class="row">
                                     <div class="input-field col s12 m6">
                                         <i class="material-icons prefix">cake</i>
-                                        <input type="text" id="autocomplete-input" class="validate" />
-                                        <label for="autocomplete-input">Nombre</label>
+                                        <input type="text" id="update_nombre" name="update_nombre" class="validate"
+                                            required />
+                                        <label for="update_nombre">Nombre</label>
                                     </div>
                                     <div class="input-field col s12 m6">
                                         <i class="material-icons prefix">attach_money</i>
-                                        <input type="text" id="autocomplete-input" class="validate" />
-                                        <label for="autocomplete-input">Precio</label>
+                                        <input type="number" id="update_precio" name="update_precio" max="999.99"
+                                            min=".01" step="any" class="validate" required />
+                                        <label for="update_precio">Precio $</label>
                                     </div>
                                     <div class="input-field col s12 m6">
                                         <i class="material-icons prefix">assignment</i>
-                                        <input type="text" id="autocomplete-input" class="validate" />
-                                        <label for="autocomplete-input">Descripcion</label>
+                                        <input type="text" id="update_descripcion" name="update_descripcion"
+                                            class="validate" required />
+                                        <label for="update_descripcion">Descripcion</label>
                                     </div>
                                     <div class="input-field col s12 m6">
                                         <i class="material-icons prefix">book</i>
-                                        <select id="create_categoria" name="create_categoria">
-                                        </select>
+                                        <select id="update_categoria" name="update_categoria"></select>
+                                        <label>Categoría</label>
+                                    </div>
+                                    <div class="file-field input-field col s12 m6">
+                                        <div class="btn waves-effect">
+                                            <span><i class="material-icons">image</i></span>
+                                            <input id="update_archivo" type="file" name="update_archivo" required />
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input type="text" class="file-path validate"
+                                                placeholder="Seleccione una imagen de 500x500" />
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m6">
+                                        <p>
+                                            <div class="switch">
+                                                <span>Estado:</span>
+                                                <label>
+                                                    <i class="material-icons">visibility_off</i>
+                                                    <input id="update_estado" type="checkbox" name="update_estado" />
+                                                    <span class="lever"></span>
+                                                    <i class="material-icons">visibility</i>
+                                                </label>
+                                            </div>
+                                        </p>
                                     </div>
                                 </div>
 
@@ -291,7 +317,7 @@
                                     </a>
                                     <button href="#modal-exito" type="submit"
                                         class="modal-close btn waves-effect green tooltipped modal-trigger"
-                                        data-tooltip="Crear">
+                                        data-tooltip="Modificar">
                                         <i class="material-icons">save</i>
                                     </button>
                                 </div>
