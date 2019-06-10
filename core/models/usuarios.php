@@ -68,7 +68,7 @@ class Usuarios extends Validator
         }
     }
 
-    public function getTeleefono(){
+    public function getTelefono(){
         return $this->telefono;
     }
 
@@ -174,7 +174,7 @@ class Usuarios extends Validator
 	//Metodos para manejar el CRUD
 	public function readUsuarios()
 	{
-		$sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado, clave_empleado, foto_empleado FROM empleado ORDER BY apellido_empleado';
+		$sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado, clave_empleado FROM empleado ORDER BY apellido_empleado';
 		$params = array(null);
 		return Database::getRows($sql, $params);
 	}
@@ -189,22 +189,22 @@ class Usuarios extends Validator
 	public function createUsuario()
 	{
 		$hash = password_hash($this->clave, PASSWORD_DEFAULT);
-		$sql = 'INSERT INTO empleado(nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado, clave_empleado, foto_empleado) VALUES(?, ?, ?, ?, ?, ?, ?,?)';
-		$params = array($this->nombres, $this->apellidos,  $this->telefono,  $this->correo, $this->alias, $hash, $this->imagen);
+		$sql = 'INSERT INTO empleado(nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado, clave_empleado) VALUES(?, ?, ?, ?, ?, ?)';
+		$params = array($this->nombres, $this->apellidos,  $this->telefono,  $this->correo, $this->alias, $hash);
 		return Database::executeRow($sql, $params);
 	}
 
 	public function getUsuario()
 	{
-		$sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado,telefono_empleado, correo_empleado, alias_empleado , clave_empleado, foto_empleado FROM empleado WHERE id_empleado = ?';
+		$sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado,telefono_empleado, correo_empleado, alias_empleado , clave_empleado FROM empleado WHERE id_empleado = ?';
 		$params = array($this->id);
 		return Database::getRow($sql, $params);
 	}
 
 	public function updateUsuario()
 	{
-		$sql = 'UPDATE empleado SET nombre_empleado = ?, apellido_empleado = ?,telefono_empleado,  correo_empleado = ?, alias_empleado = ?, clave_empleado = ? ,foto_empleado = ? WHERE id_empleado = ?';
-		$params = array($this->nombres, $this->apellidos,  $this->telefono, $this->correo, $this->alias, $this->clave, $this->foto, $this->id);
+		$sql = 'UPDATE empleado SET nombre_empleado = ?, apellido_empleado = ?,telefono_empleado,  correo_empleado = ?, alias_empleado = ?, clave_empleado = ? WHERE id_empleado = ?';
+		$params = array($this->nombres, $this->apellidos,  $this->telefono, $this->correo, $this->alias, $this->clave, $this->id);
 		return Database::executeRow($sql, $params);
 	}
 

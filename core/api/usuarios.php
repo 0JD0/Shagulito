@@ -284,24 +284,12 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                                     if ($usuario->setAlias($_POST['alias'])){
                                         if ($_POST['clave1'] == $_POST['clave2']) {
                                             if ($usuario->setClave($_POST['clave1'])) {
-                                                if (is_uploaded_file($_FILES['archivo']['tmp_name'])) {
-                                                    if($usuario->setImagen($_POST['archivo'], null)){
-                                                        if ($usuario->createUsuario()) {
-                                                            $result['status'] = 1;
-                                                            if ($usuario->saveFile($_FILES['archivo'], $usuario->getRuta(), $usuario->getImagen())) {
-                                                                $result['message'] = 'Usuario agregado correctamente';
-                                                            } else {
-                                                                $result['message'] = 'Usuario no creado. No se guardó el archivo';
-                                                            }
+                                                if ($usuario->createUsuario()) {
+                                                    $result['status'] = 1;
+                                                            $result['message'] = 'Usuario agregado correctamente';  
                                                         } else {
                                                             $result['exception'] = 'Operación fallida';
                                                         }
-                                                    } else {
-                                                        $result['exception'] = $usuario->getImageError();
-                                                    }
-                                                }else{
-                                                    $result['exception'] = 'Seleccione una imagen';
-                                                }
                                             } else {
                                                 $result['exception'] = 'Clave menor a 6 caracteres';
                                             }
