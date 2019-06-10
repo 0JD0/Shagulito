@@ -56,8 +56,8 @@ Dashboard::headerTemplate('Administrar productos');
                   	<label for="create_descripcion">Descripción</label>
                 </div>
                 <div class="input-field col s12 m6">
-                    <select id="create_categoria" name="create_categoria">
-                    </select>
+                    <select id="create_categoria" name="create_categoria"></select>
+                    <label>Categoria</label>
                 </div>
               	<div class="file-field input-field col s12 m6">
                     <div class="btn waves-effect">
