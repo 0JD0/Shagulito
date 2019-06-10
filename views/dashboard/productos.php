@@ -122,8 +122,8 @@
                     <div class="input-field col s6 m6">
                         <i class="material-icons prefix">search</i>
                         <!-- el search de la izquierda muetrael icono que quires que se vea -->
-                        <input type="text" id="autocomplete-input" class="autocomplete" />
-                        <label for="autocomplete-input">Buscar</label>
+                        <input type="text" id="search" name="search" />
+                        <label for="search">Buscador</label>
                     </div>
                     <div class="input-field col s2 m2">
                         <button type="submit" class="btn waves-effect btn-floating indigo tooltipped"
@@ -136,8 +136,8 @@
                     <!-- Botón para abrir ventana de agregar -->
                     <div class="input-field center-align col s2 m2">
                         <!-- Modal Trigger -->
-                        <a href="#modal-agregar" class="btn waves-effect btn-floating green tooltipped modal-trigger"
-                            data-tooltip="Agregar">
+                        <a href="#modal-create" class="btn waves-effect btn-floating green tooltipped modal-trigger"
+                        data-tooltip="Agregar">
                             <i class="material-icons">add</i>
                         </a>
                     </div>
@@ -157,7 +157,7 @@
                                             <th>ACCIÓN</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="tbody-read">
                                         <tr>
                                             <td>Datos</td>
                                             <td>Random</td>
