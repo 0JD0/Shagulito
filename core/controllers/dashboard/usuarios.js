@@ -20,15 +20,16 @@ function fillTable(rows)
                 <td>${row.correo_empleado}</td>
                 <td>${row.alias_empleado}</td>
                 <td>${row.clave_empleado}</td>
-                <td>${row.foto_empleado}</td>
+                <td><img src="../resources/img/usuarios/${row.foto_empleado}" class="materialboxed" heigth="100"</td>
                 <td>
                     <a href="#" onclick="modalUpdate(${row.id_empleado})" class="blue-text tooltipped" data-tooltip="Modificar"><i class="material-icons">mode_edit</i></a>
-                    <a href="#" onclick="confirmDelete(${row.id_empleado})" class="red-text tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
+                    <a href="#" onclick="confirmDelete(${row.id_empleado}, '${row.foto_empleado}')" class="red-text tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
                 </td>
             </tr>
         `;
     });
     $('#tbody-read').html(content);
+    $('.materialboxed').materialbox();
     $('.tooltipped').tooltip();
 }
 
@@ -132,7 +133,7 @@ function modalUpdate(id)
         url: apiUsuarios + 'get',
         type: 'post',
         data:{
-            id_usuario: id
+            id_empleado: id
         },
         datatype: 'json'
     })
@@ -142,7 +143,7 @@ function modalUpdate(id)
             const result = JSON.parse(response);
             //Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
             if (result.status) {
-                $('#id_usuario').val(result.dataset.id_empleado);
+                $('#id_empleado').val(result.dataset.id_empleado);
                 $('#update_nombres').val(result.dataset.nombre_empleado);
                 $('#update_apellidos').val(result.dataset.apellido_empleado);
                 $('#update_telefono').val(result.dataset.telefono_empleado);

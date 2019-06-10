@@ -44,43 +44,43 @@ Dashboard::headerTemplate('Administrar usuarios');
         <div class="row">
             <div class="input-field col s12 m6">
                 <i class="material-icons prefix">person</i>
-                <input id="nombres" type="text" name="nombres" class="validate" required/>
+                <input id="create_nombres" type="text" name="create_nombres" class="validate" required/>
                 <label for="nombres">Nombres</label>
             </div>
             <div class="input-field col s12 m6">
                 <i class="material-icons prefix">person</i>
-                <input id="apellidos" type="text" name="apellidos" class="validate" required/>
+                <input id="create_apellidos" type="text" name="create_apellidos" class="validate" required/>
                 <label for="apellidos">Apellidos</label>
             </div>
             <div class="input-field col s12 m6">
                 <i class="material-icons prefix">person</i>
-                <input id="telefono" type="number" name="telefono" class="validate" required/>
+                <input id="create_telefono" type="number" name="create_telefono" class="validate" required/>
                 <label for="telefono">Telefono</label>
             </div>
             <div class="input-field col s12 m6">
                 <i class="material-icons prefix">email</i>
-                <input id="correo" type="email" name="correo" class="validate" required/>
+                <input id="create_correo" type="email" name="create_correo" class="validate" required/>
                 <label for="correo">Correo</label>
             </div>
             <div class="input-field col s12 m6">
                 <i class="material-icons prefix">person_pin</i>
-                <input id="alias" type="text" name="alias" class="validate" required/>
+                <input id="create_alias" type="text" name="create_alias" class="validate" required/>
                 <label for="alias">Alias</label>
             </div>
             <div class="input-field col s12 m6">
                 <i class="material-icons prefix">security</i>
-                <input id="clave1" type="password" name="clave1" class="validate" required/>
+                <input id="create_clave1" type="password" name="create_clave1" class="validate" required/>
                 <label for="clave1">Clave</label>
             </div>
             <div class="input-field col s12 m6">
                 <i class="material-icons prefix">security</i>
-                <input id="clave2" type="password" name="clave2" class="validate" required/>
+                <input id="create_clave2" type="password" name="create_clave2" class="validate" required/>
                 <label for="clave2">Confirmar clave</label>
             </div>
             <div class="file-field input-field col s12 m6">
                     <div class="btn waves-effect">
                         <span><i class="material-icons">image</i></span>
-                        <input id="archivo" type="file" name="archivo" required/>
+                        <input id="create_archivo" type="file" name="create_archivo" required/>
                     </div>
                     <div class="file-path-wrapper">
                         <input type="text" class="file-path validate" placeholder="Seleccione una imagen"/>
@@ -114,8 +114,8 @@ Dashboard::headerTemplate('Administrar usuarios');
                 </div>
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">person</i>
-                    <input id="telefono" type="number" name="telefono" class="validate" required/>
-                    <label for="telefono">Telefono</label>
+                    <input id="update_telefono" type="number" name="update_telefono" class="validate" required/>
+                    <label for="update_telefono">Telefono</label>
                 </div>
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">email</i>

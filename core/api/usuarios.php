@@ -35,6 +35,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                         $_POST = $usuario->validateForm($_POST);
                         if ($usuario->setNombres($_POST['profile_nombres'])) {
                             if ($usuario->setApellidos($_POST['profile_apellidos'])) {
+                                if ($usuario->setTelefono($_POST['profile_telefono'])) {
                                 if ($usuario->setCorreo($_POST['profile_correo'])) {
                                     if ($usuario->setAlias($_POST['profile_alias'])) {
                                         if ($usuario->updateUsuario()) {
@@ -49,6 +50,9 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                                 } else {
                                     $result['exception'] = 'Correo incorrecto';
                                 }
+                            } else {
+                                $result['exception'] = 'Telefono incorrectos';
+                            }
                             } else {
                                 $result['exception'] = 'Apellidos incorrectos';
                             }
@@ -117,15 +121,29 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                 $_POST = $usuario->validateForm($_POST);
                 if ($usuario->setNombres($_POST['create_nombres'])) {
                     if ($usuario->setApellidos($_POST['create_apellidos'])) {
+                        if ($usuario->setTelefono($_POST['create_telefono'])) {
                         if ($usuario->setCorreo($_POST['create_correo'])) {
                             if ($usuario->setAlias($_POST['create_alias'])) {
                                 if ($_POST['create_clave1'] == $_POST['create_clave2']) {
                                     if ($usuario->setClave($_POST['create_clave1'])) {
+                                        if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
+                                            if ($usuario->setImagen($_FILES['create_archivo'], null)) {    
                                         if ($usuario->createUsuario()) {
+                                            if ($usuario->saveFile($_FILES['create_archivo'], $usuario->getRuta(), $usuario->getImagen())) {
                                             $result['status'] = 1;
+                                        } else {
+                                            $result['status'] = 2;
+                                            $result['exception'] = 'No se guardó el archivo';
+                                        }
                                         } else {
                                             $result['exception'] = 'Operación fallida';
                                         }
+                                    } else {
+                                        $result['exception'] = $usuario->getImageError();
+                                    }
+                                } else {
+                                    $result['exception'] = 'Seleccione una imagen';
+                                }
                                     } else {
                                         $result['exception'] = 'Clave menor a 6 caracteres';
                                     }
@@ -139,8 +157,11 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                             $result['exception'] = 'Correo incorrecto';
                         }
                     } else {
-                        $result['exception'] = 'Apellidos incorrectos';
+                        $result['exception'] = 'Telefono incorrectos';
                     }
+                } else {
+                    $result['exception'] = 'Apellidos incorrectos' ;
+                }
                 } else {
                     $result['exception'] = 'Nombres incorrectos';
                 }
@@ -162,10 +183,35 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                     if ($usuario->getUsuario()) {
                         if ($usuario->setNombres($_POST['update_nombres'])) {
                             if ($usuario->setApellidos($_POST['update_apellidos'])) {
+                                if ($usuario->setTelefono($_POST['update_telefono'])) {
                                 if ($usuario->setCorreo($_POST['update_correo'])) {
                                     if ($usuario->setAlias($_POST['update_alias'])) {
+                                        if (is_uploaded_file($_FILES['update_archivo']['tmp_name'])) {
+                                            if ($usuario->setImagen($_FILES['update_archivo'], $_POST['imagen_usuario'])) {
+                                                $archivo = true;
+                                            } else {
+                                                $result['exception'] = $usuario->getImageError();
+                                                $archivo = false;
+                                            }
+                                        } else {
+                                            if ($usuario->setImagen(null, $_POST['imagen_usuario'])) {
+                                                $result['exception'] = 'No se subió ningún archivo';
+                                            } else {
+                                                $result['exception'] = $usuario->getImageError();
+                                            }
+                                            $archivo = false;
+                                        }
                                         if ($usuario->updateUsuario()) {
-                                            $result['status'] = 1;
+                                            if ($archivo) {
+                                                if ($usuario->saveFile($_FILES['update_archivo'], $usuario->getRuta(), $usuario->getImagen())) {
+                                                    $result['status'] = 1;
+                                                } else {
+                                                    $result['status'] = 2;
+                                                    $result['exception'] = 'No se guardó el archivo';
+                                                }
+                                            } else {
+                                                $result['status'] = 3;
+                                            }
                                         } else {
                                             $result['exception'] = 'Operación fallida';
                                         }
@@ -175,6 +221,9 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                                 } else {
                                     $result['exception'] = 'Correo incorrecto';
                                 }
+                            } else {
+                                $result['exception'] = 'telefono incorrecto';
+                            }
                             } else {
                                 $result['exception'] = 'Apellidos incorrectos';
                             }
@@ -193,7 +242,12 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                     if ($usuario->setId($_POST['id_usuario'])) {
                         if ($usuario->getUsuario()) {
                             if ($usuario->deleteUsuario()) {
-                                $result['status'] = 1;
+                                if ($usuario->deleteFile($usuario->getRuta(), $_POST['imagen_usuario'])) {
+                                    $result['status'] = 1;
+                                } else {
+                                    $result['status'] = 2;
+                                    $result['exception'] = 'No se borró el archivo';
+                                }
                             } else {
                                 $result['exception'] = 'Operación fallida';
                             }

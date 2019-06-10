@@ -174,28 +174,33 @@ class Dashboard
 				<div class="modal-content">
 					<h4 class="center-align">Editar perfil</h4>
 					<form method="post" id="form-profile">
-						<div class="row">
-							<div class="input-field col s12 m6">
-								<i class="material-icons prefix">person</i>
-								<input id="profile_nombres" type="text" name="profile_nombres" class="validate" required/>
-								<label for="profile_nombres">Nombres</label>
-							</div>
-							<div class="input-field col s12 m6">
-								<i class="material-icons prefix">person</i>
-								<input id="profile_apellidos" type="text" name="profile_apellidos" class="validate" required/>
-								<label for="profile_apellidos">Apellidos</label>
-							</div>
-							<div class="input-field col s12 m6">
-								<i class="material-icons prefix">email</i>
-								<input id="profile_correo" type="email" name="profile_correo" class="validate" required/>
-								<label for="profile_correo">Correo</label>
-							</div>
-							<div class="input-field col s12 m6">
-								<i class="material-icons prefix">person_pin</i>
-								<input id="profile_alias" type="text" name="profile_alias" class="validate" required/>
-								<label for="profile_alias">Alias</label>
-							</div>
-						</div>
+					<div class="row">
+					<div class="input-field col s12 m6">
+						<i class="material-icons prefix">person</i>
+						<input id="profile_nombres" type="text" name="profile_nombres" class="validate" required/>
+						<label for="profile_nombres">Nombres</label>
+					</div>
+					<div class="input-field col s12 m6">
+						<i class="material-icons prefix">person</i>
+						<input id="profile_apellidos" type="text" name="profile_apellidos" class="validate" required/>
+						<label for="profile_apellidos">Apellidos</label>
+					</div>
+					<div class="input-field col s12 m6">
+						<i class="material-icons prefix">person</i>
+						<input id="profile_telefono" type="number" name="profile_telefono" class="validate" required/>
+						<label for="profile_telefono">Telefono</label>
+					</div>
+					<div class="input-field col s12 m6">
+						<i class="material-icons prefix">email</i>
+						<input id="profile_correo" type="email" name="profile_correo" class="validate" required/>
+						<label for="profile_correo">Correo</label>
+					</div>
+					<div class="input-field col s12 m6">
+						<i class="material-icons prefix">person_pin</i>
+						<input id="profile_alias" type="text" name="profile_alias" class="validate" required/>
+						<label for="profile_alias">Alias</label>
+					</div>
+				</div>
 						<div class="row center-align">
 							<a href="#" class="btn waves-effect grey tooltipped modal-close" data-tooltip="Cancelar"><i class="material-icons">cancel</i></a>
 							<button type="submit" class="btn waves-effect blue tooltipped" data-tooltip="Guardar"><i class="material-icons">save</i></button>
