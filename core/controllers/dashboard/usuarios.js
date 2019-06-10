@@ -100,8 +100,11 @@ $('#form-create').submit(function()
     $.ajax({
         url: apiUsuarios + 'create',
         type: 'post',
-        data: $('#form-create').serialize(),
-        datatype: 'json'
+        data: new FormData($('#form-create')[0]),
+        datatype: 'json',
+        cache: false,
+        contentType: false,
+        processData: false
     })
     .done(function(response){
         //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
