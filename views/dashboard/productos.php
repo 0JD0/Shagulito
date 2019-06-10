@@ -254,44 +254,48 @@
                         </div>
                     </div>
 
-                    <!-- Modal Structure -->
-                    <div id="modal-editar" class="modal">
+                    <!-- Modal para editar -->
+                    <div id="modal-update" class="modal">
                         <div class="modal-content">
                             <h4 class="center-align">Editar Producto</h4>
-                            <div class="row">
-                                <div class="input-field col s12 m6">
-                                    <i class="material-icons prefix">cake</i>
-                                    <input type="text" id="autocomplete-input" class="validate" />
-                                    <label for="autocomplete-input">Nombre</label>
+                            <form method="post" id="form-update" enctype="multipart/form-data">
+                            <input type="hidden" id="id_producto" name="id_producto"/>
+                            <input type="hidden" id="imagen_producto" name="imagen_producto"/>
+                                <div class="row">
+                                    <div class="input-field col s12 m6">
+                                        <i class="material-icons prefix">cake</i>
+                                        <input type="text" id="autocomplete-input" class="validate" />
+                                        <label for="autocomplete-input">Nombre</label>
+                                    </div>
+                                    <div class="input-field col s12 m6">
+                                        <i class="material-icons prefix">attach_money</i>
+                                        <input type="text" id="autocomplete-input" class="validate" />
+                                        <label for="autocomplete-input">Precio</label>
+                                    </div>
+                                    <div class="input-field col s12 m6">
+                                        <i class="material-icons prefix">assignment</i>
+                                        <input type="text" id="autocomplete-input" class="validate" />
+                                        <label for="autocomplete-input">Descripcion</label>
+                                    </div>
+                                    <div class="input-field col s12 m6">
+                                        <i class="material-icons prefix">book</i>
+                                        <select id="create_categoria" name="create_categoria">
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="input-field col s12 m6">
-                                    <i class="material-icons prefix">attach_money</i>
-                                    <input type="text" id="autocomplete-input" class="validate" />
-                                    <label for="autocomplete-input">Precio</label>
-                                </div>
-                                <div class="input-field col s12 m6">
-                                    <i class="material-icons prefix">assignment</i>
-                                    <input type="text" id="autocomplete-input" class="validate" />
-                                    <label for="autocomplete-input">Descripcion</label>
-                                </div>
-                                <div class="input-field col s12 m6">
-                                    <i class="material-icons prefix">book</i>
-                                    <select id="create_categoria" name="create_categoria">
-                                    </select>
-                                </div>
-                            </div>
 
-                            <div class="row center-align">
-                                <a href="#" class="modal-close btn waves-effect red tooltipped "
-                                    data-tooltip="Cancelar">
-                                    <i class="material-icons">cancel</i>
-                                </a>
-                                <button href="#modal-exito" type="submit"
-                                    class="modal-close btn waves-effect green tooltipped modal-trigger"
-                                    data-tooltip="Crear">
-                                    <i class="material-icons">save</i>
-                                </button>
-                            </div>
+                                <div class="row center-align">
+                                    <a href="#" class="modal-close btn waves-effect red tooltipped "
+                                        data-tooltip="Cancelar">
+                                        <i class="material-icons">cancel</i>
+                                    </a>
+                                    <button href="#modal-exito" type="submit"
+                                        class="modal-close btn waves-effect green tooltipped modal-trigger"
+                                        data-tooltip="Crear">
+                                        <i class="material-icons">save</i>
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
 
