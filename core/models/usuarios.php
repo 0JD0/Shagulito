@@ -181,7 +181,7 @@ class Usuarios extends Validator
 
 	public function searchUsuarios($value)
 	{
-		$sql = 'SELECT id_usuario, nombres_usuario, apellidos_usuario, correo_usuario, alias_usuario FROM usuarios WHERE apellidos_usuario LIKE ? OR nombres_usuario LIKE ? ORDER BY apellidos_usuario';
+		$sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado,telefono_empleado, correo_empleado, alias_empleado FROM empleado WHERE apellido_empleado LIKE ? OR nombre_empleado LIKE ? ORDER BY apellido_empleado';
 		$params = array("%$value%", "%$value%");
 		return Database::getRows($sql, $params);
 	}
@@ -189,28 +189,28 @@ class Usuarios extends Validator
 	public function createUsuario()
 	{
 		$hash = password_hash($this->clave, PASSWORD_DEFAULT);
-		$sql = 'INSERT INTO empleado(nombre_empleado, apellido_empleado, telefono_empleado, correo_usuario, alias_empleado, clave_empleado, foto_empleado) VALUES(?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO empleado(nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado, clave_empleado, foto_empleado) VALUES(?, ?, ?, ?, ?, ?, ?,?)';
 		$params = array($this->nombres, $this->apellidos,  $this->telefono,  $this->correo, $this->alias, $hash, $this->imagen);
 		return Database::executeRow($sql, $params);
 	}
 
 	public function getUsuario()
 	{
-		$sql = 'SELECT id_usuario, nombres_usuario, apellidos_usuario, correo_usuario, alias_usuario FROM usuarios WHERE id_usuario = ?';
+		$sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado,telefono_empleado, correo_empleado, alias_empleado , clave_empleado, foto_empleado FROM empleado WHERE id_empleado = ?';
 		$params = array($this->id);
 		return Database::getRow($sql, $params);
 	}
 
 	public function updateUsuario()
 	{
-		$sql = 'UPDATE usuarios SET nombres_usuario = ?, apellidos_usuario = ?, correo_usuario = ?, alias_usuario = ? WHERE id_usuario = ?';
-		$params = array($this->nombres, $this->apellidos, $this->correo, $this->alias, $this->id);
+		$sql = 'UPDATE empleado SET nombre_empleado = ?, apellido_empleado = ?,telefono_empleado,  correo_empleado = ?, alias_empleado = ?, clave_empleado = ? ,foto_empleado = ? WHERE id_empleado = ?';
+		$params = array($this->nombres, $this->apellidos,  $this->telefono, $this->correo, $this->alias, $this->clave, $this->foto, $this->id);
 		return Database::executeRow($sql, $params);
 	}
 
 	public function deleteUsuario()
 	{
-		$sql = 'DELETE FROM usuarios WHERE id_usuario = ?';
+		$sql = 'DELETE FROM empleado WHERE id_empleado = ?';
 		$params = array($this->id);
 		return Database::executeRow($sql, $params);
 	}
