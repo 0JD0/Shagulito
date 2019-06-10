@@ -115,7 +115,7 @@ class Dashboard
 						<nav>
 							<div class="nav-wrapper">
 								<a class="brand-logo center">
-									
+								<img src="../../resources/img/logo.png">
 								</a>
 								<a data-target="slide-out" class="sidenav-trigger show-on-large">
 									<i class="material-icons">dashboard</i>

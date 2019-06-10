@@ -1,138 +1,105 @@
 <?php
 require_once('../../core/helpers/dashboard.php');
-Dashboard::headerTemplate('Iniciar Sesión');
+Dashboard::headerTemplate('Administrar categorías');
 ?>
-<div class="container">
-    <!-- utilice autocomplete para buscar -->
-    <div class="row">
-        <div class="col s12">
-            <h3 class="center-align grey-text">Categorias</h3>
-            <!-- autocomplete para búscar -->
-            <div class="input-field col s6 m6">
-                <i class="material-icons prefix">search</i>
-                <!-- el search de la izquierda muetrael icono que quires que se vea -->
-                <input type="text" id="autocomplete-input" class="autocomplete" />
-                <label for="autocomplete-input">Buscar</label>
-            </div>
-            <div class="input-field col s2 m2">
-                <button type="submit" class="btn waves-effect btn-floating indigo tooltipped" data-tooltip="Buscar">
-                    <i class="material-icons">check</i>
-                </button>
-                <!-- el check circle es lo mismo q el comentario de arriba -->
-            </div>
-
-            <!-- Botón para abrir ventana de agregar -->
-            <div class="input-field center-align col s2 m2">
-                <!-- Modal Trigger -->
-                <a href="#modal-agregar" class="btn waves-effect btn-floating green tooltipped modal-trigger"
-                    data-tooltip="Agregar">
-                    <i class="material-icons">add</i>
-                </a>
-            </div>
-            <div class="col s12">
-                <div class="card white darken-1">
-                    <div class="card-content black-text">
-                        <!--tabla-->
-                        <table class="centered striped responsive-table">
-                            <div class="row">
-                            </div>
-                            <thead>
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Pan Frances</td>
-                                    <td class="material-icons tooltipped modal-trigger blue-text" data-position="bottom"
-                                        data-tooltip="Modificar" href="#modal8">create
-                                    </td>
-                                    <td class="material-icons tooltipped red-text" data-position="bottom"
-                                        data-tooltip="Eliminar">delete</td>
-                                </tr>
-                                <tr>
-                                    <td>Pan Dulce</td>
-                                    <td class="material-icons tooltipped blue-text" data-position="bottom"
-                                        data-tooltip="Modificar">create</td>
-                                    <td class="material-icons tooltipped red-text" data-position="bottom"
-                                        data-tooltip="Eliminar">delete</td>
-                                </tr>
-                                <tr>
-                                    <td>Menudos</td>
-                                    <td class="material-icons tooltipped blue-text" data-position="bottom"
-                                        data-tooltip="Modificar">create</td>
-                                    <td class="material-icons tooltipped red-text" data-position="bottom"
-                                        data-tooltip="Eliminar">delete</td>
-                                </tr>
-                                <tr>
-                                    <td>Postres</td>
-                                    <td class="material-icons tooltipped blue-text" data-position="bottom"
-                                        data-tooltip="Modificar">create</td>
-                                    <td class="material-icons tooltipped red-text" data-position="bottom"
-                                        data-tooltip="Eliminar">delete</td>
-                                </tr>
-                                <tr>
-                                    <td>Bebidas</td>
-                                    <td class="material-icons tooltipped blue-text" data-position="bottom"
-                                        data-tooltip="Modificar">create</td>
-                                    <td class="material-icons tooltipped red-text" data-position="bottom"
-                                        data-tooltip="Eliminar">delete</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <!-- Modal de Agregar Producto -->
-                        <div id="modal4" class="modal">
-                            <div class="modal-content">
-                                <h4>Agregar Producto</h4>
-                                <div class="row">
-                                    <form class="col s12">
-                                        <div class="row">
-                                            <div class="input-field col s6">
-                                                <i class="material-icons prefix">a</i>
-                                                <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
-                                                <label for="icon_prefix2">Nombre de la categoria</label>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agregar</a>
-                            </div>
-                            <div class="modal-footer">
-                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cerrar</a>
-                            </div>
-                        </div>
-
-                        <!--Modal modificar-->
-                        <div id="modal8" class="modal">
-                            <div class="modal-content">
-                                <h4>Modificar Producto</h4>
-                                <div class="row">
-                                    <form class="col s12">
-                                        <div class="row">
-                                            <div class="input-field col s6">
-                                                <i class="material-icons prefix">a</i>
-                                                <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
-                                                <label for="icon_prefix2">Nombre de la categoria</label>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                            <div class="modal-footer">
-                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agregar</a>
-                            </div>
-                            <div class="modal-footer">
-                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cerrar</a>
-                            </div>
-                        </div>
+<div class="row">
+    <!-- Formulario de búsqueda -->
+    <form method="post" id="form-search">
+        <div class="input-field col s6 m4">
+            <i class="material-icons prefix">search</i>
+            <input id="buscar" type="text" name="busqueda"/>
+            <label for="buscar">Buscador</label>
+        </div>
+        <div class="input-field col s6 m4">
+            <button type="submit" class="btn waves-effect green tooltipped" data-tooltip="Buscar"><i class="material-icons">check_circle</i></button>
+        </div>
+    </form>
+    <!-- Botón para abrir ventana de nuevo registro -->
+    <div class="input-field center-align col s12 m4">
+        <a href="#modal-create" class="btn waves-effect indigo tooltipped modal-trigger" data-tooltip="Agregar"><i class="material-icons">add_circle</i></a>
+    </div>
+</div>
+<!-- Tabla para mostrar los registros existentes -->
+<table class="highlight">
+    <thead>
+        <tr>
+            <th>IMAGEN</th>
+            <th>NOMBRE</th>
+            <th>DESCRIPCIÓN</th>
+            <th>ACCIÓN</th>
+        </tr>
+    </thead>
+    <tbody id="tbody-read">
+    </tbody>
+</table>
+<!-- Ventana para crear un nuevo registro -->
+<div id="modal-create" class="modal">
+    <div class="modal-content">
+        <h4 class="center-align">Crear categoría</h4>
+        <form method="post" id="form-create" enctype="multipart/form-data">
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">note_add</i>
+                    <input id="create_nombre" type="text" name="create_nombre" class="validate" required/>
+                    <label for="create_nombre">Nombre</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">description</i>
+                    <input id="create_descripcion" type="text" name="create_descripcion" class="validate"/>
+                    <label for="create_descripcion">Descripción</label>
+                </div>
+                <div class="file-field input-field col s12 m6">
+                    <div class="btn waves-effect">
+                        <span><i class="material-icons">image</i></span>
+                        <input id="create_archivo" type="file" name="create_archivo" required/>
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input type="text" class="file-path validate" placeholder="Seleccione una imagen"/>
                     </div>
                 </div>
             </div>
-        </div>
-        <?php
-Dashboard::footerTempleate('index.js');
+            <div class="row center-align">
+                <a href="#" class="btn waves-effect grey tooltipped modal-close" data-tooltip="Cancelar"><i class="material-icons">cancel</i></a>
+                <button type="submit" class="btn waves-effect blue tooltipped" data-tooltip="Crear"><i class="material-icons">save</i></button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Ventana para modificar un registro existente -->
+<div id="modal-update" class="modal">
+    <div class="modal-content">
+        <h4 class="center-align">Modificar categoría</h4>
+        <form method="post" id="form-update" enctype="multipart/form-data">
+            <input type="hidden" id="id_categoria" name="id_categoria"/>
+            <input type="hidden" id="imagen_categoria" name="imagen_categoria"/>
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">note_add</i>
+                    <input id="update_nombre" type="text" name="update_nombre" class="validate" required/>
+                    <label for="update_nombre">Nombre</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">description</i>
+                    <input id="update_descripcion" type="text" name="update_descripcion" class="validate"/>
+                    <label for="update_descripcion">Descripción</label>
+                </div>
+                <div class="file-field input-field col s12 m6">
+                    <div class="btn waves-effect">
+                        <span><i class="material-icons">image</i></span>
+                        <input id="update_archivo" type="file" name="update_archivo"/>
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text" placeholder="Seleccione una imagen"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row center-align">
+                <a href="#" class="btn waves-effect grey tooltipped modal-close" data-tooltip="Cancelar"><i class="material-icons">cancel</i></a>
+                <button type="submit" class="btn waves-effect blue tooltipped" data-tooltip="Modificar"><i class="material-icons">save</i></button>
+            </div>
+        </form>
+    </div>
+</div>
+<?php
+Dashboard::footerTemplate('categorias.js');
 ?>

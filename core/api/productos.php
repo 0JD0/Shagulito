@@ -1,39 +1,40 @@
 <?php
-require_once('../../helpers/database.php');
-require_once('../../helpers/validator.php');
-require_once('../../models/productos.php');
+require_once('../../core/helpers/database.php');
+require_once('../../core/helpers/validator.php');
+require_once('../../core/models/productos.php');
 
-//  se muestra error sino existe una accion a realizar
-if (isset($_GET['action'])) {
-    sesion_start();
+//Se comprueba si existe una petición del sitio web y la acción a realizar, de lo contrario se muestra una página de error
+if (isset($_GET['site']) && isset($_GET['action'])) {
+    session_start();
     $producto = new Productos;
-    $result = array('status' => 0, 'message' => null, 'exception' => null);
-    // verifca si existe una sesion iniciada para realizar operacionres
-    if (isset($_SESSION['id_usuario'])) {
+    $result = array('status' => 0, 'exception' => '');
+    //Se verifica si existe una sesión iniciada como administrador para realizar las operaciones correspondientes
+	if (isset($_SESSION['idUsuario']) && $_GET['site'] == 'dashboard') {
         switch ($_GET['action']) {
-            case 'read':
-                if ($result['dataset'] = $producto->readProducto()) {
+            case 'readProductos':
+                if ($result['dataset'] = $producto->readProductos()) {
                     $result['status'] = 1;
                 } else {
                     $result['exception'] = 'No hay productos registrados';
                 }
                 break;
+            case 'readCategorias':
+                if ($result['dataset'] = $producto->readCategorias()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'No hay categorías registradas';
+                }
+                break;
             case 'search':
                 $_POST = $producto->validateForm($_POST);
-                if ($_POST['search'] != '') {
-                    if ($result['dataset'] = $producto->searchProductos($_POST['search'])) {
+                if ($_POST['busqueda'] != '') {
+                    if ($result['dataset'] = $producto->searchProductos($_POST['busqueda'])) {
                         $result['status'] = 1;
-						$rows = count($result['dataset']);
-						if ($rows > 1) {
-							$result['message'] = 'Se han encontraron '.$rows.' coincidencias';
-						} else {
-							$result['message'] = 'Se ha encontrado una coincidencia';
-						}
                     } else {
-                        $result['exception'] = 'No han encontrado coincidencias';
+                        $result['exception'] = 'No hay coincidencias';
                     }
                 } else {
-                    $result['exception'] = 'Ingrese lo que deseas buscar';
+                    $result['exception'] = 'Ingrese un valor para buscar';
                 }
                 break;
             case 'create':
@@ -41,35 +42,31 @@ if (isset($_GET['action'])) {
                 if ($producto->setNombre($_POST['create_nombre'])) {
                     if ($producto->setDescripcion($_POST['create_descripcion'])) {
                         if ($producto->setPrecio($_POST['create_precio'])) {
-                            if (isset($_POST['create_categoria'])) {
-                                if ($producto->setCategoria($_POST['create_categoria'])) {
-                                    if ($producto->setEstado(isset($_POST['create_estado']) ? 1 : 0)) {
-                                        if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
-                                            if ($producto->setImagen($_FILES['create_archivo'], null)) {
-                                                if ($producto->createProducto()) {
+                            if ($producto->setCategoria($_POST['create_categoria'])) {
+                                if ($producto->setEstado(isset($_POST['create_estado']) ? 1 : 0)) {
+                                    if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
+                                        if ($producto->setImagen($_FILES['create_archivo'], null)) {
+                                            if ($producto->createProducto()) {
+                                                if ($producto->saveFile($_FILES['create_archivo'], $producto->getRuta(), $producto->getImagen())) {
                                                     $result['status'] = 1;
-                                                    if ($producto->saveFile($_FILES['create_archivo'], $producto->getRuta(), $producto->getImagen())) {
-                                                        $result['message'] = 'Producto creado correctamente';
-                                                    } else {
-                                                        $result['message'] = 'Producto creado. No se guardó el archivo';
-                                                    }
                                                 } else {
-                                                    $result['exception'] = 'Operación fallida';
+                                                    $result['status'] = 2;
+                                                    $result['exception'] = 'No se guardó el archivo';
                                                 }
                                             } else {
-                                                $result['exception'] = $producto->getImageError();
+                                                $result['exception'] = 'Operación fallida';
                                             }
                                         } else {
-                                            $result['exception'] = 'Selecciona una imagen de 500x500';
+                                            $result['exception'] = $producto->getImageError();
                                         }
                                     } else {
-                                        $result['exception'] = 'Estado incorrecto';
+                                        $result['exception'] = 'Seleccione una imagen';
                                     }
                                 } else {
-                                    $result['exception'] = 'Categoría incorrecta';
+                                    $result['exception'] = 'Estado incorrecto';
                                 }
                             } else {
-                                $result['exception'] = 'Selecciona una categoría';
+                                $result['exception'] = 'Seleccione una categoría';
                             }
                         } else {
                             $result['exception'] = 'Precio incorrecto';
@@ -109,21 +106,23 @@ if (isset($_GET['action'])) {
                                                     $archivo = false;
                                                 }
                                             } else {
-                                                if (!$producto->setImagen(null, $_POST['imagen_producto'])) {
+                                                if ($producto->setImagen(null, $_POST['imagen_producto'])) {
+                                                    $result['exception'] = 'No se subió ningún archivo';
+                                                } else {
                                                     $result['exception'] = $producto->getImageError();
                                                 }
                                                 $archivo = false;
                                             }
                                             if ($producto->updateProducto()) {
-                                                $result['status'] = 1;
                                                 if ($archivo) {
                                                     if ($producto->saveFile($_FILES['update_archivo'], $producto->getRuta(), $producto->getImagen())) {
-                                                        $result['message'] = 'Producto modificado correctamente';
+                                                        $result['status'] = 1;
                                                     } else {
-                                                        $result['message'] = 'Producto modificado. No se guardó el archivo';
+                                                        $result['status'] = 2;
+                                                        $result['exception'] = 'No se guardó el archivo';
                                                     }
                                                 } else {
-                                                    $result['message'] = 'Producto modificado. No se subió ningún archivo';
+                                                    $result['status'] = 3;
                                                 }
                                             } else {
                                                 $result['exception'] = 'Operación fallida';
@@ -132,7 +131,7 @@ if (isset($_GET['action'])) {
                                             $result['exception'] = 'Estado incorrecto';
                                         }
                                     } else {
-                                        $result['exception'] = 'Selecciona una categoría';
+                                        $result['exception'] = 'Seleccione una categoría';
                                     }
                                 } else {
                                     $result['exception'] = 'Precio incorrecto';
@@ -151,14 +150,14 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'delete':
-                if ($producto->setId($_POST['identifier'])) {
+                if ($producto->setId($_POST['id_producto'])) {
                     if ($producto->getProducto()) {
                         if ($producto->deleteProducto()) {
-                            $result['status'] = 1;
-                            if ($producto->deleteFile($producto->getRuta(), $_POST['filename'])) {
-                                $result['message'] = 'Producto eliminado correctamente';
+                            if ($producto->deleteFile($producto->getRuta(), $_POST['imagen_producto'])) {
+                                $result['status'] = 1;
                             } else {
-                                $result['message'] = 'Producto eliminado. No se borró el archivo';
+                                $result['status'] = 2;
+                                $result['exception'] = 'No se borró el archivo';
                             }
                         } else {
                             $result['exception'] = 'Operación fallida';
@@ -173,10 +172,44 @@ if (isset($_GET['action'])) {
             default:
                 exit('Acción no disponible');
         }
-        print(json_encode($result));
+    } else if ($_GET['site'] == 'commerce') {
+        switch ($_GET['action']) {
+            case 'readCategorias':
+                if ($result['dataset'] = $producto->readCategorias()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'Contenido no disponible';
+                }
+                break;
+            case 'readProductos':
+                if ($producto->setCategoria($_POST['id_categoria'])) {
+                    if ($result['dataset'] = $producto->readProductosCategoria()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'Contenido no disponible';
+                    }
+                } else {
+                    $result['exception'] = 'Categoría incorrecta';
+                }
+                break;
+            case 'detailProducto':
+                if ($producto->setId($_POST['id_producto'])) {
+                    if ($result['dataset'] = $producto->getProducto()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'Contenido no disponible';
+                    }
+                } else {
+                    $result['exception'] = 'Producto incorrecto';
+                }
+                break;
+            default:
+                exit('Acción no disponible');
+    	}
     } else {
         exit('Acceso no disponible');
     }
+	print(json_encode($result));
 } else {
 	exit('Recurso denegado');
 }
