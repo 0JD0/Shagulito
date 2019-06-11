@@ -22,8 +22,8 @@ function fillTable(rows)
                 <td>${row.clave_empleado}</td>
                 <td><img src="../resources/img/usuarios/${row.foto_empleado}" class="materialboxed" heigth="100"</td>
                 <td>
-                    <a href="#" onclick="modalUpdate(${row.id_empleado})" class="blue-text tooltipped" data-tooltip="Modificar"><i class="material-icons">mode_edit</i></a>
-                    <a href="#" onclick="confirmDelete(${row.id_empleado}, '${row.foto_empleado}')" class="red-text tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
+                    <a href="#" onclick="modalUpdate(${row.id_usuario})" class="blue-text tooltipped" data-tooltip="Modificar"><i class="material-icons">mode_edit</i></a>
+                    <a href="#" onclick="confirmDelete(${row.id_usuario}, '${row.foto_empleado}')" class="red-text tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
                 </td>
             </tr>
         `;
@@ -100,8 +100,11 @@ $('#form-create').submit(function()
     $.ajax({
         url: apiUsuarios + 'create',
         type: 'post',
-        data: $('#form-create').serialize(),
-        datatype: 'json'
+        data: new FormData($('#form-create')[0]),
+        datatype: 'json',
+        cache: false,
+        contentType: false,
+        processData: false
     })
     .done(function(response){
         //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola

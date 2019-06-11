@@ -100,7 +100,7 @@ Dashboard::headerTemplate('Administrar usuarios');
         <h4 class="center-align">Modificar usuario</h4>
         <form method="post" id="form-update" enctype="multipart/form-data">
             <input type="hidden" id="id_usuario" name="id_usuario"/>
-            <input type="hidden" id="imagen_categoria" name="imagen_categoria"/>
+            <input type="hidden" id="imagen_usuario" name="imagen_usuario"/>
             <div class="row">
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">person</i>
