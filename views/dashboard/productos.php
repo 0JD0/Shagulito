@@ -12,14 +12,17 @@ Dashboard::headerTemplate('Administrar productos');
             <label for="buscar">Buscador</label>
         </div>
         <div class="input-field col s3 m3">
-            <button type="submit" class="btn-floating waves-effect waves-light green tooltipped" data-tooltip="Buscar"><i
-                    class="material-icons">check</i></button>
+            <button type="submit" class="btn-floating waves-effect waves-light green tooltipped" data-tooltip="Buscar">
+                <i class="material-icons">check</i>
+            </button>
         </div>
     </form>
     <!-- Botón para abrir ventana de nuevo registro -->
     <div class="input-field center-align col s3 m3">
         <a href="#modal-create" class="btn-floating waves-effect waves-light indigo tooltipped modal-trigger"
-            data-tooltip="Agregar"><i class="material-icons">add</i></a>
+            data-tooltip="Agregar">
+            <i class="material-icons">add</i>
+        </a>
     </div>
 </div>
 
@@ -92,7 +95,8 @@ Dashboard::headerTemplate('Administrar productos');
                     <i class="material-icons">cancel</i>
                 </a>
                 <button href="#modal-exito" type="submit"
-                        class="modal-close btn waves-effect waves-light green tooltipped modal-trigger" data-tooltip="Crear">
+                    class="modal-close btn waves-effect waves-light green tooltipped modal-trigger"
+                    data-tooltip="Crear">
                     <i class="material-icons">save</i>
                 </button>
             </div>
@@ -152,7 +156,6 @@ Dashboard::headerTemplate('Administrar productos');
                     </p>
                 </div>
             </div>
-
             <div class="row center-align">
                 <a href="#" class="modal-close btn waves-effect red tooltipped " data-tooltip="Cancelar">
                     <i class="material-icons">cancel</i>
