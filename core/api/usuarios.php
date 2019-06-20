@@ -167,7 +167,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                 }
                 break;
             case 'get':
-                if ($usuario->setId($_POST['id_usuario'])) {
+                if ($usuario->setId($_POST['id_empleado'])) {
                     if ($result['dataset'] = $usuario->getUsuario()) {
                         $result['status'] = 1;
                     } else {
@@ -238,8 +238,8 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                 }
                 break;
             case 'delete':
-                if ($_POST['id_usuario'] != $_SESSION['idUsuario']) {
-                    if ($usuario->setId($_POST['id_usuario'])) {
+                if ($_POST['id_empleado'] != $_SESSION['idUsuario']) {
+                    if ($usuario->setId($_POST['id_empleado'])) {
                         if ($usuario->getUsuario()) {
                             if ($usuario->deleteUsuario()) {
                                 if ($usuario->deleteFile($usuario->getRuta(), $_POST['imagen_usuario'])) {
@@ -284,24 +284,12 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                                     if ($usuario->setAlias($_POST['alias'])){
                                         if ($_POST['clave1'] == $_POST['clave2']) {
                                             if ($usuario->setClave($_POST['clave1'])) {
-                                                if (is_uploaded_file($_FILES['archivo']['tmp_name'])) {
-                                                    if($usuario->setImagen($_POST['archivo'], null)){
-                                                        if ($usuario->createUsuario()) {
-                                                            $result['status'] = 1;
-                                                            if ($usuario->saveFile($_FILES['archivo'], $usuario->getRuta(), $usuario->getImagen())) {
-                                                                $result['message'] = 'Usuario agregado correctamente';
-                                                            } else {
-                                                                $result['message'] = 'Usuario no creado. No se guardó el archivo';
-                                                            }
+                                                if ($usuario->createUsuario()) {
+                                                    $result['status'] = 1;
+                                                            $result['message'] = 'Usuario agregado correctamente';  
                                                         } else {
                                                             $result['exception'] = 'Operación fallida';
                                                         }
-                                                    } else {
-                                                        $result['exception'] = $usuario->getImageError();
-                                                    }
-                                                }else{
-                                                    $result['exception'] = 'Seleccione una imagen';
-                                                }
                                             } else {
                                                 $result['exception'] = 'Clave menor a 6 caracteres';
                                             }
