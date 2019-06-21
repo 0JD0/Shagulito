@@ -4,7 +4,7 @@ $(document).ready(function()
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
-const apiUsuarios = '../../core/api/usuarios.php?site=dashboard&action=';
+const apiUsuarios = '../../core/api/dashboard/usuarios.php?site=dashboard&action=';
 
 //Función para llenar tabla con los datos de los registros
 function fillTable(rows)
@@ -20,7 +20,7 @@ function fillTable(rows)
                 <td>${row.correo_empleado}</td>
                 <td>${row.alias_empleado}</td>
                 <td>${row.clave_empleado}</td>
-                <td><img src="../resources/img/usuarios/${row.foto_empleado}" class="materialboxed" heigth="100"</td>
+                <td><img src="../../../resources/img/usuarios/${row.foto_empleado}" class="materialboxed" heigth="100"</td>
                 <td>
                     <a href="#" onclick="modalUpdate(${row.id_usuario})" class="blue-text tooltipped" data-tooltip="Modificar"><i class="material-icons">mode_edit</i></a>
                     <a href="#" onclick="confirmDelete(${row.id_usuario}, '${row.foto_empleado}')" class="red-text tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>

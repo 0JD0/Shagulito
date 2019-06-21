@@ -1,7 +1,7 @@
 <?php
-require_once('../../core/helpers/database.php');
-require_once('../../core/helpers/validator.php');
-require_once('../../core/models/usuarios.php');
+require_once('../../helpers/database.php');
+require_once('../../helpers/validator.php');
+require_once('../../models/usuarios.php');
 
 //Se comprueba si existe una petición del sitio web y la acción a realizar, de lo contrario se muestra una página de error
 if (isset($_GET['site']) && isset($_GET['action'])) {
@@ -39,7 +39,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                                 if ($usuario->setCorreo($_POST['profile_correo'])) {
                                     if ($usuario->setAlias($_POST['profile_alias'])) {
                                         if ($usuario->updateUsuario()) {
-                                            $_SESSION['aliasUsuario'] = $_POST['profile_alias'];
+                                            $_SESSION['alias_empleado'] = $_POST['profile_alias'];
                                             $result['status'] = 1;
                                         } else {
                                             $result['exception'] = 'Operación fallida';
@@ -319,7 +319,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                         if ($usuario->setClave($_POST['clave'])) {
                             if ($usuario->checkPassword()) {
                                 $_SESSION['idUsuario'] = $usuario->getId();
-                                $_SESSION['aliasUsuario'] = $usuario->getAlias();
+                                $_SESSION['alias_empleado'] = $usuario->getAlias();
                                 $result['status'] = 1;
                             } else {
                                 $result['exception'] = 'Clave inexistente';

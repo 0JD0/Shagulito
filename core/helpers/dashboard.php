@@ -47,9 +47,9 @@ class Dashboard
 										<a href="#user">
 											<img class="circle" src="../../resources/img/foto.jpg">
 										</a>
-										<a href="#name">
-											<span class="black-text name">Daniel Hernandez</span>
-										</a>
+										<a href="#">
+											<span class="black-text">'.$_SESSION['alias_empleado'].'</span>
+										</a>					
 									</div>
 								</li>
 								<li>

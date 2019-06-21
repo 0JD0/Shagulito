@@ -1,21 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Shagulito</title>
-    <!--Import Google Icon Font-->
-    <link type="text/css" rel="stylesheet" href="../../resources/css/icons.css">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="../../resources/css/materialize.min.css" media="screen,projection" />
-    <link rel="stylesheet" href="../../resources/css/index.css">
-</head>
 <?php
-//require_once('../../core/helpers/dashboard.php');
-//Dashboard::headerTemplate('Administrar categorías');
+require_once('../../core/helpers/dashboard.php');
+Dashboard::headerTemplate('Administrar categorías');
 ?>
+
 <div class="row">
     <!-- Formulario de búsqueda -->
     <form method="post" id="form-search">

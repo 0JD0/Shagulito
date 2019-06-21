@@ -4,7 +4,7 @@ $(document).ready(function()
 })
 
 //  constantes que comunican con la API
-const api = '../../core/api/dashboard/productos.php?action=';
+const apiProductos = '../../core/api/dashboard/productos.php?action=';
 const categorias = '../../core/api/dashboard/categorias.php?action=read';
 
 // funcion para llenar la tabla
@@ -16,14 +16,14 @@ function fillTable(rows)
         (row.estado_producto == 1) ? icon = 'visibility' : icon = 'visibility_off';
         content += `
             <tr>
-                <td><img src="../../resources/img/productos/${row.imagen_producto}" class="materialboxed" height="100"></td>
+                <td><img src="../../../resources/img/productos/${row.imagen_producto}" class="materialboxed" height="100"></td>
                 <td>${row.nombre_producto}</td>
                 <td>${row.precio_producto}</td>
                 <td>${row.nombre_categoria}</td>
                 <td><i class="material-icons">${icon}</i></td>
                 <td>
                     <a href="#" onclick="modalUpdate(${row.id_producto})" class="blue-text waves-effect waves-blue tooltipped" data-tooltip="editar"><i class="material-icons">edit</i></a>
-                    <a href="#" onclick="confirmDelete('${api}', ${row.id_producto}, '${row.imagen_producto}')" class="red-text waves-effect waves-orange tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
+                    <a href="#" onclick="confirmDelete('${apiProductos}', ${row.id_producto}, '${row.imagen_producto}')" class="red-text waves-effect waves-orange tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
                 </td>
             </tr>
         `;
@@ -37,25 +37,31 @@ function fillTable(rows)
 function showTable()
 {
     $.ajax({
-        url: api + 'read',
+        url: apiProductos + 'read',
         type: 'post',
         data: null,
         datatype: 'json'
     })
     .done(function(response){
-        // Se verifica si la api responde una cadena JSON
+        // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
         if (isJSONString(response)) {
             const result = JSON.parse(response);
+            // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (!result.status) {
                 sweetAlert(4, result.exception, null);
             }
             fillTable(result.dataset);
         } else {
-            console.log(response);
+            const result = JSON.parse(response);
+            // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (!result.status) {
+                sweetAlert(4, result.exception, null);
+            }
+            fillTable(result.dataset);
         }
     })
     .fail(function(jqXHR){
-        // Se muestra en la consola los posibles eerores
+        // Se muestran en consola los posibles errores de la solicitud AJAX
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
@@ -65,7 +71,7 @@ $('#form-search').submit(function()
 {
     event.preventDefault();
     $.ajax({
-        url: api + 'search',
+        url: apiProductos + 'search',
         type: 'post',
         data: $('#form-search').serialize(),
         datatype: 'json'
@@ -95,7 +101,7 @@ $('#form-create').submit(function()
 {
     event.preventDefault();
     $.ajax({
-        url: api + 'create',
+        url: apiProductos + 'create',
         type: 'post',
         data: new FormData($('#form-create')[0]),
         datatype: 'json',
@@ -128,7 +134,7 @@ $('#form-create').submit(function()
 function modalUpdate(id)
 {
     $.ajax({
-        url: api + 'get',
+        url: apiProductos + 'get',
         type: 'post',
         data:{
             id_producto: id
@@ -168,7 +174,7 @@ $('#form-update').submit(function()
 {
     event.preventDefault();
     $.ajax({
-        url: api + 'update',
+        url: apiProductos + 'update',
         type: 'post',
         data: new FormData($('#form-update')[0]),
         datatype: 'json',

@@ -5,11 +5,11 @@ require_once('../../models/productos.php');
 
 //  se muestra error sino existe una accion a realizar
 if (isset($_GET['action'])) {
-    sesion_start();
+    session_start();
     $producto = new Productos;
     $result = array('status' => 0, 'message' => null, 'exception' => null);
     // verifca si existe una sesion iniciada para realizar operacionres
-    if (isset($_SESSION['id_usuario'])) {
+    if (isset($_SESSION['idUsuario'])) {
         switch ($_GET['action']) {
             case 'read':
                 if ($result['dataset'] = $producto->readProducto()) {
@@ -21,7 +21,7 @@ if (isset($_GET['action'])) {
             case 'search':
                 $_POST = $producto->validateForm($_POST);
                 if ($_POST['search'] != '') {
-                    if ($result['dataset'] = $producto->searchProductos($_POST['search'])) {
+                    if ($result['dataset'] = $producto->searchProducto($_POST['search'])) {
                         $result['status'] = 1;
 						$rows = count($result['dataset']);
 						if ($rows > 1) {
@@ -45,10 +45,10 @@ if (isset($_GET['action'])) {
                                 if ($producto->setCategoria($_POST['create_categoria'])) {
                                     if ($producto->setEstado(isset($_POST['create_estado']) ? 1 : 0)) {
                                         if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
-                                            if ($producto->setImagen($_FILES['create_archivo'], null)) {
+                                            if ($producto->setImage($_FILES['create_archivo'], null)) {
                                                 if ($producto->createProducto()) {
                                                     $result['status'] = 1;
-                                                    if ($producto->saveFile($_FILES['create_archivo'], $producto->getRuta(), $producto->getImagen())) {
+                                                    if ($producto->saveFile($_FILES['create_archivo'], $producto->getRuta(), $producto->getImage())) {
                                                         $result['message'] = 'Producto creado correctamente';
                                                     } else {
                                                         $result['message'] = 'Producto creado. No se guardó el archivo';
@@ -102,14 +102,14 @@ if (isset($_GET['action'])) {
                                     if ($producto->setCategoria($_POST['update_categoria'])) {
                                         if ($producto->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
                                             if (is_uploaded_file($_FILES['update_archivo']['tmp_name'])) {
-                                                if ($producto->setImagen($_FILES['update_archivo'], $_POST['imagen_producto'])) {
+                                                if ($producto->setImage($_FILES['update_archivo'], $_POST['imagen_producto'])) {
                                                     $archivo = true;
                                                 } else {
                                                     $result['exception'] = $producto->getImageError();
                                                     $archivo = false;
                                                 }
                                             } else {
-                                                if (!$producto->setImagen(null, $_POST['imagen_producto'])) {
+                                                if (!$producto->setImage(null, $_POST['imagen_producto'])) {
                                                     $result['exception'] = $producto->getImageError();
                                                 }
                                                 $archivo = false;
