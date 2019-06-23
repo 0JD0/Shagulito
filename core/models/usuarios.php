@@ -203,7 +203,7 @@ class Usuarios extends Validator
 
 	public function updateUsuario()
 	{
-		$sql = 'UPDATE empleado SET nombre_empleado = ?, apellido_empleado = ?,telefono_empleado,  correo_empleado = ?, alias_empleado = ?, clave_empleado = ? WHERE id_empleado = ?';
+		$sql = 'UPDATE empleado SET nombre_empleado = ?, apellido_empleado = ?,telefono_empleado = ?,  correo_empleado = ?, alias_empleado = ?, clave_empleado = ? WHERE id_empleado = ?';
 		$params = array($this->nombres, $this->apellidos,  $this->telefono, $this->correo, $this->alias, $this->clave, $this->id);
 		return Database::executeRow($sql, $params);
 	}

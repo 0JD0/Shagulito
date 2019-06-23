@@ -167,7 +167,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                 }
                 break;
             case 'get':
-                if ($usuario->setId($_POST['id_usuario'])) {
+                if ($usuario->setId($_POST['id_empleado'])) {
                     if ($result['dataset'] = $usuario->getUsuario()) {
                         $result['status'] = 1;
                     } else {
@@ -179,7 +179,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                 break;
             case 'update':
                 $_POST = $usuario->validateForm($_POST);
-                if ($usuario->setId($_POST['id_usuario'])) {
+                if ($usuario->setId($_POST['id_empleado'])) {
                     if ($usuario->getUsuario()) {
                         if ($usuario->setNombres($_POST['update_nombres'])) {
                             if ($usuario->setApellidos($_POST['update_apellidos'])) {
@@ -238,8 +238,8 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                 }
                 break;
             case 'delete':
-                if ($_POST['id_usuario'] != $_SESSION['idUsuario']) {
-                    if ($usuario->setId($_POST['id_usuario'])) {
+                if ($_POST['id_empleado'] != $_SESSION['idUsuario']) {
+                    if ($usuario->setId($_POST['id_empleado'])) {
                         if ($usuario->getUsuario()) {
                             if ($usuario->deleteUsuario()) {
                                 if ($usuario->deleteFile($usuario->getRuta(), $_POST['imagen_usuario'])) {
