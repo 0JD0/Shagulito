@@ -1,5 +1,5 @@
 <?php
-class Productos extends Validators
+class Productos extends Validator
 {
     // variables
     private $id = null;
@@ -9,7 +9,7 @@ class Productos extends Validators
     private $imagen = null;
     private $categoria = null;
     private $estado = null;
-    private $ruta = '../../../resources/img/productos/'; 
+    private $ruta = '../../resources/img/productos/'; 
 
     // metodo para sobrecaragade propiedades
     public function setId($value)
@@ -71,7 +71,7 @@ class Productos extends Validators
 		return $this->precio;
     }
     
-	public function setImagen($file, $name)
+	public function setImage($file, $name)
 	{
 		if ($this->validateImageFile($file, $this->ruta, $name, 500, 500)) {
 			$this->imagen = $this->getImageName();
@@ -81,7 +81,7 @@ class Productos extends Validators
 		}
 	}
 
-	public function getImagen()
+	public function getImage()
 	{
 		return $this->imagen;
     }
@@ -122,21 +122,21 @@ class Productos extends Validators
     }
     
 //  Aqui van los CRUDS
-    public function readProductos()
+    public function readProducto()
     {
         $sql = 'SELECT id_producto, imagen_producto, nombre_producto, descripcion_producto, precio_producto, nombre_categoria, estado_producto FROM productos INNER JOIN categorias USING(id_categoria) ORDER BY nombre_producto';
         $params = array(null);
         return Database::getRows($sql, $params);
     }
 
-    public function readProductosCategoria()
+    public function readProductoCategoria()
     {
         $sql = 'SELECT nombre_categoria, id_producto, imagen_producto, nombre_producto, descripcion_producto, precio_producto FROM productos INNER JOIN categorias USING(id_categoria) WHERE id_categoria = ? AND estado_producto = 1 ORDER BY nombre_producto';
         $params = array($this->categoria);
         return Database::getRows($sql, $params);
     }
 
-    public function searchProductos($value)
+    public function searchProducto($value)
     {
         $sql = 'SELECT id_producto, imagen_producto, nombre_producto, descripcion_producto, precio_producto, nombre_categoria, estado_producto FROM productos INNER JOIN categorias USING(id_categoria) WHERE nombre_producto LIKE ? OR descripcion_producto LIKE ? ORDER BY nombre_producto';
         $params = array("%$value%", "%$value%");

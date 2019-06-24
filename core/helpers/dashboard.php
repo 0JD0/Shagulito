@@ -11,7 +11,7 @@ class Dashboard
 				<head>
 					<meta charset="utf-8">
 					<title>Dashboard - '.$title.'</title>
-					<link type="image/png" rel="icon" href="../../resources/img/logo.png"/>
+					<link type="image/png" rel="icon" href="../../resources/img/icono.png"/>
 					<link type="text/css" rel="stylesheet" href="../../resources/css/materialize.min.css"/>
 					<link type="text/css" rel="stylesheet" href="../../resources/css/icons.css"/>
 					<link type="text/css" rel="stylesheet" href="../../resources/css/dashboard.css"/>
@@ -47,9 +47,9 @@ class Dashboard
 										<a href="#user">
 											<img class="circle" src="../../resources/img/foto.jpg">
 										</a>
-										<a href="#name">
-											<span class="black-text name">Daniel Hernandez</span>
-										</a>
+										<a href="#">
+											<span class="black-text">'.$_SESSION['alias_empleado'].'</span>
+										</a>					
 									</div>
 								</li>
 								<li>

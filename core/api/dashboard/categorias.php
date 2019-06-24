@@ -34,14 +34,23 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
 				$_POST = $categoria->validateForm($_POST);
         		if ($categoria->setNombre($_POST['create_nombre'])) {
 					if ($categoria->setDescripcion($_POST['create_descripcion'])) {
-						if ($categoria->setEstado(isset($_POST['create_estado']) ? 1 : 0)) {
-							if ($categoria->createCategoria()) {
-								$result['status'] = 1;
+						if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
+							if ($categoria->setImagen($_FILES['create_archivo'], null)) {
+								if ($categoria->createCategoria()) {
+									if ($categoria->saveFile($_FILES['create_archivo'], $categoria->getRuta(), $categoria->getImagen())) {
+										$result['status'] = 1;
+									} else {
+										$result['status'] = 2;
+										$result['exception'] = 'No se guardó el archivo';
+									}
+								} else {
+									$result['exception'] = 'Operación fallida';
+								}
 							} else {
-								$result['exception'] = 'Operación fallida';
+								$result['exception'] = $categoria->getImageError();
 							}
 						} else {
-							$result['exception'] = 'Estado incorrecto';
+							$result['exception'] = 'Seleccione una imagen';
 						}
 					} else {
 						$result['exception'] = 'Descripción incorrecta';
@@ -67,15 +76,35 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
 					if ($categoria->getCategoria()) {
 		                if ($categoria->setNombre($_POST['update_nombre'])) {
 							if ($categoria->setDescripcion($_POST['update_descripcion'])) {
-								if ($categoria->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
+								if (is_uploaded_file($_FILES['update_archivo']['tmp_name'])) {
+									if ($categoria->setImagen($_FILES['update_archivo'], $_POST['imagen_categoria'])) {
+										$archivo = true;
+									} else {
+										$result['exception'] = $categoria->getImageError();
+										$archivo = false;
+									}
+								} else {
+									if ($categoria->setImagen(null, $_POST['imagen_categoria'])) {
+										$result['exception'] = 'No se subió ningún archivo';
+									} else {
+										$result['exception'] = $categoria->getImageError();
+									}
+									$archivo = false;
+								}
 								if ($categoria->updateCategoria()) {
-										$result['status'] = 1;
+									if ($archivo) {
+										if ($categoria->saveFile($_FILES['update_archivo'], $categoria->getRuta(), $categoria->getImagen())) {
+											$result['status'] = 1;
+										} else {
+											$result['status'] = 2;
+											$result['exception'] = 'No se guardó el archivo';
+										}
+									} else {
+										$result['status'] = 3;
+									}
 								} else {
 									$result['exception'] = 'Operación fallida';
 								}
-							} else {
-								$result['exception'] = 'Estado incorrecto';
-							}
 							} else {
 								$result['exception'] = 'Descripción incorrecta';
 							}
@@ -93,7 +122,12 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
 				if ($categoria->setId($_POST['id_categoria'])) {
 					if ($categoria->getCategoria()) {
 						if ($categoria->deleteCategoria()) {
+							if ($categoria->deleteFile($categoria->getRuta(), $_POST['imagen_categoria'])) {
 								$result['status'] = 1;
+							} else {
+								$result['status'] = 2;
+								$result['exception'] = 'No se borró el archivo';
+							}
 						} else {
 							$result['exception'] = 'Operación fallida';
 						}

@@ -4,8 +4,8 @@ header nav{
 }
 
 header img{
-    width: 150px;
-    height: 65px;
+    width: 170px;
+    height: 60px;
 }
 
 header img.background{
@@ -32,3 +32,12 @@ footer div.footer-copyright{
     background: #233142;
     border: none;
 }
+
+@media only screen and (max-width: 500px) {
+    .brand-logo img {
+     height: 55px;
+    }
+}
+
+
+

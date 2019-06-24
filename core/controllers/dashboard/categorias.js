@@ -12,14 +12,16 @@ function fillTable(rows)
     let content = '';
     //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
     rows.forEach(function(row){
+        (row.estado_producto == 1) ? icon = 'visibility' : icon = 'visibility_off';
         content += `
             <tr>
-                <td><img src="../../resources/img/categorias/${row.imagen_categoria}" class="materialboxed" height="100"></td>
+                
                 <td>${row.nombre_categoria}</td>
                 <td>${row.descripcion_categoria}</td>
+                <td><i class="material-icons">${icon}</i></td>
                 <td>
                     <a href="#" onclick="modalUpdate(${row.id_categoria})" class="blue-text tooltipped" data-tooltip="Modificar"><i class="material-icons">mode_edit</i></a>
-                    <a href="#" onclick="confirmDelete(${row.id_categoria}, '${row.imagen_categoria}')" class="red-text tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
+                    <a href="#" onclick="confirmDelete(${row.id_categoria})" class="red-text tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
                 </td>
             </tr>
         `;
@@ -35,7 +37,7 @@ function showTable()
     $.ajax({
         url: apiCategorias + 'read',
         type: 'post',
-        data: null,
+        data: null, 
         datatype: 'json'
     })
     .done(function(response){
@@ -96,7 +98,6 @@ $('#form-create').submit(function()
     $.ajax({
         url: apiCategorias + 'create',
         type: 'post',
-        data: new FormData($('#form-create')[0]),
         datatype: 'json',
         cache: false,
         contentType: false,
@@ -148,9 +149,10 @@ function modalUpdate(id)
             if (result.status) {
                 $('#form-update')[0].reset();
                 $('#id_categoria').val(result.dataset.id_categoria);
-                $('#imagen_categoria').val(result.dataset.imagen_categoria);
                 $('#update_nombre').val(result.dataset.nombre_categoria);
                 $('#update_descripcion').val(result.dataset.descripcion_categoria);
+                (result.dataset.estado_producto == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
+                
                 M.updateTextFields();
                 $('#modal-update').modal('open');
             } else {
@@ -173,7 +175,6 @@ $('#form-update').submit(function()
     $.ajax({
         url: apiCategorias + 'update',
         type: 'post',
-        data: new FormData($('#form-update')[0]),
         datatype: 'json',
         cache: false,
         contentType: false,
