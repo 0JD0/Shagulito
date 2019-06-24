@@ -19,8 +19,7 @@ function fillTable(rows)
                 <td>${row.telefono_empleado}</td>
                 <td>${row.correo_empleado}</td>
                 <td>${row.alias_empleado}</td>
-                <td>${row.clave_empleado}</td>
-                <td><img src="../resources/img/usuarios/${row.foto_empleado}" class="materialboxed" heigth="100"</td>
+                <td><img src="../../resources/img/usuarios/${row.foto_empleado}" class="materialboxed" heigth="100"</td>
                 <td>
                     <a href="#" onclick="modalUpdate(${row.id_empleado})" class="blue-text tooltipped" data-tooltip="Modificar"><i class="material-icons">mode_edit</i></a>
                     <a href="#" onclick="confirmDelete(${row.id_empleado}, '${row.foto_empleado}')" class="red-text tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
