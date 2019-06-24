@@ -89,7 +89,7 @@ class Categorias extends Validator
 
 	public function createCategoria()
 	{
-		$sql = 'INSERT INTO categorias(nombre_categoria,  descripcion_categoria, estado_categoria) VALUES(?, ?)';
+		$sql = 'INSERT INTO categorias(nombre_categoria, descripcion_categoria, estado_categoria) VALUES(?, ?, ?)';
 		$params = array($this->nombre, $this->descripcion, $this->estado);
 		return Database::executeRow($sql, $params);
 	}

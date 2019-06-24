@@ -16,7 +16,7 @@ function fillTable(rows)
         (row.estado_producto == 1) ? icon = 'visibility' : icon = 'visibility_off';
         content += `
             <tr>
-                <td><img src="../../../resources/img/productos/${row.imagen_producto}" class="materialboxed" height="100"></td>
+                <td class="hide-on-med-and-down"><img src="../../resources/img/productos/${row.imagen_producto}" class="materialboxed" height="100"></td>
                 <td>${row.nombre_producto}</td>
                 <td>${row.precio_producto}</td>
                 <td>${row.nombre_categoria}</td>
@@ -52,12 +52,7 @@ function showTable()
             }
             fillTable(result.dataset);
         } else {
-            const result = JSON.parse(response);
-            // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
-            if (!result.status) {
-                sweetAlert(4, result.exception, null);
-            }
-            fillTable(result.dataset);
+            console.log(response);
         }
     })
     .fail(function(jqXHR){
@@ -95,6 +90,13 @@ $('#form-search').submit(function()
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 })
+
+function modalCreate()
+{
+    $('#form-create')[0].reset();
+    fillSelect(categorias, 'create_categoria', null);
+    $('#modal-create').modal('open');
+}
 
 // Función para crear un nuevo registro
 $('#form-create').submit(function()

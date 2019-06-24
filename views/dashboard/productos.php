@@ -6,20 +6,20 @@ Dashboard::headerTemplate('Administrar productos');
 <div class="row">
     <!-- Formulario de búsqueda -->
     <form method="post" id="form-search">
-        <div class="input-field col s6 m6">
+        <div class="input-field col s8 m6">
             <i class="material-icons prefix">search</i>
-            <input id="buscar" type="text" name="busqueda" />
-            <label for="buscar">Buscador</label>
+            <input id="search" type="text" name="search" />
+            <label for="search">Buscador</label>
         </div>
-        <div class="input-field col s3 m3">
+        <div class="input-field col s2 m3">
             <button type="submit" class="btn-floating waves-effect waves-light green tooltipped" data-tooltip="Buscar">
                 <i class="material-icons">check</i>
             </button>
         </div>
     </form>
     <!-- Botón para abrir ventana de nuevo registro -->
-    <div class="input-field center-align col s3 m3">
-        <a href="#modal-create" class="btn-floating waves-effect waves-light indigo tooltipped modal-trigger"
+    <div class="input-field center-align col s2 m3">
+        <a href="#" onclick='modalCreate()' class="btn-floating waves-effect waves-light indigo tooltipped"
             data-tooltip="Agregar">
             <i class="material-icons">add</i>
         </a>
@@ -29,7 +29,7 @@ Dashboard::headerTemplate('Administrar productos');
 <table class="highlight centered responsive-table">
     <thead>
         <tr>
-            <th>IMAGEN</th>
+            <th class="hide-on-med-and-down">IMAGEN</th>
             <th>NOMBRE</th>
             <th>PRECIO($)</th>
             <th>CATEGORÍA</th>
@@ -136,7 +136,7 @@ Dashboard::headerTemplate('Administrar productos');
                 <div class="file-field input-field col s12 m6">
                     <div class="btn waves-effect">
                         <span><i class="material-icons">image</i></span>
-                        <input id="update_archivo" type="file" name="update_archivo" required />
+                        <input id="update_archivo" type="file" name="update_archivo"/>
                     </div>
                     <div class="file-path-wrapper">
                         <input type="text" class="file-path validate" placeholder="Seleccione una imagen de 500x500" />
@@ -160,8 +160,8 @@ Dashboard::headerTemplate('Administrar productos');
                 <a href="#" class="modal-close btn waves-effect red tooltipped " data-tooltip="Cancelar">
                     <i class="material-icons">cancel</i>
                 </a>
-                <button href="#modal-exito" type="submit"
-                    class="modal-close btn waves-effect green tooltipped modal-trigger" data-tooltip="Modificar">
+                <button type="submit"
+                    class="btn waves-effect green tooltipped" data-tooltip="Modificar">
                     <i class="material-icons">save</i>
                 </button>
             </div>

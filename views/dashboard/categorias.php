@@ -72,8 +72,8 @@ Dashboard::headerTemplate('Administrar categorías');
                 <a href="#" class="modal-close btn waves-effect waves-light red tooltipped " data-tooltip="Cancelar">
                     <i class="material-icons">cancel</i>
                 </a>
-                <button href="#modal-exito" type="submit"
-                        class="modal-close btn waves-effect waves-light green tooltipped modal-trigger" data-tooltip="Crear">
+                <button type="submit"
+                        class="btn waves-effect waves-light green tooltipped" data-tooltip="Crear">
                     <i class="material-icons">save</i>
                 </button>
             </div>

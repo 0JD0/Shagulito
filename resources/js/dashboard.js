@@ -4,5 +4,6 @@ $(document).ready(function(){
     $('.materialboxed').materialbox();
     $('.tooltipped').tooltip();
     $('.modal').modal();
+    $('.select').formSelect();
 });
 

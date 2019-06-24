@@ -45,7 +45,7 @@ class Dashboard
 											<img class="background" src="../../resources/img/fondo.jpg" >
 										</div>
 										<a href="#user">
-											<img class="circle" src="../../resources/img/foto.jpg">
+											<img class="circle" '.$_SESSION['foto_empleado'].'>
 										</a>
 										<a href="#">
 											<span class="black-text">'.$_SESSION['alias_empleado'].'</span>
@@ -160,6 +160,7 @@ class Dashboard
 					<script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
 					<script type="text/javascript" src="../../resources/js/dashboard.js"></script>
 					<script type="text/javascript" src="../../core/helpers/functions.js"></script>
+					<script type="text/javascript" src="../../core/helpers/components.js"></script>
 					<script type="text/javascript" src="../../core/controllers/dashboard/account.js"></script>
 					<script type="text/javascript" src="../../core/controllers/dashboard/'.$controller.'"></script>
 				</body>

@@ -9,7 +9,7 @@ class Productos extends Validator
     private $imagen = null;
     private $categoria = null;
     private $estado = null;
-    private $ruta = '../../resources/img/productos/'; 
+    private $ruta = '../../../resources/img/productos/'; 
 
     // metodo para sobrecaragade propiedades
     public function setId($value)
@@ -84,7 +84,7 @@ class Productos extends Validator
 	public function getImage()
 	{
 		return $this->imagen;
-    }
+	}
 
 	public function setCategoria($value)
 	{

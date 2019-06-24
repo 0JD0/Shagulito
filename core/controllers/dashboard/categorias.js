@@ -4,7 +4,7 @@ $(document).ready(function()
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
-const apiCategorias = '../../core/api/categorias.php?site=dashboard&action=';
+const apiCategorias = '../../core/api/dashboard/categorias.php?action=';
 
 //Función para llenar tabla con los datos de los registros
 function fillTable(rows)
@@ -98,10 +98,8 @@ $('#form-create').submit(function()
     $.ajax({
         url: apiCategorias + 'create',
         type: 'post',
-        datatype: 'json',
-        cache: false,
-        contentType: false,
-        processData: false
+        data: $('#form-create').serialize(),
+        datatype: 'json'
     })
     .done(function(response){
         //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
