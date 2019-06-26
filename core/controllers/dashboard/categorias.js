@@ -12,7 +12,7 @@ function fillTable(rows)
     let content = '';
     //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
     rows.forEach(function(row){
-        (row.estado_producto == 1) ? icon = 'visibility' : icon = 'visibility_off';
+        (row.estado_categoria == 1) ? icon = 'visibility' : icon = 'visibility_off';
         content += `
             <tr>
                 
@@ -149,8 +149,7 @@ function modalUpdate(id)
                 $('#id_categoria').val(result.dataset.id_categoria);
                 $('#update_nombre').val(result.dataset.nombre_categoria);
                 $('#update_descripcion').val(result.dataset.descripcion_categoria);
-                (result.dataset.estado_producto == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
-                
+                (result.dataset.estado_categoria == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
                 M.updateTextFields();
                 $('#modal-update').modal('open');
             } else {
@@ -173,10 +172,8 @@ $('#form-update').submit(function()
     $.ajax({
         url: apiCategorias + 'update',
         type: 'post',
+        data: $('#form-update').serialize(),
         datatype: 'json',
-        cache: false,
-        contentType: false,
-        processData: false
     })
     .done(function(response){
         //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
