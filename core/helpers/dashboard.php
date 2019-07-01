@@ -19,7 +19,7 @@ class Dashboard
 				</head>
 				<body>
 		');
-		if (isset($_SESSION['idUsuario'])) {
+		if (isset($_SESSION['id_empleado'])) {
 			$filename = basename($_SERVER['PHP_SELF']);
 			if ($filename != 'index.php') {
 				self::modals();
@@ -45,7 +45,7 @@ class Dashboard
 											<img class="background" src="../../resources/img/fondo.jpg" >
 										</div>
 										<a href="#user">
-											<img class="circle" '.$_SESSION['foto_empleado'].'>
+											<img class="circle" >
 										</a>
 										<a href="#">
 											<span class="black-text">'.$_SESSION['alias_empleado'].'</span>

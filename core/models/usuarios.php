@@ -10,7 +10,7 @@ class Usuarios extends Validator
 	private $alias = null;
 	private $clave = null;
 	private $imagen = null;
-	private $ruta = '../../resources/img/usuarios/';
+	private $ruta = '../../../resources/img/usuarios/';
 
 	//Métodos para sobrecarga de propiedades
 	public function setId($value)

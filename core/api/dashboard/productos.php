@@ -9,7 +9,7 @@ if (isset($_GET['action'])) {
     $producto = new Productos;
     $result = array('status' => 0, 'message' => null, 'exception' => null);
     // verifca si existe una sesion iniciada para realizar operacionres
-    if (isset($_SESSION['idUsuario'])) {
+    if (isset($_SESSION['id_empleado'])) {
         switch ($_GET['action']) {
             case 'read':
                 if ($result['dataset'] = $producto->readProducto()) {

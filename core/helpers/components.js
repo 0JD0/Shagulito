@@ -104,7 +104,7 @@ function fillSelect(api, id, selected)
 *
 *   Returns: ninguno.
 */
-function confirmDelete(api, id, file)
+function confirmDelete(apiUsuarios, id, file)
 {
     swal({
         title: 'Advertencia',
@@ -119,7 +119,7 @@ function confirmDelete(api, id, file)
             let params = new Object();
             (file) ? params = {identifier: id, filename: file} : params = {identifier: id};
             $.ajax({
-                url: api + 'delete',
+                url: apiUsuarios + 'delete',
                 type: 'post',
                 data: params,
                 datatype: 'json'

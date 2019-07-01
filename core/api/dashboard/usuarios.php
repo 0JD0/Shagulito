@@ -4,12 +4,12 @@ require_once('../../helpers/validator.php');
 require_once('../../models/usuarios.php');
 
 //Se comprueba si existe una petición del sitio web y la acción a realizar, de lo contrario se muestra una página de error
-if (isset($_GET['site']) && isset($_GET['action'])) {
+if (isset($_GET['action'])) {
     session_start();
     $usuario = new Usuarios;
-    $result = array('status' => 0, 'exception' => '');
+    $result = array('status' => 0,'message' => null, 'exception' => null);
     //Se verifica si existe una sesión iniciada como administrador para realizar las operaciones correspondientes
-    if (isset($_SESSION['idUsuario']) && $_GET['site'] == 'dashboard') {
+    if (isset($_SESSION['id_empleado'])) {
         switch ($_GET['action']) {
             case 'logout':
                 if (session_destroy()) {
@@ -19,7 +19,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                 }
                 break;
             case 'readProfile':
-                if ($usuario->setId($_SESSION['idUsuario'])) {
+                if ($usuario->setId($_SESSION['id_empleado'])) {
                     if ($result['dataset'] = $usuario->getUsuario()) {
                         $result['status'] = 1;
                     } else {
@@ -30,7 +30,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                 }
                 break;
             case 'editProfile':
-                if ($usuario->setId($_SESSION['idUsuario'])) {
+                if ($usuario->setId($_SESSION['id_empleado'])) {
                     if ($usuario->getUsuario()) {
                         $_POST = $usuario->validateForm($_POST);
                         if ($usuario->setNombres($_POST['profile_nombres'])) {
@@ -67,7 +67,7 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                 }
                 break;
             case 'password':
-                if ($usuario->setId($_SESSION['idUsuario'])) {
+                if ($usuario->setId($_SESSION['id_empleado'])) {
                     $_POST = $usuario->validateForm($_POST);
                     if ($_POST['clave_actual_1'] == $_POST['clave_actual_2']) {
                         if ($usuario->setClave($_POST['clave_actual_1'])) {
@@ -236,18 +236,13 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                 } else {
                     $result['exception'] = 'Usuario incorrecto';
                 }
-                break;
-            case 'delete':
-                if ($_POST['id_empleado'] != $_SESSION['idUsuario']) {
-                    if ($usuario->setId($_POST['id_empleado'])) {
+                break;case 'delete':
+                if ($_POST['identifier'] != $_SESSION['id_empleado']) {
+                    if ($usuario->setId($_POST['identifier'])) {
                         if ($usuario->getUsuario()) {
                             if ($usuario->deleteUsuario()) {
-                                if ($usuario->deleteFile($usuario->getRuta(), $_POST['imagen_usuario'])) {
-                                    $result['status'] = 1;
-                                } else {
-                                    $result['status'] = 2;
-                                    $result['exception'] = 'No se borró el archivo';
-                                }
+                                $result['status'] = 1;
+                                $result['message'] = 'Usuario eliminado correctamente';
                             } else {
                                 $result['exception'] = 'Operación fallida';
                             }
@@ -262,17 +257,18 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                 }
                 break;
             default:
-                exit('Acción no disponible');
+                exit('Acción no disponible log');
+        
         }
-    } else if ($_GET['site'] == 'dashboard') {
+    } else if ($_GET['action']) {
         switch ($_GET['action']) {
             case 'read':
                 if ($usuario->readUsuarios()) {
                     $result['status'] = 1;
-                    $result['exception'] = 'Existe al menos un usuario registrado';
+                    $result['message'] = 'Existe al menos un usuario registrado';
                 } else {
                     $result['status'] = 2;
-                    $result['exception'] = 'No existen usuarios registrados';
+                    $result['message'] = 'No existen usuarios registrados';
                 }
                 break;
                 case 'register':
@@ -318,9 +314,10 @@ if (isset($_GET['site']) && isset($_GET['action'])) {
                     if ($usuario->checkAlias()) {
                         if ($usuario->setClave($_POST['clave'])) {
                             if ($usuario->checkPassword()) {
-                                $_SESSION['idUsuario'] = $usuario->getId();
+                                $_SESSION['id_empleado'] = $usuario->getId();
                                 $_SESSION['alias_empleado'] = $usuario->getAlias();
                                 $result['status'] = 1;
+                                $result['message'] = 'Autenticación correcta';
                             } else {
                                 $result['exception'] = 'Clave inexistente';
                             }
