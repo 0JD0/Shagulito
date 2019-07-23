@@ -80,7 +80,7 @@ class Dashboard
 									<div class="divider"></div>
 								</li>
 								<li>
-									<a class="waves-effect" href="login.php">
+									<a class="waves-effect" href="#" onclick="signOff()">
 											<i class="material-icons">exit_to_app</i>Cerrar Sesión
 									</a>
 								</li>

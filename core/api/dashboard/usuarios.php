@@ -13,9 +13,9 @@ if (isset($_GET['action'])) {
         switch ($_GET['action']) {
             case 'logout':
                 if (session_destroy()) {
-                    header('location: ../../views/dashboard/');
+                    header('location: ../../../views/dashboard/');
                 } else {
-                    header('location: ../../views/dashboard/home.php');
+                    header('location: ../../../views/dashboard/home.php');
                 }
                 break;
             case 'readProfile':
