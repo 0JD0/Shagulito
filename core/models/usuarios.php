@@ -153,10 +153,11 @@ class Usuarios extends Validator
 
 	public function checkPassword()
 	{
-		$sql = 'SELECT clave_empleado FROM empleado WHERE id_empleado = ?';
+		$sql = 'SELECT clave_empleado, foto_empleado FROM empleado WHERE id_empleado = ?';
 		$params = array($this->id);
 		$data = Database::getRow($sql, $params);
 		if (password_verify($this->clave, $data['clave_empleado'])) {
+			$this->imagen=$data['foto_empleado'];
 			return true;
 		} else {
 			return false;
