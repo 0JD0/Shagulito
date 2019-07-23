@@ -1,7 +1,7 @@
 <?php
-require_once('../../helpers/database.php');
-require_once('../../helpers/validator.php');
-require_once('../../models/productos.php');
+require_once '../../helpers/database.php';
+require_once '../../helpers/validator.php';
+require_once '../../models/productos.php';
 
 //  se muestra error sino existe una accion a realizar
 if (isset($_GET['action'])) {
@@ -23,12 +23,12 @@ if (isset($_GET['action'])) {
                 if ($_POST['search'] != '') {
                     if ($result['dataset'] = $producto->searchProducto($_POST['search'])) {
                         $result['status'] = 1;
-						$rows = count($result['dataset']);
-						if ($rows > 1) {
-							$result['message'] = 'Se han encontraron '.$rows.' coincidencias';
-						} else {
-							$result['message'] = 'Se ha encontrado una coincidencia';
-						}
+                        $rows = count($result['dataset']);
+                        if ($rows > 1) {
+                            $result['message'] = 'Se han encontraron ' . $rows . ' coincidencias';
+                        } else {
+                            $result['message'] = 'Se ha encontrado una coincidencia';
+                        }
                     } else {
                         $result['exception'] = 'No han encontrado coincidencias';
                     }
@@ -178,6 +178,5 @@ if (isset($_GET['action'])) {
         exit('Acceso no disponible');
     }
 } else {
-	exit('Recurso denegado');
+    exit('Recurso denegado');
 }
-?>
