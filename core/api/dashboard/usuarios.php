@@ -316,6 +316,7 @@ if (isset($_GET['action'])) {
                             if ($usuario->checkPassword()) {
                                 $_SESSION['id_empleado'] = $usuario->getId();
                                 $_SESSION['alias_empleado'] = $usuario->getAlias();
+                                $_SESSION['foto_empleado'] = $usuario->getImagen();
                                 $result['status'] = 1;
                                 $result['message'] = 'Autenticación correcta';
                             } else {

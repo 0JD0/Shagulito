@@ -17,7 +17,7 @@ class Dashboard
 					<link type="text/css" rel="stylesheet" href="../../resources/css/dashboard.css"/>
 					<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 				</head>
-				<body>
+				<body id="noctext">
 		');
 		if (isset($_SESSION['id_empleado'])) {
 			$filename = basename($_SERVER['PHP_SELF']);
@@ -37,15 +37,19 @@ class Dashboard
 								</div>
 							</nav>
 						</div>
+
 					<!--El menu desplegable-->
 							<ul id="slide-out" class="sidenav">
 								<li>
 									<div class="user-view">
 										<div class="background">
-											<img class="background" src="../../resources/img/fondo.jpg" >
+											<img class="background" id="mode">
 										</div>
-										<a href="#user">
-											<img class="circle" >
+										<a href="#">
+											<i class="material-icons right black-text">settings</i>
+										</a>
+										<a href="#">
+											<img class="circle" src="../../resources/img/usuarios/'.$_SESSION['foto_empleado'].'">
 										</a>
 										<a href="#">
 											<span class="black-text">'.$_SESSION['alias_empleado'].'</span>
@@ -54,7 +58,8 @@ class Dashboard
 								</li>
 								<li>
 									<a href="home.php">
-										<i class="material-icons">home</i>Inicio</a>
+										<i class="material-icons">home</i>Inicio
+									</a>
 								</li>
 								<li>
 									<a href="categorias.php">

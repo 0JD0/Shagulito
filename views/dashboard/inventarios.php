@@ -1,6 +1,6 @@
 <?php
 require_once('../../core/helpers/dashboard.php');
-Dashboard::headerTemplate('Administrar productos');
+Dashboard::headerTemplate('Administrar Inventario');
 ?>
 
 <div class="row">
@@ -32,7 +32,7 @@ Dashboard::headerTemplate('Administrar productos');
             <th class="hide-on-med-and-down">IMAGEN</th>
             <th>NOMBRE</th>
             <th>PRECIO($)</th>
-            <th>CATEGORÍA</th>
+            <th>CANTIDAD</th>
             <th>ESTADO</th>
             <th>ACCIÓN</th>
         </tr>
@@ -95,7 +95,7 @@ Dashboard::headerTemplate('Administrar productos');
                     <i class="material-icons">cancel</i>
                 </a>
                 <button href="#modal-exito" type="submit"
-                    class="btn waves-effect waves-light green tooltipped"
+                    class="modal-close btn waves-effect waves-light green tooltipped modal-trigger"
                     data-tooltip="Crear">
                     <i class="material-icons">save</i>
                 </button>
@@ -170,5 +170,5 @@ Dashboard::headerTemplate('Administrar productos');
 </div>
 
 <?php
-Dashboard::footerTemplate('productos.js');
+Dashboard::footerTemplate('inventarios.js');
 ?>

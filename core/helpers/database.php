@@ -18,7 +18,7 @@ class Database
     private function connect()
     {
         $server = 'localhost';
-        $database = 'shagulito2';
+        $database = 'shagulito';
         $username = 'root';
         $password = '';
         try {
