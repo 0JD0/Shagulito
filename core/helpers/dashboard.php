@@ -46,7 +46,7 @@ class Dashboard
 											<img class="background" id="mode">
 										</div>
 										<a href="#">
-											<i class="material-icons right black-text">settings</i>
+											<i class="material-icons right black-text">ettings</i>
 										</a>
 										<a href="#">
 											<img class="circle" src="../../resources/img/usuarios/'.$_SESSION['foto_empleado'].'">
@@ -70,30 +70,13 @@ class Dashboard
 									<a href="productos.php">
 										<i class="material-icons">cake</i>Productos
 									</a>
-									</li>
-								<li>
-								<li>
-									<a href="ventas.php">
-										<i class="material-icons">attach_money</i>Ventas
-									</a>
 								</li>
 								<li>
-									<a href="inventario.php">
-										<i class="material-icons">book</i>Inventario
+									<a href="usuarios.php">
+										<i class="material-icons">person</i>Usuarios
 									</a>
-								</li>
-								<li>
-										<a href="usuarios.php">
-											<i class="material-icons">person</i>Usuarios
-										</a>
-									</li> 
-									<li>
-									<a href="tipo_usuario.php">
-										<i class="material-icons">person</i>Tipo de Usuarios
-									</a>
-								</li>  
-								<li>
-									
+								</li> 
+								<li>									
 									<div class="divider"></div>
 								</li>
 								<li>
@@ -106,6 +89,19 @@ class Dashboard
 					<main class="container">
 						<h3 class="center-align">'.$title.'</h3>
 				');
+							/*
+							agregar cuando funcione
+								<li>
+									<a href="ventas.php">
+										<i class="material-icons">attach_money</i>Ventas
+									</a>
+								</li>
+								<li>
+									<a href="inventario.php">
+										<i class="material-icons">book</i>Inventario
+									</a>
+								</li>
+							*/
 			} else {
 				header('location: home.php');
 			}
@@ -167,6 +163,7 @@ class Dashboard
 					<script type="text/javascript" src="../../core/helpers/functions.js"></script>
 					<script type="text/javascript" src="../../core/helpers/components.js"></script>
 					<script type="text/javascript" src="../../core/controllers/dashboard/account.js"></script>
+					<script type="text/javascript" src="../../core/controllers/dashboard/dashboard.js"></script>
 					<script type="text/javascript" src="../../core/controllers/dashboard/'.$controller.'"></script>
 				</body>
 			</html>

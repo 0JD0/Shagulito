@@ -5,27 +5,27 @@ Dashboard::headerTemplate('Administrar categorías');
 <div class="row">
 	<!-- Formulario de búsqueda -->
 	<form method="post" id="form-search">
-		<div class="input-field col s6 m4">
+		<div class="input-field col s8 m6">
 			<i class="material-icons prefix">search</i>
 			<input id="buscar" type="text" name="busqueda" />
 			<label for="buscar">Buscador</label>
 		</div>
-		<div class="input-field col s6 m4">
-			<button type="submit" class="btn waves-effect green tooltipped" data-tooltip="Buscar">
-				<i class="material-icons">check_circle</i>
+		<div class="input-field col s2 m3">
+			<button type="submit" class="btn-floating waves-effect green tooltipped" data-tooltip="Buscar">
+				<i class="material-icons">check</i>
 			</button>
 		</div>
 	</form>
 	<!-- Botón para abrir ventana de nuevo registro -->
-	<div class="input-field center-align col s12 m4">
-		<a href="#modal-create" class="btn waves-effect indigo tooltipped modal-trigger" data-tooltip="Agregar">
-			<i class="material-icons">add_circle</i>
+	<div class="input-field center-align col s2 m3">
+		<a href="#modal-create" class="btn-floating waves-effect indigo tooltipped modal-trigger" data-tooltip="Agregar">
+			<i class="material-icons">add</i>
 		</a>
 	</div>
 </div>
 
 <!-- se crea la tabla q mostrara los registros -->
-<table class="highlight">
+<table class="highlight centered">
 	<thead>
 		<tr>
 			<th>NOMBRE</th>
