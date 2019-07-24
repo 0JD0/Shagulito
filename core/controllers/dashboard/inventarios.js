@@ -93,7 +93,7 @@ $('#form-search').submit(function()
 function modalCreate()
 {
     $('#form-create')[0].reset();
-    fillSelect(categorias, 'create_categoria', null);
+    fillSelect(productos, 'create_productos', null);
     $('#modal-create').modal('open');
 }
 
@@ -148,13 +148,9 @@ function modalUpdate(id)
             const result = JSON.parse(response);
             if (result.status) {
                 $('#form-update')[0].reset();
-                $('#id_producto').val(result.dataset.id_producto);
-                $('#imagen_producto').val(result.dataset.imagen_producto);
-                $('#update_nombre').val(result.dataset.nombre_producto);
-                $('#update_precio').val(result.dataset.precio_producto);
-                $('#update_descripcion').val(result.dataset.descripcion_producto);
-                (result.dataset.estado_producto == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
-                fillSelect(categorias, 'update_categoria', result.dataset.id_categoria);
+                $('#id_inventario').val(result.dataset.id_producto);
+                $('#update_cantidad').val(result.dataset.cantidad_inventario);
+                fillSelect(productos, 'update_producto', result.dataset.id_producto);
                 M.updateTextFields();
                 $('#modal-update').modal('open');
             } else {

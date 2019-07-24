@@ -236,9 +236,10 @@ if (isset($_GET['action'])) {
                 } else {
                     $result['exception'] = 'Usuario incorrecto';
                 }
-                break;case 'delete':
-                if ($_POST['identifier'] != $_SESSION['id_empleado']) {
-                    if ($usuario->setId($_POST['identifier'])) {
+                break;
+            case 'delete':
+                if ($_POST['id_empleado'] != $_SESSION['id_empleado']) {
+                    if ($usuario->setId($_POST['id_empleado'])) {
                         if ($usuario->getUsuario()) {
                             if ($usuario->deleteUsuario()) {
                                 $result['status'] = 1;
