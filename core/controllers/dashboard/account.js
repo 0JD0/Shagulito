@@ -1,12 +1,12 @@
 //Constante para establecer la ruta y parámetros de comunicación con la API
-const apiAccount = '../../core/api/usuarios.php?site=dashboard&action=';
+const apiAccount = '../../core/api/dashboard/usuarios.php?action=';
 
 //Función para cerrar la sesión del usuario
 function signOff()
 {
     swal({
         title: 'Advertencia',
-        text: '¿Quiere cerrar la sesión?',
+        text: '¿Desea cerrar la sesión?',
         icon: 'warning',
         buttons: ['Cancelar', 'Aceptar'],
         closeOnClickOutside: false,
@@ -18,7 +18,7 @@ function signOff()
         } else {
             swal({
                 title: 'Enhorabuena',
-                text: 'Continúe con la sesión...',
+                text: 'Puede continuar trabajando',
                 icon: 'info',
                 button: 'Aceptar',
                 closeOnClickOutside: false,

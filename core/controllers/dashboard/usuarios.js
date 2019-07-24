@@ -19,10 +19,10 @@ function fillTable(rows)
                 <td>${row.telefono_empleado}</td>
                 <td>${row.correo_empleado}</td>
                 <td>${row.alias_empleado}</td>
-                <td class="hide-on-med-and-down"><img src="../../resources/img/usuarios/${row.foto_empleado}" class="materialboxed" heigth="100"</td>
+                <td class="hide-on-med-and-down"><img src="../../resources/img/usuarios/${row.foto_empleado}" class="materialboxed" width="100"</td>
                 <td>
-                    <a href="#" onclick="modalUpdate(${row.id_usuario})" class="blue-text tooltipped" data-tooltip="Modificar"><i class="material-icons">mode_edit</i></a>
-                    <a href="#" onclick="confirmDelete(${row.id_usuario}, '${row.foto_empleado}')" class="red-text tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
+                    <a href="#" onclick="modalUpdate(${row.id_empleado})" class="blue-text tooltipped" data-tooltip="Modificar"><i class="material-icons">mode_edit</i></a>
+                    <a href="#" onclick="confirmDelete(${row.id_empleado}, '${row.foto_empleado}')" class="red-text tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
                 </td>
             </tr>
         `;
@@ -205,7 +205,7 @@ $('#form-update').submit(function()
 
 
 //Función para eliminar un registro seleccionado
-function confirmDelete(id)
+function confirmDelete(id, foto)
 {
     swal({
         title: 'Advertencia',
@@ -221,7 +221,8 @@ function confirmDelete(id)
                 url: apiUsuarios + 'delete',
                 type: 'post',
                 data:{
-                    id_empleado: id
+                    id_empleado: id,
+                    foto_empleado: foto
                 },
                 datatype: 'json'
             })
