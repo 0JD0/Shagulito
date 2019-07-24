@@ -257,8 +257,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
             default:
-                exit('Acción no disponible log');
-        
+                exit('Acción no disponible');
         }
     } else if ($_GET['action']) {
         switch ($_GET['action']) {
@@ -268,7 +267,7 @@ if (isset($_GET['action'])) {
                     $result['message'] = 'Existe al menos un usuario registrado';
                 } else {
                     $result['status'] = 2;
-                    $result['message'] = 'No existen usuarios registrados';
+                    $result['exception'] = 'No existen usuarios registrados';
                 }
                 break;
                 case 'register':

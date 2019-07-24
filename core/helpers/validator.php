@@ -162,5 +162,14 @@ class Validator
 			return false;
 		}
 	}
+
+	public function fechas($value)
+	{
+		if(preg_match("/^([0-9]{4})-([0-9]{2})-([0-9]{2})+$/",$value)){
+			return true;
+		} else{
+			return false;
+		}
+	}
 }
 ?>

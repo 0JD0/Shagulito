@@ -14,7 +14,7 @@ function fillTable(rows) {
         content += `
             <tr>
                 <td>${row.nombre_empleado}</td>
-                <td>${row.monto_venta}" class="materialboxed" height="100"></td>
+                <td>${row.monto_venta}</td>
                 <td>${row.fecha_venta}</td>
                 <td>
                     <a href="#" onclick="modalUpdate(${row.id_venta})" class="blue-text waves-effect waves-blue tooltipped" data-tooltip="editar"><i class="material-icons">edit</i></a>
@@ -86,7 +86,7 @@ $('#form-search').submit(function () {
 
 function modalCreate() {
     $('#form-create')[0].reset();
-    fillSelect(usuarios, 'create_empleado', null);
+    fillSelected(usuarios, 'create_empleado', null);
     $('#modal-create').modal('open');
 }
 
@@ -96,9 +96,8 @@ $('#form-create').submit(function () {
     $.ajax({
             url: apiVentas + 'create',
             type: 'post',
-            data: $('#form-register').serialize(),
+            data: $('#form-create').serialize(),
             datatype: 'json',
-
         })
         .done(function (response) {
             // Se verifica si la api responde una cadena JSON
@@ -138,9 +137,9 @@ function modalUpdate(id) {
                 if (result.status) {
                     $('#form-update')[0].reset();
                     $('#id_venta').val(result.dataset.id_venta);
-                    $('#update_monto').val(result.dataset.monto_venta);
+                    $('#update_precio').val(result.dataset.monto_venta);
                     $('#update_fecha').val(result.dataset.fecha_venta);
-                    fillSelect(empleado, 'update_venta', result.dataset.id_empleado);
+                    fillSelected(usuarios, 'update_empleado', result.dataset.id_empleado);
                     M.updateTextFields();
                     $('#modal-update').modal('open');
                 } else {
