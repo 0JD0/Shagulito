@@ -1,7 +1,7 @@
 <?php
-require_once('../../helpers/database.php');
-require_once('../../helpers/validator.php');
-require_once('../../models/ventas.php');
+require_once '../../helpers/database.php';
+require_once '../../helpers/validator.php';
+require_once '../../models/ventas.php';
 
 //  se muestra error sino existe una accion a realizar
 if (isset($_GET['action'])) {
@@ -19,7 +19,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'search':
-                $_POST = $producto->validateForm($_POST);
+                $_POST = $ventas->validateForm($_POST);
                 if ($_POST['search'] != '') {
                     if ($result['dataset'] = $ventas->searchVenta($_POST['search'])) {
                         $result['status'] = 1;
@@ -44,6 +44,7 @@ if (isset($_GET['action'])) {
                             if ($ventas->setFecha($_POST['create_fecha'])) {
                                 if ($ventas->createVenta()) {
                                     $result['status'] = 1;
+                                    $result['message'] = 'Venta creada correctamente';
                                 } else {
                                     $result['exception'] = 'Operación fallida';
                                 }
@@ -76,7 +77,7 @@ if (isset($_GET['action'])) {
                 if ($ventas->setId($_POST['id_venta'])) {
                     if ($ventas->getVenta()) {
                         if ($ventas->setEmpleado($_POST['update_empleado'])) {
-                            if ($ventas->setPrecio($_POST['update_precio'])) {
+                            if ($ventas->setMonto($_POST['update_precio'])) {
                                 if ($ventas->setFecha($_POST['update_fecha'])) {
                                     if ($ventas->updateVenta()) {
                                         $result['status'] = 1;
@@ -86,7 +87,7 @@ if (isset($_GET['action'])) {
                                     }
                                 } else {
                                     $result['exception'] = 'Fecha incorrecta';
-                                }   
+                                }
                             } else {
                                 $result['exception'] = 'Precio incorrecto';
                             }
@@ -105,7 +106,7 @@ if (isset($_GET['action'])) {
                     if ($ventas->getVenta()) {
                         if ($ventas->deleteVenta()) {
                             $result['status'] = 1;
-                                $result['message'] = 'Venta eliminado correctamente';
+                            $result['message'] = 'Venta eliminado correctamente';
                         } else {
                             $result['exception'] = 'Operación fallida';
                         }
