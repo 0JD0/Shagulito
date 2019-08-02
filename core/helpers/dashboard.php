@@ -72,6 +72,11 @@ class Dashboard
 									</a>
 								</li>
 								<li>
+									<a href="ventas.php">
+										<i class="material-icons">attach_money</i>Ventas
+									</a>
+								</li>
+								<li>
 									<a href="usuarios.php">
 										<i class="material-icons">person</i>Usuarios
 									</a>
