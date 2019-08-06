@@ -81,11 +81,6 @@ class Dashboard
 										<i class="material-icons">person</i>Usuarios
 									</a>
 								</li>
-								<li>
-								<a href="ventas.php">
-									<i class="material-icons">person</i>Ventas
-								</a>
-							</li> 
 								<li>									
 									<div class="divider"></div>
 								</li>
