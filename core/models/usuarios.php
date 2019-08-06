@@ -1,74 +1,75 @@
 <?php
 class Usuarios extends Validator
 {
-	//Declaración de propiedades
-	private $id = null;
-	private $nombres = null;
-	private $apellidos = null;
-	private $telefono = null;
-	private $correo = null;
-	private $alias = null;
-	private $clave = null;
-	private $imagen = null;
-	private $ruta = '../../../resources/img/usuarios/';
+    //Declaración de propiedades
+    private $id = null;
+    private $nombres = null;
+    private $apellidos = null;
+    private $telefono = null;
+    private $correo = null;
+    private $alias = null;
+    private $clave = null;
+    private $imagen = null;
+    private $ruta = '../../../resources/img/usuarios/';
 
-	//Métodos para sobrecarga de propiedades
-	public function setId($value)
-	{
-		if ($this->validateId($value)) {
-			$this->id = $value;
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public function getId()
-	{
-		return $this->id;
-	}
-
-	public function setNombres($value)
-	{
-		if ($this->validateAlphabetic($value, 1, 50)) {
-			$this->nombres = $value;
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public function getNombres()
-	{
-		return $this->nombres;
-	}
-
-	public function setApellidos($value)
-	{
-		if ($this->validateAlphabetic($value, 1, 50)) {
-			$this->apellidos = $value;
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public function getApellidos()
-	{
-		return $this->apellidos;
-	}
-
-	public function setTelefono($value)
+    //Métodos para sobrecarga de propiedades
+    public function setId($value)
     {
-        if($this->validateAlphanumeric($value, 1, 50)){
-            $this->telefono = $value;
+        if ($this->validateId($value)) {
+            $this->id = $value;
             return true;
-        }else {
+        } else {
             return false;
         }
     }
 
-    public function getTelefono(){
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setNombres($value)
+    {
+        if ($this->validateAlphabetic($value, 1, 50)) {
+            $this->nombres = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getNombres()
+    {
+        return $this->nombres;
+    }
+
+    public function setApellidos($value)
+    {
+        if ($this->validateAlphabetic($value, 1, 50)) {
+            $this->apellidos = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getApellidos()
+    {
+        return $this->apellidos;
+    }
+
+    public function setTelefono($value)
+    {
+        if ($this->validateAlphanumeric($value, 1, 50)) {
+            $this->telefono = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getTelefono()
+    {
         return $this->telefono;
     }
 
