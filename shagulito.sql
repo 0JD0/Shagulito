@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-07-2019 a las 05:32:09
--- Versión del servidor: 10.1.37-MariaDB
--- Versión de PHP: 7.3.1
+-- Tiempo de generación: 09-08-2019 a las 03:18:43
+-- Versión del servidor: 10.1.38-MariaDB
+-- Versión de PHP: 7.3.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -149,6 +149,27 @@ CREATE TABLE `ventas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
+-- Volcado de datos para la tabla `ventas`
+--
+
+INSERT INTO `ventas` (`id_venta`, `id_empleado`, `monto_venta`, `fecha_venta`) VALUES
+(1, 1, '362.00', '2014-01-15'),
+(2, 2, '201.30', '2014-02-13'),
+(3, 3, '155.55', '2014-03-11'),
+(4, 4, '365.50', '2014-04-22'),
+(5, 5, '421.20', '2014-05-22'),
+(6, 1, '285.20', '2014-06-14'),
+(7, 2, '311.20', '2014-07-30'),
+(8, 3, '260.20', '2014-08-16'),
+(9, 4, '301.90', '2014-09-23'),
+(10, 5, '141.10', '2014-10-02'),
+(11, 1, '663.00', '2014-11-20'),
+(12, 2, '544.20', '2014-12-12'),
+(13, 3, '352.40', '2015-01-20'),
+(14, 4, '674.20', '2015-02-22'),
+(15, 5, '700.00', '2015-03-11');
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -205,7 +226,7 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
@@ -235,7 +256,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Restricciones para tablas volcadas
