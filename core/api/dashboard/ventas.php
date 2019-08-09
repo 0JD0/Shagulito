@@ -117,6 +117,28 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Venta incorrecta';
                 }
                 break;
+            //quimera de un buscador para un grafico
+            case 'ventasMonto':
+                $_POST = $ventas->validateForm($_POST);
+                if ($_POST['vminicio'] != '') {
+                    if ($_POST['vmfinal'] != '') {
+                        if ($result['dataset'] = $ventas->ventasMonto($_POST['vminicio'])) {
+                            $result['status'] = 1;
+                            if ($result['dataset'] = $ventas->ventasMonto($_POST['vmfinal'])) {
+                                $result['status'] = 1;
+                            } else {
+                                $result['exception'] = 'No hay datos disponibles';
+                            }
+                        } else {
+                            $result['exception'] = 'No hay datos disponibles';
+                        }
+                    } else {
+                            $result['exception'] = 'Ingrese un valor para mostrar';
+                    }
+                } else {
+                    $result['exception'] = 'Ingrese un valor para mostrar';
+                }
+                break;
             default:
                 exit('Acción no disponible');
         }

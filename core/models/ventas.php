@@ -117,4 +117,12 @@ class Ventas extends Validator
         $params = array($this->empleado, $this->monto, $this->fecha, $this->id);
         return Database::executeRow($sql, $params);
     }
+
+    // consultas para graficos
+    public function ventasMonto()
+    {
+        $sql = 'SELECT monto_venta, fecha_venta FROM ventas WHERE monto_venta BETWEEN ? AND ?  ORDER BY `ventas`.`monto_venta`  ASC';
+		$params = array("$value", "$value");
+        return Database::getRows($sql, $params);
+    }
 }
