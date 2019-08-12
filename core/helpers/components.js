@@ -189,6 +189,207 @@ function confirmDelete(apiUsuarios, id, file)
     });
 }
 
+// funcion para definir los estilos de los graficos
+function graphCPC(canvas, xAxis, yAxis, legend, title)
+{
+    //se crea el random de colores
+    let colors = [];
+    for (i = 0; i < xAxis.length; i++) {
+        colors.push('#' + (Math.random().toString(16)).substring(2, 8));
+    }
+    const context = $('#' + canvas);
+    const chartCPC = new Chart(context, {
+        type: 'pie',
+        data: {
+            labels: xAxis,
+            datasets: [{
+                label: legend,
+                data: yAxis,
+                backgroundColor: colors,
+                borderColor: '#000000',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            title: {
+                display: true,
+                text: title
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: 1
+                    }
+                }]
+            }
+        }
+    });
+}
+
+function graphCPV(canvas, xAxis, yAxis, legend, title)
+{
+        //se crea el random de colores
+    let colors = [];
+    for (i = 0; i < xAxis.length; i++) {
+        colors.push('#' + (Math.random().toString(16)).substring(2, 8));
+    }
+    const context = $('#' + canvas);
+    const chartCPV = new Chart(context, {
+        type: 'doughnut',
+        data: {
+            labels: xAxis,
+            datasets: [{
+                label: legend,
+                data: yAxis,
+                backgroundColor: colors,
+                borderColor: '#000000',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            title: {
+                display: true,
+                text: title
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: 1
+                    }
+                }]
+            }
+        }
+    });
+}
+
+function graphCPP(canvas, xAxis, yAxis, legend, title)
+{
+        //se crea el random de colores
+    let colors = [];
+    for (i = 0; i < xAxis.length; i++) {
+        colors.push('#' + (Math.random().toString(16)).substring(2, 8));
+    }
+    const context = $('#' + canvas);
+    const chartCPP = new Chart(context, {
+        type: 'doughnut',
+        data: {
+            labels: xAxis,
+            datasets: [{
+                label: legend,
+                data: yAxis,
+                backgroundColor: colors,
+                borderColor: '#000000',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            title: {
+                display: true,
+                text: title
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: 1
+                    }
+                }]
+            }
+        }
+    });
+}
+
+function graphPVE(canvas, xAxis, yAxis, legend, title)
+{
+        //se crea el random de colores
+    let colors = [];
+    for (i = 0; i < xAxis.length; i++) {
+        colors.push('#' + (Math.random().toString(16)).substring(2, 8));
+    }
+    const context = $('#' + canvas);
+    const chartPVE = new Chart(context, {
+        type: 'horizontalBar',
+        data: {
+            labels: xAxis,
+            datasets: [{
+                label: legend,
+                data: yAxis,
+                backgroundColor: colors,
+                borderColor: '#000000',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            title: {
+                display: true,
+                text: title
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: 1
+                    }
+                }]
+            }
+        }
+    });
+}
+
+function graphCPI(canvas, xAxis, yAxis, legend, title)
+{
+        //se crea el random de colores
+    let colors = [];
+    for (i = 0; i < xAxis.length; i++) {
+        colors.push('#' + (Math.random().toString(16)).substring(2, 8));
+    }
+    const context = $('#' + canvas);
+    const chartCPI = new Chart(context, {
+        type: 'bar',
+        data: {
+            labels: xAxis,
+            datasets: [{
+                label: legend,
+                data: yAxis,
+                backgroundColor: colors,
+                borderColor: '#000000',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            title: {
+                display: true,
+                text: title
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: 10
+                    }
+                }]
+            }
+        }
+    });
+}
+
 //funcion para stilo orden de datos del grafico
 function vmGraph(canvas, xAxis, yAxis, legend, title)
 {
@@ -197,7 +398,7 @@ function vmGraph(canvas, xAxis, yAxis, legend, title)
     for (i = 0; i < xAxis.length; i++) {
         colors.push('#' + (Math.random().toString(16)).substring(2, 8));
     }
-    const context = $('#' + canvas);
+    const context = $('#form-vm' + canvas);
     const vmchart = new Chart(context, {
         type: 'line',
         data: {

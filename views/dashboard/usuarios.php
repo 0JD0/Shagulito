@@ -23,12 +23,12 @@ Dashboard::headerTemplate('Administrar usuarios');
 <table class="highlight centered responsive-table">
     <thead>
         <tr>
+            <th class="hide-on-med-and-down">FOTO</th>
             <th>APELLIDOS</th>
             <th>NOMBRES</th>
             <th>TELÉFONO</th>
             <th>CORREO</th>
             <th>ALIAS</th>
-            <th class="hide-on-med-and-down">FOTO</th>
             <th>ACCIÓN</th>
 
         </tr>

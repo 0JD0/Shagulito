@@ -28,7 +28,7 @@ class Dashboard
 						<div class="navbar-fixed">
 							<nav>
 								<div class="nav-wrapper">
-									<a href="#!" class="brand-logo center">
+									<a href="home.php" class="brand-logo center">
 										<img src="../../resources/img/logo.png">
 									</a>
 									<a href="#" data-target="slide-out" class="sidenav-trigger show-on-large">
@@ -179,6 +179,7 @@ class Dashboard
 					<script type="text/javascript" src="../../core/helpers/components.js"></script>
 					<script type="text/javascript" src="../../core/controllers/dashboard/account.js"></script>
 					<script type="text/javascript" src="../../core/controllers/dashboard/dashboard.js"></script>
+					<script type="text/javascript" src="../../resources/js/chart.js"></script>
 					<script type="text/javascript" src="../../core/controllers/dashboard/' . $controller . '"></script>
 				</body>
 			</html>

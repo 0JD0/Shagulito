@@ -119,7 +119,25 @@ class Ventas extends Validator
     }
 
     // consultas para graficos
-    public function ventasMonto()
+    public function productosVE()
+	{
+		$sql = 'SELECT nombre_empleado, COUNT(monto_venta) ventas FROM ventas INNER JOIN empleado USING(id_empleado) GROUP BY id_empleado';
+		$params = array(null);
+		return Database::getRows($sql, $params);
+    }
+
+    public function build_report($year){
+        $total = array();
+        for($i=0; $i<12; $i++){
+            $month = $i+1;
+            $sql = $this->db->query("SELECT SUM(monto_venta) AS total FROM ventas WHERE MONTH(fecha_venta) = '$month' AND YEAR(fecha_venta) = '$year' LIMIT 1");	
+            $total[$i] = 0;
+            foreach ($sql as $key){ $total[$i] = ($key['total'] == null)? 0 : $key['total']; }
+        }			 
+        return $total;
+    }
+
+    public function ventasMonto($value)
     {
         $sql = 'SELECT monto_venta, fecha_venta FROM ventas WHERE monto_venta BETWEEN ? AND ?  ORDER BY `ventas`.`monto_venta`  ASC';
 		$params = array("$value", "$value");

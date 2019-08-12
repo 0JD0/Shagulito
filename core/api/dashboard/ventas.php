@@ -117,26 +117,32 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Venta incorrecta';
                 }
                 break;
+            case 'graficoPVE':
+                if ($result['dataset'] = $ventas->productosVE()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'No hay datos disponibles';
+                }
+                break;
+            case 'graficoXXX':
+                if($_POST['year']){
+                    $run = $ventas->build_report($_POST['year']);
+                    exit(json_encode($run));
+                }
+                break;
             //quimera de un buscador para un grafico
-            case 'ventasMonto':
+            case 'graficovm':
                 $_POST = $ventas->validateForm($_POST);
-                if ($_POST['vminicio'] != '') {
-                    if ($_POST['vmfinal'] != '') {
-                        if ($result['dataset'] = $ventas->ventasMonto($_POST['vminicio'])) {
-                            $result['status'] = 1;
-                            if ($result['dataset'] = $ventas->ventasMonto($_POST['vmfinal'])) {
-                                $result['status'] = 1;
-                            } else {
-                                $result['exception'] = 'No hay datos disponibles';
-                            }
-                        } else {
-                            $result['exception'] = 'No hay datos disponibles';
-                        }
+ //               $_VMF = 'vmfinal';
+ //               $_VMI = 'vminicio';
+                if ($_POST['vminicio'] != '' & $_POST['vmfinal'] != '') {
+                    if ($result['dataset'] = $ventas->ventasMonto($_POST['vminicio']) & $result['dataset'] = $ventas->ventasMonto($_POST['vmfinal'])) {
+                        $result['status'] = 1;
                     } else {
-                            $result['exception'] = 'Ingrese un valor para mostrar';
+                        $result['exception'] = 'No hay datos disponibles en el rango seleccionado';
                     }
                 } else {
-                    $result['exception'] = 'Ingrese un valor para mostrar';
+                        $result['exception'] = 'Ingrese un valor para mostrar';
                 }
                 break;
             default:

@@ -170,6 +170,27 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Producto incorrecto';
                 }
                 break;
+            case 'graficoCPV':
+                if ($result['dataset'] = $producto->cantidadPV()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'No hay datos disponibles';
+                }
+                break;
+            case 'graficoCPP':
+                if ($result['dataset'] = $producto->cantidadPP()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'No hay datos disponibles';
+                }
+                break;
+            case 'graficoCPI':
+                if ($result['dataset'] = $producto->cantidadPI()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'No hay datos disponibles';
+                }
+                break;
             default:
                 exit('Acción no disponible');
         }
