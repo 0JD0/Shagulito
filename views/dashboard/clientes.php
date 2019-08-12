@@ -15,6 +15,7 @@ Dashboard::headerTemplate('Administrar clientes');
                     class="material-icons">check</i></button>
         </div>
     </form>
+    
     <!-- Botón para abrir ventana de nuevo registro -->
     <div class="input-field center-align col s2 m3">
         <a href="#modal-create" class="btn-floating waves-effect indigo tooltipped modal-trigger"

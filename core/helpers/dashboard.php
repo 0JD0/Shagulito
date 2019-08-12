@@ -92,6 +92,11 @@ class Dashboard
 									</a>
 								</li>
 								<li>
+									<a href="reportes.php">
+										<i class="material-icons">list</i>Reportes
+									</a>
+								</li>
+								<li>
 									<div class="divider"></div>
 								</li>
 								<li>
