@@ -56,3 +56,7 @@ Dashboard::headerTemplate('Reportes');
         </div>
     </div>
 </div>
+
+<?php
+Dashboard::footerTemplate('main.js');
+?>
