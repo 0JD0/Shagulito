@@ -8,8 +8,8 @@ Dashboard::headerTemplate('Bienvenido');
     </div>
 </div>
 
+<!--cavas para mostrar donde apareceran los graficos-->
 <div class="row">
-
     <div class="col s12 m6">
         <div class="card">
             <canvas id="chartCPP"></canvas>
@@ -39,13 +39,13 @@ Dashboard::headerTemplate('Bienvenido');
         </div>
     </div>
 
-    <div class="col s12">
+    <div class="col s12 m4">
         <div class="card-action center-align">
-            <a href="report.php">Mostrar mas gráficos</a>
+            <a href="../../core/estadistica/index.php">Grafico</a>
         </div>
     </div>
 
-    <!--<div class="col s12 card">
+    <div class="col s12 card">
         <form method="post" id="form-vm">
             <div class="input-field col s12 m5">
                 <input id="vminicio" type="number" name="vminicio" />
@@ -60,8 +60,40 @@ Dashboard::headerTemplate('Bienvenido');
                         class="material-icons">check</i></button>
             </div>
         </form>
-        <canvas id="vmchart"></canvas>
-    </div>-->
+        <canvas id="chartVM"></canvas>
+    </div>
+
+    <div class="col s12 card">
+        <form method="post" id="form-vf">
+            <div class="input-field col s12 m5">
+                <input id="vfinicio" type="date" name="vfinicio" />
+                <label for="vfinicio">Fecha inicial</label>
+            </div>
+            <div class="input-field col s10 m5">
+                <input id="vffinal" type="date" name="vffinal" />
+                <label for="vffinal">Fecha final</label>
+            </div>
+            <div class="input-field col s2">
+                <button type="submit" class="btn-floating waves-effect green tooltipped" data-tooltip="Mostrar"><i
+                        class="material-icons">check</i></button>
+            </div>
+        </form>
+        <canvas id="chartVF"></canvas>
+    </div>
+
+    <div class="col s12 card">
+        <form method="post" id="form-ve">
+        <div class="input-field col s10 m5">
+                <input id="veempleado" type="text" name="veempleado" />
+                <label for="veempleado">Empleado</label>
+            </div>
+            <div class="input-field col s2">
+                <button type="submit" class="btn-floating waves-effect green tooltipped" data-tooltip="Mostrar"><i
+                        class="material-icons">check</i></button>
+            </div>
+        </form>
+        <canvas id="chartVE"></canvas>
+    </div>
 </div>
 
 

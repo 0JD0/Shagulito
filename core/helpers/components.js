@@ -391,15 +391,15 @@ function graphCPI(canvas, xAxis, yAxis, legend, title)
 }
 
 //funcion para stilo orden de datos del grafico
-function vmGraph(canvas, xAxis, yAxis, legend, title)
+function graphVM(canvas, xAxis, yAxis, legend, title)
 {
     //se crea el random de colores
     let colors = [];
     for (i = 0; i < xAxis.length; i++) {
         colors.push('#' + (Math.random().toString(16)).substring(2, 8));
     }
-    const context = $('#form-vm' + canvas);
-    const vmchart = new Chart(context, {
+    const context = $('#' + canvas);
+    const chartVM = new Chart(context, {
         type: 'line',
         data: {
             labels: xAxis,
@@ -423,7 +423,88 @@ function vmGraph(canvas, xAxis, yAxis, legend, title)
                 yAxes: [{
                     ticks: {
                         beginAtZero: true,
-                        stepSize: 1
+                        stepSize: 50
+                    }
+                }]
+            }
+        }
+    });
+}
+
+
+function graphVF(canvas, xAxis, yAxis, legend, title)
+{
+    //se crea el random de colores
+    let colors = [];
+    for (i = 0; i < xAxis.length; i++) {
+        colors.push('#' + (Math.random().toString(16)).substring(2, 8));
+    }
+    const context = $('#' + canvas);
+    const chartVF = new Chart(context, {
+        type: 'bar',
+        data: {
+            labels: xAxis,
+            datasets: [{
+                label: legend,
+                data: yAxis,
+                backgroundColor: colors,
+                borderColor: '#000000',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            title: {
+                display: true,
+                text: title
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: 10
+                    }
+                }]
+            }
+        }
+    });
+}
+
+function graphVE(canvas, xAxis, yAxis, legend, title)
+{
+    //se crea el random de colores
+    let colors = [];
+    for (i = 0; i < xAxis.length; i++) {
+        colors.push('#' + (Math.random().toString(16)).substring(2, 8));
+    }
+    const context = $('#' + canvas);
+    const chartVE = new Chart(context, {
+        type: 'bar',
+        data: {
+            labels: xAxis,
+            datasets: [{
+                label: legend,
+                data: yAxis,
+                backgroundColor: colors,
+                borderColor: '#000000',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            title: {
+                display: true,
+                text: title
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: 100
                     }
                 }]
             }

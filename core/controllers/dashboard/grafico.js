@@ -1,48 +1,6 @@
-<?php
-require_once('../../core/helpers/dashboard.php');
-Dashboard::headerTemplate('Administrar productos');
-?>
+const apiVentas = '../../core/api/dashboard/ventas.php?action=';
 
-<?php 
-$apiVentas = '../../core/api/dashboard/ventas.php?action=';
-?>
-
-    <style>
-        .caja{
-            margin: auto;
-            max-width: 250px;
-            padding: 20px;
-            border: 1px solid #BDBDBD;
-        }
-        .caja select{
-            width: 100%;
-            font-size: 16px;
-            padding: 5px;
-        }
-        .resultados{
-            margin: auto;
-            margin-top: 40px;
-            width: 1000px;
-        }
-    </style>
-    <body> 
-        <div class="caja">
-            <select onChange="mostrarResultados(this.value);">
-                <?php
-                    for($i=2000;$i<2020;$i++){
-                        if($i == 2015){
-                            echo '<option value="'.$i.'" selected>'.$i.'</option>';
-                        }else{
-                            echo '<option value="'.$i.'">'.$i.'</option>';
-                        }
-                    }
-                ?>
-            </select>
-        </div>
-        <div class="resultados"><canvas id="grafico"></canvas></div>
-    </body>
-    <script>
-            $(document).ready(mostrarResultados(2015));  
+$(document).ready(mostrarResultados(2015));  
                 function mostrarResultados(year){
                     $('.resultados').html('<canvas id="grafico"></canvas>');
                     $.ajax({
@@ -70,4 +28,3 @@ $apiVentas = '../../core/api/dashboard/ventas.php?action=';
                     });
                     return false;
                 }
-    </script>

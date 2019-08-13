@@ -124,19 +124,35 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay datos disponibles';
                 }
                 break;
-            case 'graficoXXX':
-                if($_POST['year']){
-                    $run = $ventas->build_report($_POST['year']);
-                    exit(json_encode($run));
+            //quimera de un buscador para un grafico
+            case 'graficoVM':
+                $_POST = $ventas->validateForm($_POST);
+                if ($_POST['vminicio'] != '' & $_POST['vmfinal'] != '') {
+                    if ($result['dataset'] = $ventas->ventasMonto($_POST['vminicio'], $_POST['vmfinal'])) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'No hay datos disponibles en el rango seleccionado';
+                    }
+                } else {
+                        $result['exception'] = 'Ingrese un valor para mostrar';
                 }
                 break;
-            //quimera de un buscador para un grafico
-            case 'graficovm':
+            case 'graficoVF':
                 $_POST = $ventas->validateForm($_POST);
- //               $_VMF = 'vmfinal';
- //               $_VMI = 'vminicio';
-                if ($_POST['vminicio'] != '' & $_POST['vmfinal'] != '') {
-                    if ($result['dataset'] = $ventas->ventasMonto($_POST['vminicio']) & $result['dataset'] = $ventas->ventasMonto($_POST['vmfinal'])) {
+                if ($_POST['vfinicio'] != '' & $_POST['vffinal'] != '') {
+                    if ($result['dataset'] = $ventas->ventasFecha($_POST['vfinicio'], $_POST['vffinal'])) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'No hay datos disponibles en el rango seleccionado';
+                    }
+                } else {
+                        $result['exception'] = 'Ingrese un valor para mostrar';
+                }
+                break;
+            case 'graficoVE':
+                $_POST = $ventas->validateForm($_POST);
+                if ($_POST['veempleado'] != '') {
+                    if ($result['dataset'] = $ventas->ventasEmpleado($_POST['veempleado'])) {
                         $result['status'] = 1;
                     } else {
                         $result['exception'] = 'No hay datos disponibles en el rango seleccionado';

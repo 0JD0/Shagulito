@@ -126,21 +126,24 @@ class Ventas extends Validator
 		return Database::getRows($sql, $params);
     }
 
-    public function build_report($year){
-        $total = array();
-        for($i=0; $i<12; $i++){
-            $month = $i+1;
-            $sql = $this->db->query("SELECT SUM(monto_venta) AS total FROM ventas WHERE MONTH(fecha_venta) = '$month' AND YEAR(fecha_venta) = '$year' LIMIT 1");	
-            $total[$i] = 0;
-            foreach ($sql as $key){ $total[$i] = ($key['total'] == null)? 0 : $key['total']; }
-        }			 
-        return $total;
+    public function ventasMonto($value1, $value2)
+    {
+        $sql = 'SELECT monto_venta, fecha_venta FROM ventas WHERE monto_venta BETWEEN ? AND ? ORDER BY `ventas`.`monto_venta`  ASC';
+		$params = array($value1, $value2);
+        return Database::getRows($sql, $params);
     }
 
-    public function ventasMonto($value)
+    public function ventasFecha($value1, $value2)
     {
-        $sql = 'SELECT monto_venta, fecha_venta FROM ventas WHERE monto_venta BETWEEN ? AND ?  ORDER BY `ventas`.`monto_venta`  ASC';
-		$params = array("$value", "$value");
+        $sql = 'SELECT fecha_venta, COUNT(id_venta) montos FROM ventas WHERE fecha_venta BETWEEN ? AND ? GROUP BY `ventas`.`fecha_venta` ASC';
+		$params = array($value1, $value2);
+        return Database::getRows($sql, $params);
+    }
+
+    public function ventasEmpleado($value)
+    {
+        $sql = 'SELECT alias_empleado, SUM(monto_venta) vendido FROM ventas INNER JOIN empleado USING(id_empleado) WHERE alias_empleado = ?';
+		$params = array("%$value%");
         return Database::getRows($sql, $params);
     }
 }

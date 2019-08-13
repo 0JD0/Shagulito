@@ -16,18 +16,19 @@ function showGreeting()
         greeting = 'Buenas noches';
     }
     $('#greeting').text(greeting);
+// las funciones se inicializan aqui para que ouedan ser mostrados
     grafCPV();
     grafCPP();
     grafPVE();
     grafCPC();
     grafCPI();
-    graficoVentasMonto();
 }
 
 const apiProductos = '../../core/api/dashboard/productos.php?action=';
 const apiCategorias = '../../core/api/dashboard/categorias.php?action=';
 const apiVentas = '../../core/api/dashboard/ventas.php?action=';
 
+//funciones para controlar los datos de los graficos
 function grafCPV()
 {
     $.ajax({
@@ -203,12 +204,12 @@ function grafCPI()
     });
 }
 
-// Función para mostrar los resultados de una búsqueda
-/*$('#form-vm').submit(function()
+// Función para mostrar los graficos parametrizados
+$('#form-vm').submit(function()
 {
     event.preventDefault();
     $.ajax({
-        url: apiVentas + 'graficovm',
+        url: apiVentas + 'graficoVM',
         type: 'post',
         data: $('#form-vm').serialize(),
         datatype: 'json'
@@ -219,10 +220,15 @@ function grafCPI()
             const result = JSON.parse(response);
             // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
-                fillTable(result.dataset);
-                sweetAlert(1, result.message, null);
+                let fecha = [];
+                let monto = [];
+            result.dataset.forEach(function(row){
+                fecha.push(row.fecha_venta)
+                monto.push(row.monto_venta);
+            });
+                graphVM('chartVM', fecha, monto, 'Fecha de venta', 'Ventas por monto')
             } else {
-                sweetAlert(3, result.exception, null);
+                $('#chartVM').remove();
             }
         } else {
             console.log(response);
@@ -232,32 +238,33 @@ function grafCPI()
         // Se muestran en consola los posibles errores de la solicitud AJAX
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
-})*/
+})
 
-function graficoVentasMonto()
+
+$('#form-vf').submit(function()
 {
+    event.preventDefault();
     $.ajax({
-        url: apiVentas + 'graficovm',
+        url: apiVentas + 'graficoVF',
         type: 'post',
-        data: $('#form-vm').serialize(),
+        data: $('#form-vf').serialize(),
         datatype: 'json'
     })
-    
     .done(function(response){
         // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
         if (isJSONString(response)) {
             const result = JSON.parse(response);
-            // Se comprueba si el resultado es satisfactorio, sino se remueve la etiqueta canvas
+            // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
-                let fecha = [];
-                let monto = [];
-                result.dataset.forEach(function(row){
-                    fecha.push(row.fecha_venta);
-                    monto.push(row.monto_venta);
-                });
-                vmGraph('vmchart', fecha, monto, 'Fecha de venta', 'Monto de venta por fecha')
+                let fechas = [];
+                let montos = [];
+            result.dataset.forEach(function(row){
+                fechas.push(row.fecha_venta)
+                montos.push(row.montos);
+            });
+                graphVF('chartVF', fechas, montos, 'Fecha de venta', 'Cantidad de ventas por fecha')
             } else {
-                $('#vmchart').remove();
+                $('#chartVF').remove();
             }
         } else {
             console.log(response);
@@ -267,4 +274,39 @@ function graficoVentasMonto()
         // Se muestran en consola los posibles errores de la solicitud AJAX
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
-}
+})
+
+$('#form-ve').submit(function()
+{
+    event.preventDefault();
+    $.ajax({
+        url: apiVentas + 'graficoVE',
+        type: 'post',
+        data: $('#form-ve').serialize(),
+        datatype: 'json'
+    })
+    .done(function(response){
+        // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                let empleado = [];
+                let vendido = [];
+            result.dataset.forEach(function(row){
+                empleado.push(row.alias_empleado)
+                vendido.push(row.vendido);
+            });
+                graphVE('chartVE', empleado, vendido, 'Empleado', 'Cantidad vendida por empleado')
+            } else {
+                $('#chartVE').remove();
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        // Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+})
