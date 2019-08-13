@@ -86,6 +86,19 @@ Dashboard::headerTemplate('Administrar usuarios');
                         <input type="text" class="file-path validate" placeholder="Seleccione una imagen"/>
                     </div>
             </div>
+            <div class="col s12 m6">
+                    <p>
+                        <div class="switch">
+                            <span>Estado:</span>
+                            <label>
+                                <i class="material-icons">visibility_off</i>
+                                <input id="create_estado" type="checkbox" name="create_estado" checked />
+                                <span class="lever"></span>
+                                <i class="material-icons">visibility</i>
+                            </label>
+                        </div>
+                    </p>
+                </div>
         </div>
             <div class="row center-align">
                 <a href="#" class="btn waves-effect grey tooltipped modal-close" data-tooltip="Cancelar"><i class="material-icons">cancel</i></a>

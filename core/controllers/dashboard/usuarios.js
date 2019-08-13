@@ -12,6 +12,7 @@ function fillTable(rows)
     let content = '';
     //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
     rows.forEach(function(row){
+        (row.estado_producto == 1) ? icon = 'visibility' : icon = 'visibility_off';
         content += `
             <tr>
                 <td class="hide-on-med-and-down"><img src="../../resources/img/usuarios/${row.foto_empleado}" class="materialboxed" width="75"</td>
@@ -152,6 +153,7 @@ function modalUpdate(id)
                 $('#update_correo').val(result.dataset.correo_empleado);
                 $('#update_alias').val(result.dataset.alias_empleado);
                 $('#imagen_usuario').val(result.dataset.foto_empleado);
+                (result.dataset.estado_producto == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
                 M.updateTextFields();
                 $('#modal-update').modal('open');
             } else {
