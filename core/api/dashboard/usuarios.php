@@ -320,9 +320,6 @@ if (isset($_GET['action'])) {
                 $_POST = $usuario->validateForm($_POST);
                 if ($usuario->setAlias($_POST['alias'])) {
                     if ($usuario->checkAlias()) {
-                        $_SESSION['estado_empleado'] = $usuario->
-
-
                         if ($usuario->setClave($_POST['clave'])) {
                             if ($usuario->checkPassword()) {
                                 $_SESSION['id_empleado'] = $usuario->getId();

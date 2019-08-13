@@ -1,5 +1,5 @@
 <?php
-require_once '../../core/helpers/dashboard.php';
+require_once('../../core/helpers/dashboard.php');
 Dashboard::headerTemplate('Administrar clientes');
 ?>
 <div class="row">
@@ -76,7 +76,7 @@ Dashboard::headerTemplate('Administrar clientes');
     <div class="modal-content">
         <h4 class="center-align">Modificar cliente</h4>
         <form method="post" id="form-update" enctype="multipart/form-data">
-            <input type="hidden" id="id_empleado" name="id_empleado" />
+            <input type="hidden" id="id_cliente" name="id_cliente" />
             <div class="row">
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">person</i>
@@ -105,6 +105,7 @@ Dashboard::headerTemplate('Administrar clientes');
                         <button type="submit" class="btn waves-effect blue tooltipped" data-tooltip="Modificar"><i
                                 class="material-icons">save</i></button>
                     </div>
+                </div>
         </form>
     </div>
 </div>
