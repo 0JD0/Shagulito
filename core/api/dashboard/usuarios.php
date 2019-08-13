@@ -332,6 +332,18 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Alias incorrecto';
                 }
                 break;
+            case 'graficoCE':
+                $_POST = $usuario->validateForm($_POST);
+                if ($_POST['empleadoce'] != '') {
+                    if ($result['dataset'] = $usuario->correoEmpleado($_POST['empleadoce'])) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'No hay datos disponibles en el rango seleccionado';
+                    }
+                } else {
+                        $result['exception'] = 'Ingrese un valor para mostrar';
+                }
+                break;
             default:
                 exit('Acción no disponible');
         }

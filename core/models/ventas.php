@@ -142,8 +142,8 @@ class Ventas extends Validator
 
     public function ventasEmpleado($value)
     {
-        $sql = 'SELECT alias_empleado, SUM(monto_venta) vendido FROM ventas INNER JOIN empleado USING(id_empleado) WHERE alias_empleado = ?';
-		$params = array("%$value%");
+        $sql = 'SELECT nombre_empleado, SUM(monto_venta) vendido FROM ventas INNER JOIN empleado USING(id_empleado) WHERE nombre_empleado = ?';
+        $params = array("$value");
         return Database::getRows($sql, $params);
     }
 }

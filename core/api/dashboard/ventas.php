@@ -151,8 +151,8 @@ if (isset($_GET['action'])) {
                 break;
             case 'graficoVE':
                 $_POST = $ventas->validateForm($_POST);
-                if ($_POST['veempleado'] != '') {
-                    if ($result['dataset'] = $ventas->ventasEmpleado($_POST['veempleado'])) {
+                if ($_POST['empleadove'] != '') {
+                    if ($result['dataset'] = $ventas->ventasEmpleado($_POST['empleadove'])) {
                         $result['status'] = 1;
                     } else {
                         $result['exception'] = 'No hay datos disponibles en el rango seleccionado';

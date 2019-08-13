@@ -481,7 +481,47 @@ function graphVE(canvas, xAxis, yAxis, legend, title)
     }
     const context = $('#' + canvas);
     const chartVE = new Chart(context, {
-        type: 'bar',
+        type: 'horizontalBar',
+        data: {
+            labels: xAxis,
+            datasets: [{
+                label: legend,
+                data: yAxis,
+                backgroundColor: colors,
+                borderColor: '#000000',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            title: {
+                display: true,
+                text: title
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: 100
+                    }
+                }]
+            }
+        }
+    });
+}
+
+function graphCE(canvas, xAxis, yAxis, legend, title)
+{
+    //se crea el random de colores
+    let colors = [];
+    for (i = 0; i < xAxis.length; i++) {
+        colors.push('#' + (Math.random().toString(16)).substring(2, 8));
+    }
+    const context = $('#' + canvas);
+    const chartCE = new Chart(context, {
+        type: 'line',
         data: {
             labels: xAxis,
             datasets: [{

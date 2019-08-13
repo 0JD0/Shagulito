@@ -84,8 +84,8 @@ Dashboard::headerTemplate('Bienvenido');
     <div class="col s12 card">
         <form method="post" id="form-ve">
         <div class="input-field col s10 m5">
-                <input id="veempleado" type="text" name="veempleado" />
-                <label for="veempleado">Empleado</label>
+                <input id="empleadove" type="text" name="empleadove" />
+                <label for="empleadove">Empleado</label>
             </div>
             <div class="input-field col s2">
                 <button type="submit" class="btn-floating waves-effect green tooltipped" data-tooltip="Mostrar"><i
@@ -93,6 +93,20 @@ Dashboard::headerTemplate('Bienvenido');
             </div>
         </form>
         <canvas id="chartVE"></canvas>
+    </div>
+
+    <div class="col s12 card">
+        <form method="post" id="form-ce">
+        <div class="input-field col s10 m5">
+                <input id="empleadoce" type="text" name="empleadoce" />
+                <label for="empleadoce">Dominio</label>
+            </div>
+            <div class="input-field col s2">
+                <button type="submit" class="btn-floating waves-effect green tooltipped" data-tooltip="Mostrar"><i
+                        class="material-icons">check</i></button>
+            </div>
+        </form>
+        <canvas id="chartCE"></canvas>
     </div>
 </div>
 

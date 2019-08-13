@@ -27,6 +27,7 @@ function showGreeting()
 const apiProductos = '../../core/api/dashboard/productos.php?action=';
 const apiCategorias = '../../core/api/dashboard/categorias.php?action=';
 const apiVentas = '../../core/api/dashboard/ventas.php?action=';
+const apiUsuarios = '../../core/api/dashboard/usuarios.php?action=';
 
 //funciones para controlar los datos de los graficos
 function grafCPV()
@@ -294,12 +295,47 @@ $('#form-ve').submit(function()
                 let empleado = [];
                 let vendido = [];
             result.dataset.forEach(function(row){
-                empleado.push(row.alias_empleado)
+                empleado.push(row.nombre_empleado)
                 vendido.push(row.vendido);
             });
                 graphVE('chartVE', empleado, vendido, 'Empleado', 'Cantidad vendida por empleado')
             } else {
                 $('#chartVE').remove();
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        // Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+})
+
+$('#form-ce').submit(function()
+{
+    event.preventDefault();
+    $.ajax({
+        url: apiUsuarios + 'graficoCE',
+        type: 'post',
+        data: $('#form-ce').serialize(),
+        datatype: 'json'
+    })
+    .done(function(response){
+        // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                let correos = ['Correos por dominio'];
+                let correo = [];
+            result.dataset.forEach(function(row){
+                //empleado.push(row.nombre_empleado)
+                correo.push(row.correo);
+            });
+                graphCE('chartCE', correos, correo, 'Empleado', 'Cantidad de dominios de correo')
+            } else {
+                $('#chartCE').remove();
             }
         } else {
             console.log(response);
