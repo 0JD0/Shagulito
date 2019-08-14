@@ -1,7 +1,7 @@
 <?php
-require_once '../../helpers/database.php';
-require_once '../../helpers/validator.php';
-require_once '../../models/clientes.php';
+require_once('../../helpers/database.php');
+require_once('../../helpers/validator.php');
+require_once('../../models/clientes.php');
 
 //  se muestra error sino existe una accion a realizar
 if (isset($_GET['action'])) {
@@ -9,7 +9,7 @@ if (isset($_GET['action'])) {
     $cliente = new Clientes;
     $result = array('status' => 0, 'message' => null, 'exception' => null);
     // verifca si existe una sesion iniciada para realizar operacionres
-    if (isset($_SESSION['id_cliente'])) {
+    if (isset($_SESSION['id_empleado'])) {
         switch ($_GET['action']) {
             case 'read':
                 if ($result['dataset'] = $cliente->readCliente()) {
@@ -44,6 +44,7 @@ if (isset($_GET['action'])) {
                             if ($cliente->setCorreo($_POST['create_correo'])) {
                                 if ($cliente->createCliente()) {
                                     $result['status'] = 1;
+                                    $result['message'] = 'Cliente creado correctamente';
                                 } else {
                                     $result['status'] = 2;
                                 }
@@ -73,14 +74,15 @@ if (isset($_GET['action'])) {
                 break;
             case 'update':
                 $_POST = $cliente->validateForm($_POST);
-                if ($cliente->setId($_POST['id_empleado'])) {
+                if ($cliente->setId($_POST['id_cliente'])) {
                     if ($cliente->getCliente()) {
                         if ($cliente->setNombres($_POST['update_nombres'])) {
                             if ($cliente->setApellidos($_POST['update_apellidos'])) {
                                 if ($cliente->setTelefono($_POST['update_telefono'])) {
                                     if ($cliente->setCorreo($_POST['update_correo'])) {
-                                        if ($usuario->updateCientel()) {
+                                        if ($usuario->updateCliente()) {
                                             $result['status'] = 1;
+                                            $result['message'] = 'Cliente modificado correctamente';
                                         } else {
                                             $result['status'] = 2;
                                         }

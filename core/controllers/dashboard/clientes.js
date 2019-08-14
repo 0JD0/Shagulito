@@ -86,7 +86,12 @@ $('#form-search').submit(function () {
         });
 })
 
-//Función para crear un nuevo registro
+function modalCreate() {
+    $('#form-create')[0].reset();
+    $('#modal-create').modal('open');
+}
+
+// Función para crear un nuevo registro
 $('#form-create').submit(function () {
     event.preventDefault();
     $.ajax({
@@ -96,15 +101,13 @@ $('#form-create').submit(function () {
             datatype: 'json',
         })
         .done(function (response) {
-            //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+            // Se verifica si la api responde una cadena JSON
             if (isJSONString(response)) {
                 const result = JSON.parse(response);
-                //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
                 if (result.status) {
-                    $('#form-create')[0].reset();
                     $('#modal-create').modal('close');
-                    sweetAlert(1, 'Usuario creado correctamente', null);
                     showTable();
+                    sweetAlert(1, result.message, null);
                 } else {
                     sweetAlert(2, result.exception, null);
                 }
@@ -113,7 +116,7 @@ $('#form-create').submit(function () {
             }
         })
         .fail(function (jqXHR) {
-            //Se muestran en consola los posibles errores de la solicitud AJAX
+            // Se muestra en la consola los posibles eerores
             console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
         });
 })
@@ -186,47 +189,3 @@ $('#form-update').submit(function () {
             console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
         });
 })
-
-
-//Función para eliminar un registro seleccionado
-function confirmDelete(id) {
-    swal({
-            title: 'Advertencia',
-            text: '¿Quiere eliminar el usuario?',
-            icon: 'warning',
-            buttons: ['Cancelar', 'Aceptar'],
-            closeOnClickOutside: false,
-            closeOnEsc: false
-        })
-        .then(function (value) {
-            if (value) {
-                $.ajax({
-                        url: apiUsuarios + 'delete',
-                        type: 'post',
-                        data: {
-                            id_empleado: id
-                        },
-                        datatype: 'json'
-                    })
-                    .done(function (response) {
-                        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
-                        if (isJSONString(response)) {
-                            const result = JSON.parse(response);
-                            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
-                            if (result.status) {
-                                sweetAlert(1, 'Usuario eliminado correctamente', null);
-                                showTable();
-                            } else {
-                                sweetAlert(2, result.exception, null);
-                            }
-                        } else {
-                            console.log(response);
-                        }
-                    })
-                    .fail(function (jqXHR) {
-                        //Se muestran en consola los posibles errores de la solicitud AJAX
-                        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
-                    });
-            }
-        });
-}

@@ -1,7 +1,7 @@
 <?php
-require_once '../../helpers/database.php';
-require_once '../../helpers/validator.php';
-require_once '../../models/ventas.php';
+require_once('../../helpers/database.php');
+require_once('../../helpers/validator.php');
+require_once('../../models/ventas.php');
 
 //  se muestra error sino existe una accion a realizar
 if (isset($_GET['action'])) {
