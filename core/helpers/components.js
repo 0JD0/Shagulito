@@ -521,7 +521,7 @@ function graphCE(canvas, xAxis, yAxis, legend, title)
     }
     const context = $('#' + canvas);
     const chartCE = new Chart(context, {
-        type: 'line',
+        type: 'bar',
         data: {
             labels: xAxis,
             datasets: [{

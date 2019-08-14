@@ -121,7 +121,7 @@ class Ventas extends Validator
     // consultas para graficos
     public function productosVE()
 	{
-		$sql = 'SELECT nombre_empleado, COUNT(monto_venta) ventas FROM ventas INNER JOIN empleado USING(id_empleado) GROUP BY id_empleado';
+		$sql = 'SELECT nombre_empleado, COUNT(monto_venta) ventas FROM ventas INNER JOIN empleado USING(id_empleado) GROUP BY id_empleado ORDER BY `ventas` DESC LIMIT 5';
 		$params = array(null);
 		return Database::getRows($sql, $params);
     }

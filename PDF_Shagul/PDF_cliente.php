@@ -1,9 +1,11 @@
 <?php
 require('../libraries/fpdf181/fpdf.php');
 
-class PDF extends FPDF{
+class PDF extends FPDF
+{
 // Cabecera de la pgaina del reporte
-    function Header(){
+    function Header()
+    {
       $this->image('logo.png',10,10,30);
 		+
         // Arial bold 15
@@ -34,7 +36,8 @@ class PDF extends FPDF{
     }
 
     // Pie de pagina
-    function Footer(){
+    function Footer()
+    {
         //Posicion a 1.5 cm del final
         $this->SetY(-15);
         // Arial italic 8

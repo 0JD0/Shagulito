@@ -55,6 +55,19 @@ Dashboard::headerTemplate('Reportes');
             </div>
         </div>
     </div>
+
+    <div class="col s12 m4">
+        <div class="card horizontal">
+            <div class="card-stacked">
+                <div class="card-content">
+                    <p>Reporte Lotes</p>
+                </div>
+                <div class="card-action">
+                    <a href="../../PDF_Shagul/PDF_lotes.php">Mostrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <?php

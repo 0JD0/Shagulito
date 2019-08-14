@@ -219,7 +219,7 @@ class Usuarios extends Validator
 
 	public function correoEmpleado($value)
     {
-        $sql = 'SELECT correo_empleado COUNT(id_empleado) correo FROM empleado WHERE correo_empleado LIKE ?';
+        $sql = 'SELECT COUNT(id_empleado) correo FROM empleado WHERE correo_empleado LIKE ?';
         $params = array("%$value%");
         return Database::getRows($sql, $params);
     }

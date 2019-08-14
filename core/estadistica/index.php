@@ -24,6 +24,7 @@
         }
     </style>
     <body> 
+    <h5>Ventas mensuales por año</h5>
         <div class="caja">
             <select onChange="mostrarResultados(this.value);">
                 <?php

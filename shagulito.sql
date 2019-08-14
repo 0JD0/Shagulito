@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-08-2019 a las 08:59:23
--- Versión del servidor: 10.1.37-MariaDB
--- Versión de PHP: 7.3.1
+-- Tiempo de generación: 14-08-2019 a las 16:10:00
+-- Versión del servidor: 10.1.30-MariaDB
+-- Versión de PHP: 7.1.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,25 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `shagulito`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cargos`
+--
+
+CREATE TABLE `cargos` (
+  `id_cargo` int(11) NOT NULL,
+  `nombre_cargo` varchar(50) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `cargos`
+--
+
+INSERT INTO `cargos` (`id_cargo`, `nombre_cargo`) VALUES
+(1, 'Administrador'),
+(2, 'Cajero');
 
 -- --------------------------------------------------------
 
@@ -76,19 +95,21 @@ CREATE TABLE `empleado` (
   `correo_empleado` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `alias_empleado` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `clave_empleado` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `foto_empleado` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+  `foto_empleado` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `estado_empleado` tinyint(1) NOT NULL,
+  `id_cargo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `empleado`
 --
 
-INSERT INTO `empleado` (`id_empleado`, `nombre_empleado`, `apellido_empleado`, `telefono_empleado`, `correo_empleado`, `alias_empleado`, `clave_empleado`, `foto_empleado`) VALUES
-(1, 'Josue', 'Duran', 12345678, 'JD@shagulito.com', 'JD', '$2y$10$60aPhgrjwgvtY64yij9OO.7ZMYybJyxn3YrObWRVCq8STD.3A5itG', '5d2df4c0713fb.jpg'),
-(6, 'Daniel', 'Hernandez', 12345678, 'Daniel@shagulito.com', 'Daniel', '$2y$10$R8qzEihfDKbAPbhsL3H6HOLHXNjBuCYtkmgc5Kbf24MbgqTyh9Aa2', '5d5106f21b9f1.png'),
-(7, 'Gabriel', 'Monterrosa', 12345678, 'Gabriel@shagulito.com', 'Gabriel', '$2y$10$AnymL7hSWHSXliHBsybyEOhMyITxHwoD9IEMXSKa4IAqEfzSWDHO6', '5d510751c536b.jpg'),
-(8, 'Steven', 'Diaz', 12345678, 'StevenBDF@shagulito.com', 'StevenBDF', '$2y$10$70QM5WSWvIBr3kU0JhUJ5uDnPdrK3zRiyLezKDHi1ZWsS3aqVO9RG', '5d5107f31cdb1.jpg'),
-(9, 'Boris', 'Huezo', 12345678, 'Boris@shagulito.com', 'Boris', '$2y$10$5zSOzX6DjdEb4kcPDGn1.em7yADauX8h3vaEO/TIuuPEo96.OSDJ6', '5d51083c06711.jpg');
+INSERT INTO `empleado` (`id_empleado`, `nombre_empleado`, `apellido_empleado`, `telefono_empleado`, `correo_empleado`, `alias_empleado`, `clave_empleado`, `foto_empleado`, `estado_empleado`, `id_cargo`) VALUES
+(1, 'Josue', 'Duran', 12345678, 'JD@shagulito.com', 'JD', '$2y$10$60aPhgrjwgvtY64yij9OO.7ZMYybJyxn3YrObWRVCq8STD.3A5itG', '5d2df4c0713fb.jpg', 0, 1),
+(6, 'Daniel', 'Hernandez', 12345678, 'Daniel@shagulito.com', 'Daniel', '$2y$10$R8qzEihfDKbAPbhsL3H6HOLHXNjBuCYtkmgc5Kbf24MbgqTyh9Aa2', '5d5106f21b9f1.png', 0, 1),
+(7, 'Gabriel', 'Monterrosa', 12345678, 'Gabriel@shagulito.com', 'Gabriel', '$2y$10$AnymL7hSWHSXliHBsybyEOhMyITxHwoD9IEMXSKa4IAqEfzSWDHO6', '5d510751c536b.jpg', 0, 1),
+(8, 'Steven', 'Diaz', 12345678, 'StevenBDF@shagulito.com', 'StevenBDF', '$2y$10$70QM5WSWvIBr3kU0JhUJ5uDnPdrK3zRiyLezKDHi1ZWsS3aqVO9RG', '5d5107f31cdb1.jpg', 0, 2),
+(9, 'Boris', 'Huezo', 12345678, 'Boris@shagulito.com', 'Boris', '$2y$10$5zSOzX6DjdEb4kcPDGn1.em7yADauX8h3vaEO/TIuuPEo96.OSDJ6', '5d51083c06711.jpg', 0, 2);
 
 -- --------------------------------------------------------
 
@@ -197,6 +218,12 @@ INSERT INTO `ventas` (`id_venta`, `id_empleado`, `monto_venta`, `fecha_venta`) V
 --
 
 --
+-- Indices de la tabla `cargos`
+--
+ALTER TABLE `cargos`
+  ADD PRIMARY KEY (`id_cargo`);
+
+--
 -- Indices de la tabla `categorias`
 --
 ALTER TABLE `categorias`
@@ -212,7 +239,8 @@ ALTER TABLE `clientes`
 -- Indices de la tabla `empleado`
 --
 ALTER TABLE `empleado`
-  ADD PRIMARY KEY (`id_empleado`);
+  ADD PRIMARY KEY (`id_empleado`),
+  ADD KEY `id_cargo` (`id_cargo`);
 
 --
 -- Indices de la tabla `inventarios`
@@ -244,6 +272,12 @@ ALTER TABLE `ventas`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `cargos`
+--
+ALTER TABLE `cargos`
+  MODIFY `id_cargo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `categorias`
