@@ -30,7 +30,7 @@ if (isset($_GET['action'])) {
                             $result['message'] = 'Se ha encontrado una coincidencia';
                         }
                     } else {
-                        $result['exception'] = 'No han encontrado coincidencias';
+                        $result['exception'] = 'No se han encontrado coincidencias';
                     }
                 } else {
                     $result['exception'] = 'Ingrese lo que deseas buscar';

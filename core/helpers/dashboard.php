@@ -32,14 +32,14 @@ class Dashboard
 										<img src="../../resources/img/logo.png">
 									</a>
 									<a href="#" data-target="slide-out" class="sidenav-trigger show-on-large">
-										<i class="material-icons">menu</i>
+										<i class="material-icons orange-text">menu</i>
 									</a>
 								</div>
 							</nav>
 						</div>
 
 					<!--El menu desplegable-->
-							<ul id="slide-out" class="sidenav">
+							<ul id="slide-out" class="sidenav collapsible">
 								<li>
 									<div class="user-view">
 										<div class="background">
@@ -57,14 +57,18 @@ class Dashboard
 									</div>
 								</li>
 								<li>
-									<a href="home.php">
-										<i class="material-icons">home</i>Inicio
-									</a>
+									<div class="collapsible-header">
+										<a href="home.php">
+											<i class="material-icons">home</i>Inicio
+										</a>
+									</div>	
 								</li>
 								<li>
-									<a href="categorias.php">
-										<i class="material-icons">description</i>Categorias
-									</a>
+									<div class="collapsible-header">
+										<a href="categorias.php">
+											<i class="material-icons">description</i>Categorías
+										</a>
+									</div>
 								</li>
 								<li>
 									<a href="productos.php">
@@ -77,14 +81,26 @@ class Dashboard
 									</a>
 								</li>
 								<li>
-									<a href="usuarios.php">
-										<i class="material-icons">person</i>Usuarios
-									</a>
-								</li>
-								<li>
-									<a href="clientes.php">
-										<i class="material-icons">person</i>Clientes
-									</a>
+									<div class="collapsible-header" href="home.php"><i class="material-icons">person</i>Usuarios</div>
+									<div class="collapsible-body">
+										<ul>
+											<li>
+												<a href="usuarios.php">
+													<i class="material-icons orange-text">person</i>Empleados 
+												</a>
+											</li>
+											<li>
+												<a href="cargos.php">
+													<i class="material-icons">person</i>Cargos
+												</a>
+											</li>
+											<li>
+												<a href="clientes.php">
+													<i class="material-icons">person</i>Clientes
+												</a>
+											</li>
+										</ul>
+									</div>
 								</li>
 								<li>
 									<a href="reportes.php">

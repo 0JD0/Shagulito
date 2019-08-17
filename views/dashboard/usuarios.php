@@ -1,6 +1,6 @@
 <?php
 require_once('../../core/helpers/dashboard.php');
-Dashboard::headerTemplate('Administrar usuarios');
+Dashboard::headerTemplate('Administrar empleados');
 ?>
 <div class="row">
     <!-- Formulario de búsqueda -->
