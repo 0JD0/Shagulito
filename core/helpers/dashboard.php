@@ -14,6 +14,7 @@ class Dashboard
 					<link type="image/png" rel="icon" href="../../resources/img/icono.png"/>
 					<link type="text/css" rel="stylesheet" href="../../resources/css/materialize.min.css"/>
 					<link type="text/css" rel="stylesheet" href="../../resources/css/icons.css"/>
+					<link type="text/css" rel="stylesheet" href="../../resources/css/fonts.css"/>
 					<link type="text/css" rel="stylesheet" href="../../resources/css/dashboard.css"/>
 					<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 				</head>
