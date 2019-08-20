@@ -1,5 +1,7 @@
 $(document).ready(function(){
-    $('.sidenav').sidenav();
+    $('.sidenav').sidenav({
+        preventScrolling:false
+    });
     $('.dropdown-trigger').dropdown();
     $('.materialboxed').materialbox();
     $('.tooltipped').tooltip();

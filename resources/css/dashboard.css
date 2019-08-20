@@ -1,6 +1,6 @@
 header nav{
     /*background: #df6a0a;*/
-    background: #fff2e8;
+    background: #ebebeb;
     border: none;
 }
 
@@ -10,7 +10,7 @@ header img{
 }
 
 header img.background{
-    width: 300px;
+    width: 330px;
     height: 165px;
 }
 
@@ -41,5 +41,7 @@ footer div.footer-copyright{
     }
 }
 
-
+.material-icons{
+    color:orange;
+}
 
