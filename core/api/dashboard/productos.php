@@ -9,7 +9,7 @@ if (isset($_GET['action'])) {
     $producto = new Productos;
     $result = array('status' => 0, 'message' => null, 'exception' => null);
     // verifca si existe una sesion iniciada para realizar operacionres
-    if (isset($_SESSION['idUsuario'])) {
+    if (isset($_SESSION['id_empleado'])) {
         switch ($_GET['action']) {
             case 'read':
                 if ($result['dataset'] = $producto->readProducto()) {
@@ -23,14 +23,14 @@ if (isset($_GET['action'])) {
                 if ($_POST['search'] != '') {
                     if ($result['dataset'] = $producto->searchProducto($_POST['search'])) {
                         $result['status'] = 1;
-						$rows = count($result['dataset']);
-						if ($rows > 1) {
-							$result['message'] = 'Se han encontraron '.$rows.' coincidencias';
-						} else {
-							$result['message'] = 'Se ha encontrado una coincidencia';
-						}
+                        $rows = count($result['dataset']);
+                        if ($rows > 1) {
+                            $result['message'] = 'Se han encontraron ' . $rows . ' coincidencias';
+                        } else {
+                            $result['message'] = 'Se ha encontrado una coincidencia';
+                        }
                     } else {
-                        $result['exception'] = 'No han encontrado coincidencias';
+                        $result['exception'] = 'No se han encontrado coincidencias';
                     }
                 } else {
                     $result['exception'] = 'Ingrese lo que deseas buscar';
@@ -170,6 +170,27 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Producto incorrecto';
                 }
                 break;
+            case 'graficoCPV':
+                if ($result['dataset'] = $producto->cantidadPV()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'No hay datos disponibles';
+                }
+                break;
+            case 'graficoCPP':
+                if ($result['dataset'] = $producto->cantidadPP()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'No hay datos disponibles';
+                }
+                break;
+            case 'graficoCPI':
+                if ($result['dataset'] = $producto->cantidadPI()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'No hay datos disponibles';
+                }
+                break;
             default:
                 exit('Acción no disponible');
         }
@@ -178,6 +199,5 @@ if (isset($_GET['action'])) {
         exit('Acceso no disponible');
     }
 } else {
-	exit('Recurso denegado');
+    exit('Recurso denegado');
 }
-?>

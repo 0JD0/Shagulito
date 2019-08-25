@@ -16,7 +16,7 @@ function fillTable(rows)
         (row.estado_producto == 1) ? icon = 'visibility' : icon = 'visibility_off';
         content += `
             <tr>
-                <td class="hide-on-med-and-down"><img src="../../resources/img/productos/${row.imagen_producto}" class="materialboxed" height="100"></td>
+                <td class="hide-on-med-and-down"><img src="../../resources/img/productos/${row.imagen_producto}" class="materialboxed" height="75"></td>
                 <td>${row.nombre_producto}</td>
                 <td>${row.precio_producto}</td>
                 <td>${row.nombre_categoria}</td>

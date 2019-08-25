@@ -4,7 +4,7 @@ $(document).ready(function()
 })
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
-const apiUsuarios = '../../core/api/dashboard/usuarios.php?site=dashboard&action=';
+const apiUsuarios = '../../core/api/dashboard/usuarios.php?action=';
 
 //Función para llenar tabla con los datos de los registros
 function fillTable(rows)
@@ -12,17 +12,18 @@ function fillTable(rows)
     let content = '';
     //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
     rows.forEach(function(row){
+        (row.estado_producto == 1) ? icon = 'visibility' : icon = 'visibility_off';
         content += `
             <tr>
+                <td class="hide-on-med-and-down"><img src="../../resources/img/usuarios/${row.foto_empleado}" class="materialboxed" width="75"</td>
                 <td>${row.apellido_empleado}</td>
                 <td>${row.nombre_empleado}</td>
                 <td>${row.telefono_empleado}</td>
                 <td>${row.correo_empleado}</td>
                 <td>${row.alias_empleado}</td>
-                <td><img src="../../resources/img/usuarios/${row.foto_empleado}" class="materialboxed" heigth="100"</td>
                 <td>
-                    <a href="#" onclick="modalUpdate(${row.id_usuario})" class="blue-text tooltipped" data-tooltip="Modificar"><i class="material-icons">mode_edit</i></a>
-                    <a href="#" onclick="confirmDelete(${row.id_usuario}, '${row.foto_empleado}')" class="red-text tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
+                    <a href="#" onclick="modalUpdate(${row.id_empleado})" class="blue-text tooltipped" data-tooltip="Modificar"><i class="material-icons">mode_edit</i></a>
+                    <a href="#" onclick="confirmDelete(${row.id_empleado}, '${row.foto_empleado}')" class="red-text tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
                 </td>
             </tr>
         `;
@@ -152,6 +153,7 @@ function modalUpdate(id)
                 $('#update_correo').val(result.dataset.correo_empleado);
                 $('#update_alias').val(result.dataset.alias_empleado);
                 $('#imagen_usuario').val(result.dataset.foto_empleado);
+                (result.dataset.estado_producto == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
                 M.updateTextFields();
                 $('#modal-update').modal('open');
             } else {
@@ -205,7 +207,7 @@ $('#form-update').submit(function()
 
 
 //Función para eliminar un registro seleccionado
-function confirmDelete(id)
+function confirmDelete(id, foto)
 {
     swal({
         title: 'Advertencia',
@@ -221,7 +223,8 @@ function confirmDelete(id)
                 url: apiUsuarios + 'delete',
                 type: 'post',
                 data:{
-                    id_empleado: id
+                    id_empleado: id,
+                    foto_empleado: foto
                 },
                 datatype: 'json'
             })

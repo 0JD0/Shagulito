@@ -130,7 +130,7 @@ class Validator
 
 	public function validatePassword($value)
 	{
-		if (strlen($value) > 5) {
+		if (strlen($value) > 8) {
 			return true;
 		} else {
 			return false;
@@ -159,6 +159,15 @@ class Validator
 				return false;
 			}
 		} else {
+			return false;
+		}
+	}
+
+	public function fechas($value)
+	{
+		if(preg_match("/^([0-9]{4})-([0-9]{2})-([0-9]{2})+$/",$value)){
+			return true;
+		} else{
 			return false;
 		}
 	}

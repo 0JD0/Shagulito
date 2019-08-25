@@ -9,7 +9,7 @@ if (isset($_GET['action'])) {
 	$categoria = new Categorias;
 	$result = array('status' => 0, 'message' => null, 'exception' => null);
 	//Se verifica si existe una sesión iniciada como administrador para realizar las operaciones correspondientes
-	if (isset($_SESSION['idUsuario'])) {
+	if (isset($_SESSION['id_empleado'])) {
 		switch ($_GET['action']) {
 			case 'read':
 				if ($result['dataset'] = $categoria->readCategorias()) {
@@ -103,7 +103,14 @@ if (isset($_GET['action'])) {
 				} else {
 					$result['exception'] = 'Categoría incorrecta';
 				}
-            	break;
+				break;
+				case 'graficoCPC':
+                if ($result['dataset'] = $categoria->cantidadPC()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'No hay datos disponibles';
+                }
+                break;
 			default:
 				exit('Acción no disponible');
 		}

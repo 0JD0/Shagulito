@@ -114,5 +114,14 @@ class Categorias extends Validator
 		$params = array($this->id);
 		return Database::executeRow($sql, $params);
 	}
+
+	//consultas para graficos
+	public function cantidadPC()
+	{
+		$sql = 'SELECT nombre_categoria, COUNT(id_producto) cantidad FROM productos INNER JOIN categorias USING(id_categoria) GROUP BY id_categoria';
+		$params = array(null);
+		return Database::getRows($sql, $params);
+	}
+	
 }
 ?>

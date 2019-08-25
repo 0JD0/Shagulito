@@ -1,34 +1,34 @@
 <?php
 require_once('../../core/helpers/dashboard.php');
-Dashboard::headerTemplate('Administrar usuarios');
+Dashboard::headerTemplate('Administrar empleados');
 ?>
 <div class="row">
     <!-- Formulario de búsqueda -->
     <form method="post" id="form-search">
-        <div class="input-field col s6 m4">
+        <div class="input-field col s8 m6">
             <i class="material-icons prefix">search</i>
             <input id="buscar" type="text" name="busqueda"/>
             <label for="buscar">Buscador</label>
         </div>
-        <div class="input-field col s6 m4">
-            <button type="submit" class="btn waves-effect green tooltipped" data-tooltip="Buscar"><i class="material-icons">check_circle</i></button>
+        <div class="input-field col s2 m3">
+            <button type="submit" class="btn-floating waves-effect green tooltipped" data-tooltip="Buscar"><i class="material-icons">check</i></button>
         </div>
     </form>
     <!-- Botón para abrir ventana de nuevo registro -->
-    <div class="input-field center-align col s12 m4">
-        <a href="#modal-create" class="btn waves-effect indigo tooltipped modal-trigger" data-tooltip="Agregar"><i class="material-icons">add_circle</i></a>
+    <div class="input-field center-align col s2 m3">
+        <a href="#modal-create" class="btn-floating waves-effect indigo tooltipped modal-trigger" data-tooltip="Agregar"><i class="material-icons">add</i></a>
     </div>
 </div>
 <!-- Tabla para mostrar los registros existentes -->
-<table class="highlight">
+<table class="highlight centered responsive-table">
     <thead>
         <tr>
+            <th class="hide-on-med-and-down">FOTO</th>
             <th>APELLIDOS</th>
             <th>NOMBRES</th>
-            <th>TELEFONO</th>
+            <th>TELÉFONO</th>
             <th>CORREO</th>
             <th>ALIAS</th>
-            <th>FOTO</th>
             <th>ACCIÓN</th>
 
         </tr>
@@ -45,37 +45,37 @@ Dashboard::headerTemplate('Administrar usuarios');
             <div class="input-field col s12 m6">
                 <i class="material-icons prefix">person</i>
                 <input id="create_nombres" type="text" name="create_nombres" class="validate" required/>
-                <label for="nombres">Nombres</label>
+                <label for="create_nombres">Nombres</label>
             </div>
             <div class="input-field col s12 m6">
                 <i class="material-icons prefix">person</i>
                 <input id="create_apellidos" type="text" name="create_apellidos" class="validate" required/>
-                <label for="apellidos">Apellidos</label>
+                <label for="create_apellidos">Apellidos</label>
             </div>
             <div class="input-field col s12 m6">
                 <i class="material-icons prefix">person</i>
                 <input id="create_telefono" type="number" name="create_telefono" class="validate" required/>
-                <label for="telefono">Telefono</label>
+                <label for="create_telefono">Telefono</label>
             </div>
             <div class="input-field col s12 m6">
                 <i class="material-icons prefix">email</i>
                 <input id="create_correo" type="email" name="create_correo" class="validate" required/>
-                <label for="correo">Correo</label>
+                <label for="create_correo">Correo</label>
             </div>
             <div class="input-field col s12 m6">
                 <i class="material-icons prefix">person_pin</i>
                 <input id="create_alias" type="text" name="create_alias" class="validate" required/>
-                <label for="alias">Alias</label>
+                <label for="create_alias">Alias</label>
             </div>
             <div class="input-field col s12 m6">
                 <i class="material-icons prefix">security</i>
                 <input id="create_clave1" type="password" name="create_clave1" class="validate" required/>
-                <label for="clave1">Clave</label>
+                <label for="create_clave1">Clave</label>
             </div>
             <div class="input-field col s12 m6">
                 <i class="material-icons prefix">security</i>
                 <input id="create_clave2" type="password" name="create_clave2" class="validate" required/>
-                <label for="clave2">Confirmar clave</label>
+                <label for="create_clave2">Confirmar clave</label>
             </div>
             <div class="file-field input-field col s12 m6">
                     <div class="btn waves-effect">
@@ -86,6 +86,19 @@ Dashboard::headerTemplate('Administrar usuarios');
                         <input type="text" class="file-path validate" placeholder="Seleccione una imagen"/>
                     </div>
             </div>
+            <div class="col s12 m6">
+                    <p>
+                        <div class="switch">
+                            <span>Estado:</span>
+                            <label>
+                                <i class="material-icons">visibility_off</i>
+                                <input id="create_estado" type="checkbox" name="create_estado" checked />
+                                <span class="lever"></span>
+                                <i class="material-icons">visibility</i>
+                            </label>
+                        </div>
+                    </p>
+                </div>
         </div>
             <div class="row center-align">
                 <a href="#" class="btn waves-effect grey tooltipped modal-close" data-tooltip="Cancelar"><i class="material-icons">cancel</i></a>
