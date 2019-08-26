@@ -162,7 +162,6 @@ class Usuarios extends Validator
 		if ($data) {
 			$this->id = $data['id_empleado'];
 			return $data;
-
 		} else {
 			return false;
 		}
@@ -188,16 +187,14 @@ class Usuarios extends Validator
 		$params = array($hash, $this->id);
 		return Database::executeRow($sql, $params);
 	}
-	
 
 	public function wrongPassword()
 	{
 		$sql = 'UPDATE empleado SET intentos = intentos + 1 WHERE id_empleado = ?';
 		$params = array($this->id);
 		return Database::executeRow($sql, $params);
-	}
-
-	//Metodos para manejar el CRUD
+		
+	}	//Metodos para manejar el CRUD
 	public function readUsuarios()
 	{
 		$sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado, clave_empleado, foto_empleado, estado_empleado FROM empleado ORDER BY apellido_empleado';

@@ -57,14 +57,13 @@ $('#form-sesion').submit(function()
             }
         } else {
             sweetAlert(2, result.exception, null);
+            }
+        } else {
+            console.log(response);
         }
-    } else {
-        console.log(response);
-    }
-})
+    })
     .fail(function(jqXHR){
         //Se muestran en consola los posibles errores de la solicitud AJAX
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 })
-
