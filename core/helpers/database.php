@@ -18,7 +18,15 @@ class Database
     private function connect()
     {
         $server = 'localhost';
-        $database = 'shagulito2';
+        $database = 'shagulito';
+        // Acceso laptop JD
+      //  $username = 'JD';
+        //$password = 'JD@shagulito.com';
+//        $username = 'root';
+//        $password = '';
+//        $username = 'JD';
+//        $password = 'JD@shagulito.com';
+        // Acceso global
         $username = 'root';
         $password = '';
         try {

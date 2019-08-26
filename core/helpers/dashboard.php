@@ -1,115 +1,151 @@
 <?php
 class Dashboard
 {
-	public static function headerTemplate($title)
-	{
-		session_start();
-		ini_set('date.timezone', 'America/El_Salvador');
-		print('
+    public static function headerTemplate($title)
+    {
+        session_start();
+        ini_set('date.timezone', 'America/El_Salvador');
+        print('
 			<!DOCTYPE html>
 			<html lang="es">
 				<head>
 					<meta charset="utf-8">
-					<title>Dashboard - '.$title.'</title>
+					<title>' . $title . '</title>
 					<link type="image/png" rel="icon" href="../../resources/img/icono.png"/>
 					<link type="text/css" rel="stylesheet" href="../../resources/css/materialize.min.css"/>
 					<link type="text/css" rel="stylesheet" href="../../resources/css/icons.css"/>
+					<link type="text/css" rel="stylesheet" href="../../resources/css/fonts.css"/>
 					<link type="text/css" rel="stylesheet" href="../../resources/css/dashboard.css"/>
 					<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 				</head>
-				<body>
+				<body id="noctext">
 		');
-		if (isset($_SESSION['id_empleado'])) {
-			$filename = basename($_SERVER['PHP_SELF']);
-			if ($filename != 'index.php') {
-				self::modals();
-				print('
+        if (isset($_SESSION['id_empleado'])) {
+            $filename = basename($_SERVER['PHP_SELF']);
+            if ($filename != 'index.php') {
+                self::modals();
+                print('
 					<header>
 						<div class="navbar-fixed">
 							<nav>
 								<div class="nav-wrapper">
-									<a href="#!" class="brand-logo center">
+									<a href="home.php" class="brand-logo center">
 										<img src="../../resources/img/logo.png">
 									</a>
 									<a href="#" data-target="slide-out" class="sidenav-trigger show-on-large">
-										<i class="material-icons">menu</i>
+										<i class="material-icons orange-text">menu</i>
 									</a>
 								</div>
 							</nav>
 						</div>
+
 					<!--El menu desplegable-->
-							<ul id="slide-out" class="sidenav">
+							<ul id="slide-out" class="sidenav collapsible">
 								<li>
 									<div class="user-view">
 										<div class="background">
-											<img class="background" src="../../resources/img/fondo.jpg" >
+											<img class="background" id="mode">
 										</div>
-										<a href="#user">
-											<img class="circle" >
+										<a href="#">
+											<i class="material-icons right black-text">ettings</i>
 										</a>
 										<a href="#">
-											<span class="black-text">'.$_SESSION['alias_empleado'].'</span>
-										</a>					
+											<img class="circle" src="../../resources/img/usuarios/' . $_SESSION['foto_empleado'] . '">
+										</a>
+										<a href="#">
+											<span class="black-text">' . $_SESSION['alias_empleado'] . '</span>
+										</a>
+									</div>
+								</li>
+								<li class="no-padding">
+									<div class="collapsible-header">
+										<a href="home.php"><i class="material-icons">home</i>Inicio</a>
 									</div>
 								</li>
 								<li>
-									<a href="home.php">
-										<i class="material-icons">home</i>Inicio</a>
+									<div class="collapsible-header"><i class="material-icons">cake</i>Producción</div>
+									<div class="collapsible-body">
+										<ul>
+											<li>
+												<a href="categorias.php">
+												<i class="material-icons">description</i>Categorías 
+												</a>
+											</li>
+											<li>
+												<a href="productos.php">
+													<i class="material-icons">cake</i>Productos
+												</a>
+											</li>
+											<li>
+												<a href="ventas.php">
+													<i class="material-icons">attach_money</i>Ventas
+												</a>
+											</li>
+										</ul>
+									</div>
 								</li>
 								<li>
-									<a href="categorias.php">
-										<i class="material-icons">description</i>Categorias
+									<div class="collapsible-header"><i class="material-icons">person</i>Usuarios</div>
+									<div class="collapsible-body">
+										<ul>
+											<li>
+												<a href="usuarios.php">
+													<i class="material-icons">person</i>Empleados 
+												</a>
+											</li>
+											<li>
+												<a href="cargos.php">
+													<i class="material-icons">person</i>Cargos
+												</a>
+											</li>
+											<li>
+												<a href="clientes.php">
+													<i class="material-icons">person</i>Clientes
+												</a>
+											</li>
+										</ul>
+									</div>
+								</li>
+								<li>
+									<a href="reportes.php">
+										<i class="material-icons">list</i>Reportes
 									</a>
 								</li>
 								<li>
-									<a href="productos.php">
-										<i class="material-icons">cake</i>Productos
-									</a>
-									</li>
-								<li>
-								<li>
-									<a href="ventas.php">
-										<i class="material-icons">attach_money</i>Ventas
-									</a>
-								</li>
-								<li>
-									<a href="inventario.php">
-										<i class="material-icons">book</i>Inventario
-									</a>
-								</li>
-								<li>
-										<a href="usuarios.php">
-											<i class="material-icons">person</i>Usuarios
-										</a>
-									</li> 
-									<li>
-									<a href="tipo_usuario.php">
-										<i class="material-icons">person</i>Tipo de Usuarios
-									</a>
-								</li>  
-								<li>
-									
 									<div class="divider"></div>
 								</li>
 								<li>
-									<a class="waves-effect" href="login.php">
+									<a class="waves-effect" href="#" onclick="signOff()">
 											<i class="material-icons">exit_to_app</i>Cerrar Sesión
 									</a>
 								</li>
 							</ul>
 					</header>
 					<main class="container">
-						<h3 class="center-align">'.$title.'</h3>
+						<h3 class="center-align">' . $title . '</h3>
 				');
-			} else {
-				header('location: home.php');
-			}
-		} else {
-			$filename = basename($_SERVER['PHP_SELF']);
-			if ($filename != 'index.php' && $filename != 'register.php') {
-				header('location: index.php');
-			} else {
-				print('
+                /*
+            agregar cuando funcione
+            <li>
+            <a href="ventas.php">
+            <i class="material-icons">attach_money</i>Ventas
+            </a>
+            </li>
+            <li>
+            <a href="inventario.php">
+            <i class="material-icons">book</i>Inventario
+            </a>
+            </li>
+             */
+            } else {
+                header('location: home.php');
+            }
+        } else {
+            $filename = basename($_SERVER['PHP_SELF']);
+            if ($filename != 'index.php' && $filename != 'register.php') {
+                header('location: index.php');
+            } else {
+                print('
 				<header>
 					<div class="navbar-fixed">
 						<nav>
@@ -125,15 +161,15 @@ class Dashboard
 					</div>
 				</header>
 					<main class="container">
-						<h3 class="center-align">'.$title.'</h3>
+						<h3 class="center-align">' . $title . '</h3>
 				');
-			}
-		}
-	}
+            }
+        }
+    }
 
-	public static function footerTemplate($controller)
-	{
-		print('
+    public static function footerTemplate($controller)
+    {
+        print('
 					</main>
 					<footer class="page-footer">
 						<div class="container">
@@ -162,15 +198,17 @@ class Dashboard
 					<script type="text/javascript" src="../../core/helpers/functions.js"></script>
 					<script type="text/javascript" src="../../core/helpers/components.js"></script>
 					<script type="text/javascript" src="../../core/controllers/dashboard/account.js"></script>
-					<script type="text/javascript" src="../../core/controllers/dashboard/'.$controller.'"></script>
+					<script type="text/javascript" src="../../core/controllers/dashboard/dashboard.js"></script>
+					<script type="text/javascript" src="../../resources/js/chart.js"></script>
+					<script type="text/javascript" src="../../core/controllers/dashboard/' . $controller . '"></script>
 				</body>
 			</html>
 		');
-	}
+    }
 
-	private function modals()
-	{
-		print('
+    private function modals()
+    {
+        print('
 			<div id="modal-profile" class="modal">
 				<div class="modal-content">
 					<h4 class="center-align">Editar perfil</h4>
@@ -251,6 +289,5 @@ class Dashboard
 				</div>
 			</div>
 		');
-	}
+    }
 }
-?>

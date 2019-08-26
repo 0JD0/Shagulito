@@ -4,7 +4,7 @@ Dashboard::headerTemplate('Iniciar sesión');
 ?>
 <div class="container">
     <div class="row">
-        <form method="post" id="form-sesion">
+        <form method="post" id="form-sesion" autocomplete="off">
             <div class="input-field col s12 m6 offset-m3">
                 <i class="material-icons prefix">person_pin</i>
                 <input id="alias" type="text" name="alias" class="validate" required/>

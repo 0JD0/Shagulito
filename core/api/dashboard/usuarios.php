@@ -13,9 +13,9 @@ if (isset($_GET['action'])) {
         switch ($_GET['action']) {
             case 'logout':
                 if (session_destroy()) {
-                    header('location: ../../views/dashboard/');
+                    header('location: ../../../views/dashboard/');
                 } else {
-                    header('location: ../../views/dashboard/home.php');
+                    header('location: ../../../views/dashboard/home.php');
                 }
                 break;
             case 'readProfile':
@@ -122,46 +122,50 @@ if (isset($_GET['action'])) {
                 if ($usuario->setNombres($_POST['create_nombres'])) {
                     if ($usuario->setApellidos($_POST['create_apellidos'])) {
                         if ($usuario->setTelefono($_POST['create_telefono'])) {
-                        if ($usuario->setCorreo($_POST['create_correo'])) {
-                            if ($usuario->setAlias($_POST['create_alias'])) {
-                                if ($_POST['create_clave1'] == $_POST['create_clave2']) {
-                                    if ($usuario->setClave($_POST['create_clave1'])) {
-                                        if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
-                                            if ($usuario->setImagen($_FILES['create_archivo'], null)) {    
-                                        if ($usuario->createUsuario()) {
-                                            if ($usuario->saveFile($_FILES['create_archivo'], $usuario->getRuta(), $usuario->getImagen())) {
-                                            $result['status'] = 1;
+                            if ($usuario->setCorreo($_POST['create_correo'])) {
+                                if ($usuario->setAlias($_POST['create_alias'])) {
+                                    if ($_POST['create_clave1'] == $_POST['create_clave2']) {
+                                        if ($usuario->setClave($_POST['create_clave1'])) {
+                                            if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
+                                                if ($usuario->setImagen($_FILES['create_archivo'], null)) {
+                                                    if ($producto->setEstado(isset($_POST['create_estado']) ? 1 : 0)) {    
+                                                        if ($usuario->createUsuario()) {
+                                                            if ($usuario->saveFile($_FILES['create_archivo'], $usuario->getRuta(), $usuario->getImagen())) {
+                                                            $result['status'] = 1;
+                                                            } else {
+                                                                $result['status'] = 2;
+                                                                $result['exception'] = 'No se guardó el archivo';
+                                                            }
+                                                        } else {
+                                                            $result['exception'] = 'Operación fallida';
+                                                        }
+                                                    } else {
+                                                        $result['exception'] = 'Estado incorrecto';
+                                                    }
+                                                } else {
+                                                    $result['exception'] = $usuario->getImageError();
+                                                }
+                                            } else {
+                                                $result['exception'] = 'Seleccione una imagen';
+                                            }
                                         } else {
-                                            $result['status'] = 2;
-                                            $result['exception'] = 'No se guardó el archivo';
-                                        }
-                                        } else {
-                                            $result['exception'] = 'Operación fallida';
+                                            $result['exception'] = 'Clave menor a 6 caracteres';
                                         }
                                     } else {
-                                        $result['exception'] = $usuario->getImageError();
+                                        $result['exception'] = 'Claves diferentes';
                                     }
                                 } else {
-                                    $result['exception'] = 'Seleccione una imagen';
-                                }
-                                    } else {
-                                        $result['exception'] = 'Clave menor a 6 caracteres';
-                                    }
-                                } else {
-                                    $result['exception'] = 'Claves diferentes';
+                                    $result['exception'] = 'Alias incorrecto';
                                 }
                             } else {
-                                $result['exception'] = 'Alias incorrecto';
+                                $result['exception'] = 'Correo incorrecto';
                             }
                         } else {
-                            $result['exception'] = 'Correo incorrecto';
+                            $result['exception'] = 'Telefono incorrectos';
                         }
                     } else {
-                        $result['exception'] = 'Telefono incorrectos';
+                        $result['exception'] = 'Apellidos incorrectos' ;
                     }
-                } else {
-                    $result['exception'] = 'Apellidos incorrectos' ;
-                }
                 } else {
                     $result['exception'] = 'Nombres incorrectos';
                 }
@@ -184,37 +188,41 @@ if (isset($_GET['action'])) {
                         if ($usuario->setNombres($_POST['update_nombres'])) {
                             if ($usuario->setApellidos($_POST['update_apellidos'])) {
                                 if ($usuario->setTelefono($_POST['update_telefono'])) {
-                                if ($usuario->setCorreo($_POST['update_correo'])) {
-                                    if ($usuario->setAlias($_POST['update_alias'])) {
-                                        if (is_uploaded_file($_FILES['update_archivo']['tmp_name'])) {
-                                            if ($usuario->setImagen($_FILES['update_archivo'], $_POST['imagen_usuario'])) {
-                                                $archivo = true;
-                                            } else {
-                                                $result['exception'] = $usuario->getImageError();
-                                                $archivo = false;
-                                            }
-                                        } else {
-                                            if ($usuario->setImagen(null, $_POST['imagen_usuario'])) {
-                                                $result['exception'] = 'No se subió ningún archivo';
-                                            } else {
-                                                $result['exception'] = $usuario->getImageError();
-                                            }
-                                            $archivo = false;
-                                        }
-                                        if ($usuario->updateUsuario()) {
-                                            if ($archivo) {
-                                                if ($usuario->saveFile($_FILES['update_archivo'], $usuario->getRuta(), $usuario->getImagen())) {
-                                                    $result['status'] = 1;
+                                    if ($usuario->setCorreo($_POST['update_correo'])) {
+                                        if ($usuario->setAlias($_POST['update_alias'])) {
+                                            if (is_uploaded_file($_FILES['update_archivo']['tmp_name'])) {
+                                                if ($usuario->setImagen($_FILES['update_archivo'], $_POST['imagen_usuario'])) {
+                                                    $archivo = true;
                                                 } else {
-                                                    $result['status'] = 2;
-                                                    $result['exception'] = 'No se guardó el archivo';
+                                                    $result['exception'] = $usuario->getImageError();
+                                                    $archivo = false;
                                                 }
                                             } else {
-                                                $result['status'] = 3;
+                                                if ($usuario->setImagen(null, $_POST['imagen_usuario'])) {
+                                                    $result['exception'] = 'No se subió ningún archivo';
+                                                } else {
+                                                    $result['exception'] = $usuario->getImageError();
+                                                }
+                                                $archivo = false;
                                             }
-                                        } else {
-                                            $result['exception'] = 'Operación fallida';
-                                        }
+                                            if ($producto->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
+                                                if ($usuario->updateUsuario()) {
+                                                    if ($archivo) {
+                                                        if ($usuario->saveFile($_FILES['update_archivo'], $usuario->getRuta(), $usuario->getImagen())) {
+                                                            $result['status'] = 1;
+                                                        } else {
+                                                            $result['status'] = 2;
+                                                            $result['exception'] = 'No se guardó el archivo';
+                                                        }
+                                                    } else {
+                                                        $result['status'] = 3;
+                                                    }
+                                                } else {
+                                                    $result['exception'] = 'Operación fallida';
+                                                }
+                                            } else {
+                                                $result['exception'] = 'Estado incorrecto';
+                                            }
                                     } else {
                                         $result['exception'] = 'Alias incorrecto';
                                     }
@@ -236,9 +244,10 @@ if (isset($_GET['action'])) {
                 } else {
                     $result['exception'] = 'Usuario incorrecto';
                 }
-                break;case 'delete':
-                if ($_POST['identifier'] != $_SESSION['id_empleado']) {
-                    if ($usuario->setId($_POST['identifier'])) {
+                break;
+            case 'delete':
+                if ($_POST['id_empleado'] != $_SESSION['id_empleado']) {
+                    if ($usuario->setId($_POST['id_empleado'])) {
                         if ($usuario->getUsuario()) {
                             if ($usuario->deleteUsuario()) {
                                 $result['status'] = 1;
@@ -256,9 +265,20 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No se puede eliminar a sí mismo';
                 }
                 break;
+            case 'graficoCE':
+                $_POST = $usuario->validateForm($_POST);
+                if ($_POST['empleadoce'] != '') {
+                    if ($result['dataset'] = $usuario->correoEmpleado($_POST['empleadoce'])) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'No hay datos disponibles en el rango seleccionado';
+                    }
+                } else {
+                        $result['exception'] = 'Ingrese un valor para mostrar';
+                }
+                break;
             default:
-                exit('Acción no disponible log');
-        
+                exit('Acción no disponible');
         }
     } else if ($_GET['action']) {
         switch ($_GET['action']) {
@@ -268,7 +288,7 @@ if (isset($_GET['action'])) {
                     $result['message'] = 'Existe al menos un usuario registrado';
                 } else {
                     $result['status'] = 2;
-                    $result['message'] = 'No existen usuarios registrados';
+                    $result['exception'] = 'No existen usuarios registrados';
                 }
                 break;
                 case 'register':
@@ -316,8 +336,26 @@ if (isset($_GET['action'])) {
                             if ($usuario->checkPassword()) {
                                 $_SESSION['id_empleado'] = $usuario->getId();
                                 $_SESSION['alias_empleado'] = $usuario->getAlias();
+                                $_SESSION['foto_empleado'] = $usuario->getImagen();
                                 $result['status'] = 1;
                                 $result['message'] = 'Autenticación correcta';
+                                if(isset($_SESSION["conectado"])){
+                                    $fechaGuardada = $_SESSION["ultimoAcceso"];
+                                    $ahora = date("Y-n-j H:i:s");
+                                    if($_SESSION["conectado"]!=true){
+                                        header ('location ../../views/dashboard/');
+                                        return false;
+                                    } else {
+                                    $tiempo_transcurrido = (strtotime($ahora)-strtotime($fechaGuardada));
+                                    if($tiempo_transcurrido >= 60){ // 1 x 60 x 60 = 1 horas...
+                                            session_destroy();
+                                            echo '<script>index.php"</script>'; // 
+                                            return false;
+                                        } else{$_SESSION["ultimoAcceso"] = $ahora;}
+                                    }
+                                } else {
+                                    return false;
+                                }
                             } else {
                                 $result['exception'] = 'Clave inexistente';
                             }
@@ -331,6 +369,24 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Alias incorrecto';
                 }
                 break;
+            case 'time':
+                if(isset($_SESSION["conectado"])){
+                    $fechaGuardada = $_SESSION["ultimoAcceso"];
+                    $ahora = date("Y-n-j H:i:s");
+                    if($_SESSION["conectado"]!=true){
+                        header ('location ../../views/dashboard/');
+                        return false;
+                    } else {
+                    $tiempo_transcurrido = (strtotime($ahora)-strtotime($fechaGuardada));
+                    if($tiempo_transcurrido >= 60){ // 1 x 60 x 60 = 1 horas...
+                            session_destroy();
+                            echo '<script>index.php"</script>'; // 
+                            return false;
+                        } else{$_SESSION["ultimoAcceso"] = $ahora;}
+                    }
+                } else {
+                    return false;
+                }
             default:
                 exit('Acción no disponible');
         }

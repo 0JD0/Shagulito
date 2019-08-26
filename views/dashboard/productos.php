@@ -3,6 +3,10 @@ require_once('../../core/helpers/dashboard.php');
 Dashboard::headerTemplate('Administrar productos');
 ?>
 
+<div class="dropdown">
+    
+</div>
+
 <div class="row">
     <!-- Formulario de búsqueda -->
     <form method="post" id="form-search">
@@ -95,7 +99,7 @@ Dashboard::headerTemplate('Administrar productos');
                     <i class="material-icons">cancel</i>
                 </a>
                 <button href="#modal-exito" type="submit"
-                    class="modal-close btn waves-effect waves-light green tooltipped modal-trigger"
+                    class="btn waves-effect waves-light green tooltipped"
                     data-tooltip="Crear">
                     <i class="material-icons">save</i>
                 </button>
