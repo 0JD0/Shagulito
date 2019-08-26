@@ -162,6 +162,7 @@ class Usuarios extends Validator
 		if ($data) {
 			$this->id = $data['id_empleado'];
 			return $data;
+
 		} else {
 			return false;
 		}
@@ -187,6 +188,7 @@ class Usuarios extends Validator
 		$params = array($hash, $this->id);
 		return Database::executeRow($sql, $params);
 	}
+	
 
 	public function wrongPassword()
 	{
