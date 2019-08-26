@@ -367,14 +367,14 @@ if (isset($_GET['action'])) {
                                     if ($usuario->wrongPassword()) {
                                         $result['exception'] = 'Clave inexistente. Intento: '.($intentos + 1);
                                     } else {
-                                        $result['exception'] = 'Clave menor a 6 caracteres. Siga intentando';
+                                        $result['exception'] = 'Clave menor a 6 caracteres';
                                     }
                                 }
                             } else {
                                 if ($usuario->wrongPassword()) {
                                     $result['exception'] = 'Clave menor a 6 caracteres. Intento: '.($intentos + 1);
                                 } else {
-                                    $result['exception'] = 'Clave menor a 6 caracteres. Siga intentando';
+                                    $result['exception'] = 'Clave menor a 6 caracteres';
                                 }
                             }
                         } else {
