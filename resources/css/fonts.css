@@ -3,7 +3,8 @@
     src: url(../fonts/ProductSans-Regular.woff) format('woff');
   }
 
-body {
-  font-family: 'Product Sans Regular';
-  font-style: normal;
-}
+  body {
+    font-family: 'Product Sans Regular';
+    font-style: normal;
+  }
+  

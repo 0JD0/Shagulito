@@ -152,8 +152,8 @@ function modalUpdate(id)
                 $('#update_telefono').val(result.dataset.telefono_empleado);
                 $('#update_correo').val(result.dataset.correo_empleado);
                 $('#update_alias').val(result.dataset.alias_empleado);
-                $('#update_archivo').val(result.dataset.foto_empleado);
-                //(result.dataset.estado_producto == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
+                $('#imagen_usuario').val(result.dataset.foto_empleado);
+                (result.dataset.estado_producto == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
                 M.updateTextFields();
                 $('#modal-update').modal('open');
             } else {

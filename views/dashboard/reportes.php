@@ -11,7 +11,7 @@ Dashboard::headerTemplate('Reportes');
                     <p>Reporte Cliente</p>
                 </div>
                 <div class="card-action">
-                    <a  target="_blank" href="../../PDF_Shagul/PDF_cliente.php">Mostrar</a>
+                    <a href="../../PDF_Shagul/PDF_cliente.php">Mostrar</a>
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@ Dashboard::headerTemplate('Reportes');
                     <p>Reporte Productos</p>
                 </div>
                 <div class="card-action">
-                    <a  target="_blank" href="../../PDF_Shagul/PDF_products.php">Mostrar</a>
+                    <a href="../../PDF_Shagul/PDF_products.php">Mostrar</a>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@ Dashboard::headerTemplate('Reportes');
                     <p>Reporte Usuarios</p>
                 </div>
                 <div class="card-action">
-                    <a  target="_blank" href="../../PDF_Shagul/PDF_users.php">Mostrar</a>
+                    <a href="../../PDF_Shagul/PDF_users.php">Mostrar</a>
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@ Dashboard::headerTemplate('Reportes');
                     <p>Reporte Ventas</p>
                 </div>
                 <div class="card-action">
-                    <a  target="_blank" href="../../PDF_Shagul/PDF_venta.php">Mostrar</a>
+                    <a href="../../PDF_Shagul/PDF_venta.php">Mostrar</a>
                 </div>
             </div>
         </div>
@@ -63,7 +63,7 @@ Dashboard::headerTemplate('Reportes');
                     <p>Reporte Lotes</p>
                 </div>
                 <div class="card-action">
-                    <a  target="_blank" href="../../PDF_Shagul/PDF_lotes.php">Mostrar</a>
+                    <a href="../../PDF_Shagul/PDF_lotes.php">Mostrar</a>
                 </div>
             </div>
         </div>

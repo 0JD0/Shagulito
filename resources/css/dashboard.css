@@ -1,6 +1,6 @@
 header nav{
     /*background: #df6a0a;*/
-    background: #fff2e8;
+    background: #ebebeb;
     border: none;
 }
 
@@ -42,6 +42,6 @@ footer div.footer-copyright{
 }
 
 .material-icons{
-    color:orange;
+    color:#fe5722;
 }
 
