@@ -7,7 +7,7 @@ require_once('../../models/usuarios.php');
 if (isset($_GET['action'])) {
     session_start();
     $usuario = new Usuarios;
-    $result = array('status' => 0,'message' => null, 'exception' => null);
+    $result = array('status' => 0,'message' => null, 'exception' => null, 'intentos' => 1);
     //Se verifica si existe una sesión iniciada como administrador para realizar las operaciones correspondientes
     if (isset($_SESSION['id_empleado'])) {
         switch ($_GET['action']) {
@@ -353,20 +353,33 @@ if (isset($_GET['action'])) {
             case 'login':
                 $_POST = $usuario->validateForm($_POST);
                 if ($usuario->setAlias($_POST['alias'])) {
-                    if ($usuario->checkAlias()) {
-                        if ($usuario->setClave($_POST['clave'])) {
-                            if ($usuario->checkPassword()) {
-                                $_SESSION['id_empleado'] = $usuario->getId();
-                                $_SESSION['alias_empleado'] = $usuario->getAlias();
-                                $_SESSION['foto_empleado'] = $usuario->getImagen();
-                                $result['status'] = 1;
-                                $result['message'] = 'Autenticación correcta';
+                    if ($result = $usuario->checkAlias()) {
+                        $intentos = $result['intentos'];
+                        if ($intentos < 3) {
+                            if ($usuario->setClave($_POST['clave'])) {
+                                if ($usuario->checkPassword()) {
+                                    $_SESSION['id_empleado'] = $usuario->getId();
+                                    $_SESSION['alias_empleado'] = $usuario->getAlias();                                   
+                                    $_SESSION['foto_empleado'] = $usuario->getImagen();
+                                    $result['status'] = 1;
+                                    $result['message'] = 'Autenticación correcta';
+                                } else {
+                                    if ($usuario->wrongPassword()) {
+                                        $result['exception'] = 'Clave inexistente. Intento: '.($intentos + 1);
+                                    } else {
+                                        $result['exception'] = 'Clave menor a 6 caracteres. Siga intentando';
+                                    }
+                                }
                             } else {
-                                $result['exception'] = 'Clave inexistente';
+                                if ($usuario->wrongPassword()) {
+                                    $result['exception'] = 'Clave menor a 6 caracteres. Intento: '.($intentos + 1);
+                                } else {
+                                    $result['exception'] = 'Clave menor a 6 caracteres. Siga intentando';
+                                }
                             }
                         } else {
-                            $result['exception'] = 'Clave menor a 6 caracteres';
-                        }
+                            $result['exception'] = 'Has agotado tus intentos. La cuenta ha sido bloqueada';
+                        }                        
                     } else {
                         $result['exception'] = 'Alias inexistente';
                     }

@@ -156,12 +156,12 @@ class Usuarios extends Validator
 	//Métodos para manejar la sesión del usuario
 	public function checkAlias()	
 	{
-		$sql = 'SELECT id_empleado FROM empleado WHERE alias_empleado = ?';
+		$sql = 'SELECT id_empleado, intentos FROM empleado WHERE alias_empleado = ?';
 		$params = array($this->alias);
 		$data = Database::getRow($sql, $params);
 		if ($data) {
 			$this->id = $data['id_empleado'];
-			return true;
+			return $data;
 		} else {
 			return false;
 		}
@@ -185,6 +185,13 @@ class Usuarios extends Validator
 		$hash = password_hash($this->clave, PASSWORD_DEFAULT);
 		$sql = 'UPDATE empleado SET clave_empleado = ? WHERE id_empleado = ?';
 		$params = array($hash, $this->id);
+		return Database::executeRow($sql, $params);
+	}
+
+	public function wrongPassword()
+	{
+		$sql = 'UPDATE empleado SET intentos = intentos + 1 WHERE id_empleado = ?';
+		$params = array($this->id);
 		return Database::executeRow($sql, $params);
 	}
 
