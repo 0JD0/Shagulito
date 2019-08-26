@@ -1,38 +1,11 @@
 //Constante para establecer la ruta y parámetros de comunicación con la API
-const apiAccount = '../../core/api/dashboard/usuarios.php?action=';
-
-//Función para cerrar la sesión del usuario
-function signOff()
-{
-    swal({
-        title: 'Advertencia',
-        text: '¿Desea cerrar la sesión?',
-        icon: 'warning',
-        buttons: ['Cancelar', 'Aceptar'],
-        closeOnClickOutside: false,
-        closeOnEsc: false
-    })
-    .then(function(value){
-        if (value) {
-            location.href = apiAccount + 'logout';
-        } else {
-            swal({
-                title: 'Enhorabuena',
-                text: 'Puede continuar trabajando',
-                icon: 'info',
-                button: 'Aceptar',
-                closeOnClickOutside: false,
-                closeOnEsc: false
-            });
-        }
-    });
-}
+const api = '../../core/api/dashboard/usuarios.php?action=';
 
 //Función para mostrar formulario de perfil de usuario
 function modalProfile()
 {
     $.ajax({
-        url: apiAccount + 'readProfile',
+        url: api + 'readProfile',
         type: 'post',
         data: null,
         datatype: 'json'
@@ -43,10 +16,12 @@ function modalProfile()
             const result = JSON.parse(response);
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
-                $('#profile_nombres').val(result.dataset.nombres_usuario);
-                $('#profile_apellidos').val(result.dataset.apellidos_usuario);
-                $('#profile_correo').val(result.dataset.correo_usuario);
-                $('#profile_alias').val(result.dataset.alias_usuario);
+                $('#imagen_usuario').val(result.dataset.foto_empleado);
+                $('#profile_nombres').val(result.dataset.nombre_empleado);
+                $('#profile_apellidos').val(result.dataset.apellido_empleado);
+                $('#profile_correo').val(result.dataset.correo_empleado);
+                $('#profile_alias').val(result.dataset.alias_empleado);
+                $('#profile_telefono').val(result.dataset.telefono_empleado);
                 M.updateTextFields();
                 $('#modal-profile').modal('open');
             } else {
@@ -67,7 +42,7 @@ $('#form-profile').submit(function()
 {
     event.preventDefault();
     $.ajax({
-        url: apiAccount + 'editProfile',
+        url: api + 'editProfile',
         type: 'post',
         data: $('#form-profile').serialize(),
         datatype: 'json'
@@ -79,7 +54,7 @@ $('#form-profile').submit(function()
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
                 $('#modal-profile').modal('close');
-                sweetAlert(1, 'Perfil modificado correctamente', 'main.php');
+                sweetAlert(1, 'Perfil modificado correctamente');
             } else {
                 sweetAlert(2, result.exception, null);
             }
@@ -98,7 +73,7 @@ $('#form-password').submit(function()
 {
     event.preventDefault();
     $.ajax({
-        url: apiAccount + 'password',
+        url: api + 'password',
         type: 'post',
         data: $('#form-password').serialize(),
         datatype: 'json'
@@ -110,7 +85,7 @@ $('#form-password').submit(function()
             //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
                 $('#modal-password').modal('close');
-                sweetAlert(1, 'Contraseña cambiada correctamente', 'main.php');
+                sweetAlert(1, 'Contraseña cambiada correctamente');
             } else {
                 sweetAlert(2, result.exception, null);
             }
