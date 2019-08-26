@@ -38,15 +38,15 @@ if (isset($_GET['action'])) {
                                 if ($usuario->setTelefono($_POST['profile_telefono'])) {
                                 if ($usuario->setCorreo($_POST['profile_correo'])) {
                                     if ($usuario->setAlias($_POST['profile_alias'])) {
-                                        if (is_uploaded_file($_FILES['update_archivo']['tmp_name'])) {
-                                            if ($usuario->setImagen($_FILES['update_archivo'], $_POST['foto_empleado'])) {
+                                        if (is_uploaded_file($_FILES['profile_archivo']['tmp_name'])) {
+                                            if ($usuario->setImagen($_FILES['profile_archivo'], $_POST['imagen_usuario'])) {
                                                 $archivo = true;
                                             } else {
                                                 $result['exception'] = $usuario->getImageError();
                                                 $archivo = false;
                                             }
                                         } else {
-                                            if (!$usuario->setImagen(null, $_POST['foto_empleado'])) {
+                                            if (!$usuario->setImagen(null, $_POST['imagen_usuario'])) {
                                                 $result['exception'] = $usuario->getImageError();
                                             }
                                             $archivo = false;
@@ -55,7 +55,7 @@ if (isset($_GET['action'])) {
                                             $_SESSION['alias_empleado'] = $_POST['profile_alias'];
                                             $result['status'] = 1;
                                             if ($archivo) {
-                                                if ($usuario->saveFile($_FILES['update_archivo'], $usuario->getRuta(), $usuario->getImagen())) {
+                                                if ($usuario->saveFile($_FILES['profile_archivo'], $usuario->getRuta(), $usuario->getImagen())) {
                                                     $result['message'] = 'usuario modificado correctamente';
                                                 } else {
                                                     $result['message'] = 'usuario modificado. No se guardó el archivo';
@@ -96,10 +96,18 @@ if (isset($_GET['action'])) {
                             if ($usuario->checkPassword()) {
                                 if ($_POST['clave_nueva_1'] == $_POST['clave_nueva_2']) {
                                     if ($usuario->setClave($_POST['clave_nueva_1'])) {
-                                        if ($usuario->changePassword()) {
-                                            $result['status'] = 1;
-                                        } else {
-                                            $result['exception'] = 'Operación fallida';
+                                        if ($_POST['clave_actual_1'] != $_POST['clave_nueva_1']) {
+                                            if ($usuario->setClave($_POST['clave_nueva_1'])) {
+                                                if ($usuario->changePassword()) {
+                                                    $result['status'] = 1;
+                                                } else {
+                                                    $result['exception'] = 'Operación fallida';
+                                                }
+                                            } else{
+                                                $result['exception'] = 'La clave nueva es identica a la actual';
+                                            }
+                                        } else{
+                                            $result['exception'] = 'La clave nueva es igual a la actual';
                                         }
                                     } else {
                                         $result['exception'] = 'Clave nueva menor a 6 caracteres';
@@ -350,23 +358,36 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Nombres incorrectos';
                 }
                 break;
-            case 'login':
+                case 'login':
                 $_POST = $usuario->validateForm($_POST);
                 if ($usuario->setAlias($_POST['alias'])) {
-                    if ($usuario->checkAlias()) {
-                        if ($usuario->setClave($_POST['clave'])) {
-                            if ($usuario->checkPassword()) {
-                                $_SESSION['id_empleado'] = $usuario->getId();
-                                $_SESSION['alias_empleado'] = $usuario->getAlias();
-                                $_SESSION['foto_empleado'] = $usuario->getImagen();
-                                $result['status'] = 1;
-                                $result['message'] = 'Autenticación correcta';
+                    if ($result = $usuario->checkAlias()) {
+                        $intentos = $result['intentos'];
+                        if ($intentos < 3) {
+                            if ($usuario->setClave($_POST['clave'])) {
+                                if ($usuario->checkPassword()) {
+                                    $_SESSION['id_empleado'] = $usuario->getId();
+                                    $_SESSION['alias_empleado'] = $usuario->getAlias();    
+                                    $_SESSION['foto_empleado'] = $usuario->getImagen();
+                                    $result['status'] = 1;
+                                    $result['message'] = 'Autenticación correcta';
+                                } else {
+                                    if ($usuario->wrongPassword()) {
+                                        $result['exception'] = 'Clave inexistente. Intento: '.($intentos + 1);
+                                    } else {
+                                        $result['exception'] = 'Clave menor a 6 caracteres. Siga intentando';
+                                    }
+                                }
                             } else {
-                                $result['exception'] = 'Clave inexistente';
+                                if ($usuario->wrongPassword()) {
+                                    $result['exception'] = 'Clave menor a 6 caracteres. Intento: '.($intentos + 1);
+                                } else {
+                                    $result['exception'] = 'Clave menor a 6 caracteres. Siga intentando';
+                                }
                             }
                         } else {
-                            $result['exception'] = 'Clave menor a 6 caracteres';
-                        }
+                            $result['exception'] = 'Has agotado tus intentos. La cuenta ha sido bloqueada';
+                        }                        
                     } else {
                         $result['exception'] = 'Alias inexistente';
                     }

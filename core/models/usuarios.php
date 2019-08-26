@@ -193,7 +193,7 @@ class Usuarios extends Validator
 		$sql = 'UPDATE empleado SET intentos = intentos + 1 WHERE id_empleado = ?';
 		$params = array($this->id);
 		return Database::executeRow($sql, $params);
-		
+
 	}	//Metodos para manejar el CRUD
 	public function readUsuarios()
 	{
@@ -226,8 +226,8 @@ class Usuarios extends Validator
 
 	public function updateUsuario()
 	{
-		$sql = 'UPDATE empleado SET nombre_empleado = ?, apellido_empleado = ?, telefono_empleado= ?,  correo_empleado = ?, alias_empleado = ?, foto_empleado = ?, estado_empleado = ? WHERE id_empleado = ?';
-		$params = array($this->nombres, $this->apellidos,  $this->telefono, $this->correo, $this->alias, $this->imagen, $this->estado, $this->id);
+		$sql = 'UPDATE empleado SET nombre_empleado = ?, apellido_empleado = ?, telefono_empleado= ?,  correo_empleado = ?, alias_empleado = ?, foto_empleado = ? WHERE id_empleado = ?';
+		$params = array($this->nombres, $this->apellidos,  $this->telefono, $this->correo, $this->alias, $this->imagen, $this->id);
 		return Database::executeRow($sql, $params);
 	}
 

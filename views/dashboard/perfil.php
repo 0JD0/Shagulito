@@ -44,16 +44,9 @@ Dashboard::headerTemplate('Perfil');
     <div class="modal-content">
         <h4 class="center-align">Editar perfil</h4>
         <form method="post" id="form-profile">
+        <input type="hidden" id="id_empleado" name="id_empleado"/>
+        <input type="hidden" id="imagen_usuario" name="imagen_usuario"/>
             <div class="row">
-                <div class="file-field input-field col s12 m6">
-                    <div class="btn waves-effect">
-                        <span><i class="material-icons">image</i></span>
-                        <input id="update_archivo" type="file" name="update_archivo"/>
-                    </div>
-                    <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text" placeholder="Seleccione una imagen"/>
-                    </div>
-                </div>
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">person</i>
                     <input id="profile_nombres" type="text" name="profile_nombres" class="validate" required />
@@ -78,6 +71,15 @@ Dashboard::headerTemplate('Perfil');
                     <i class="material-icons prefix">person_pin</i>
                     <input id="profile_telefono" type="number" name="profile_telefono" class="validate" required />
                     <label for="profile_telefono">Telefono</label>
+                </div>
+                <div class="file-field input-field col s12 m6">
+                    <div class="btn waves-effect">
+                        <span><i class="material-icons">image</i></span>
+                        <input id="profile_archivo" type="file" name="profile_archivo"/>
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text" placeholder="Seleccione una imagen"/>
+                    </div>
                 </div>
             </div>
             <div class="row center-align">
