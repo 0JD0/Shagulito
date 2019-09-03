@@ -8,8 +8,6 @@
 -- Versión de PHP: 7.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -107,11 +105,19 @@ CREATE TABLE `empleado` (
 --
 
 INSERT INTO `empleado` (`id_empleado`, `nombre_empleado`, `apellido_empleado`, `telefono_empleado`, `correo_empleado`, `alias_empleado`, `clave_empleado`, `foto_empleado`, `estado_empleado`, `id_cargo`, `intentos`) VALUES
+<<<<<<< HEAD
 (1, 'Josué', 'Durán', 12345678, 'JD@Shagulito.com', 'JD', '$2y$10$ZLr35pikwC0NZ0FfcLE3QeJfCKmx1TYMwCt0R6nfdu7WSEGQFAiIq', '5d6ec3e8ec9ee.jpg', 0, 0, 0),
 (2, 'Daniel', 'Hernandez', 12345678, 'Daniel@shagulito.com', 'Daniel', '$2y$10$R8qzEihfDKbAPbhsL3H6HOLHXNjBuCYtkmgc5Kbf24MbgqTyh9Aa2', '5d5106f21b9f1.png', 0, 1, 0),
 (3, 'Gabriel', 'Monterrosa', 12345678, 'Gabriel@shagulito.com', 'Gabriel', '$2y$10$AnymL7hSWHSXliHBsybyEOhMyITxHwoD9IEMXSKa4IAqEfzSWDHO6', '5d510751c536b.jpg', 0, 1, 0),
 (4, 'Steven', 'Diaz', 12345678, 'StevenBDF@shagulito.com', 'StevenBDF', '$2y$10$70QM5WSWvIBr3kU0JhUJ5uDnPdrK3zRiyLezKDHi1ZWsS3aqVO9RG', '5d5107f31cdb1.jpg', 0, 2, 0),
 (5, 'Boris', 'Huezo', 12345678, 'Boris@shagulito.com', 'Boris', '$2y$10$5zSOzX6DjdEb4kcPDGn1.em7yADauX8h3vaEO/TIuuPEo96.OSDJ6', '5d51083c06711.jpg', 0, 2, 0);
+=======
+(1, 'Josue', 'Duran', 12345678, 'JD@shagulito.com', 'JD', '$2y$10$60aPhgrjwgvtY64yij9OO.7ZMYybJyxn3YrObWRVCq8STD.3A5itG', '5d2df4c0713fb.jpg', 0, 1, 3),
+(6, 'Daniel', 'Hernandez', 12345678, 'Daniel@shagulito.com', 'Daniel', '$2y$10$R8qzEihfDKbAPbhsL3H6HOLHXNjBuCYtkmgc5Kbf24MbgqTyh9Aa2', '5d5106f21b9f1.png', 0, 1, 1),
+(7, 'Gabriel', 'Monterrosa', 12345678, 'Gabriel@shagulito.com', 'Gabriel', '$2y$10$AnymL7hSWHSXliHBsybyEOhMyITxHwoD9IEMXSKa4IAqEfzSWDHO6', '5d510751c536b.jpg', 0, 1, 0),
+(8, 'Steven', 'Diaz', 12345678, 'StevenBDF@shagulito.com', 'StevenBDF', '$2y$10$70QM5WSWvIBr3kU0JhUJ5uDnPdrK3zRiyLezKDHi1ZWsS3aqVO9RG', '5d5107f31cdb1.jpg', 0, 2, 0),
+(9, 'Boris', 'Huezo', 12345678, 'Boris@shagulito.com', 'Boris', '$2y$10$I7MDFMKFTxNpNVFcb0izWOqCq8vwH8u6PmkDnMr6av/hsgBmKvAtm', '', 0, 2, 2);
+>>>>>>> 8b1bb2ebb06fe266f660f2e3d4fd49a479eed278
 
 -- --------------------------------------------------------
 
@@ -298,32 +304,37 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT de la tabla `cargos`
 --
 ALTER TABLE `cargos`
+<<<<<<< HEAD
   MODIFY `id_cargo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
+=======
+  MODIFY `id_cargo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+>>>>>>> 8b1bb2ebb06fe266f660f2e3d4fd49a479eed278
 --
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
   MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
 --
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
   MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `empleado`
 --
 ALTER TABLE `empleado`
+<<<<<<< HEAD
   MODIFY `id_empleado` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
+=======
+  MODIFY `id_empleado` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+>>>>>>> 8b1bb2ebb06fe266f660f2e3d4fd49a479eed278
 --
 -- AUTO_INCREMENT de la tabla `lotes`
 --
 ALTER TABLE `lotes`
   MODIFY `id_lote` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `permisos`
 --
@@ -335,13 +346,11 @@ ALTER TABLE `permisos`
 --
 ALTER TABLE `productos`
   MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
 --
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
   MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
 --
 -- Restricciones para tablas volcadas
 --
@@ -357,7 +366,6 @@ ALTER TABLE `lotes`
 --
 ALTER TABLE `productos`
   ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id_categoria`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
