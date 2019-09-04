@@ -329,33 +329,46 @@ if (isset($_GET['action'])) {
                     if ($usuario->setApellidos($_POST['apellidos'])){
                         if($usuario->setTelefono($_POST['telefono'])){
                             if ($usuario->setCorreo($_POST['correo'])) {
-                                    if ($usuario->setAlias($_POST['alias'])){
-                                        if ($_POST['clave1'] == $_POST['clave2']) {
-                                            if ($usuario->setClave($_POST['clave1'])) {
-                                                if($_POST['clave1']!= $_POST['alias'] && $_POST['clave2'] != $_POST['alias']) {
-                                                if ($usuario->createUsuario()) {
-                                                    $result['status'] = 1;
-                                                            $result['message'] = 'Usuario agregado correctamente';  
+                                if ($usuario->setAlias($_POST['alias'])){
+                                    if ($_POST['clave1'] == $_POST['clave2']) {
+                                        if ($usuario->setClave($_POST['clave1'])) {
+                                            if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
+                                                if ($usuario->setImagen($_FILES['archivo'], null)) {
+                                                    if($_POST['clave1']!= $_POST['alias'] && $_POST['clave2'] != $_POST['alias']) {
+                                                        if ($usuario->createUsuario()) {
+                                                            if ($usuario->saveFile($_FILES['archivo'], $usuario->getRuta(), $usuario->getImagen())) {
+                                                                $result['status'] = 1;
+                                                                $result['message'] = 'Usuario agregado correctamente';  
+                                                            } else {
+                                                                $result['status'] = 2;
+                                                                $result['exception'] = 'No se guardó el archivo';
+                                                            } 
                                                         } else {
                                                             $result['exception'] = 'Operación fallida';
                                                         }
                                                     }else {
                                                         $result['exception'] = 'No puede poner el mismo alias con la contraseña. Escriba de nuevo la clave que desea utilizar';
                                                     }
+                                                } else {
+                                                    $result['exception'] = $usuario->getImageError();
+                                                }
                                             } else {
-                                                $result['exception'] = 'Clave menor a 8 caracteres';
+                                                $result['exception'] = 'Seleccione una imagen';
                                             }
                                         } else {
-                                            $result['exception'] = 'Claves diferentes';
+                                            $result['exception'] = 'Clave menor a 8 caracteres';
                                         }
                                     } else {
-                                        $result['exception'] = 'Alias incorrecto';
+                                        $result['exception'] = 'Claves diferentes';
                                     }
+                                } else {
+                                   $result['exception'] = 'Alias incorrecto';
+                                }
                             } else {
                                 $result['exception'] = 'Numero mal escrito';
                             }
                         } else {
-                        $result['exception'] = 'Correo incorrecto';
+                            $result['exception'] = 'Correo incorrecto';
                         }
                     } else {
                         $result['exception'] = 'Apellidos incorrectos';
