@@ -46,7 +46,9 @@ if (isset($_GET['action'])) {
                                                 $archivo = false;
                                             }
                                         } else {
-                                            if (!$usuario->setImagen(null, $_POST['imagen_usuario'])) {
+                                            if ($usuario->setImagen(null, $_POST['imagen_usuario'])) {
+                                                $result['exception'] = 'No se subió ningún archivo';
+                                            } else {
                                                 $result['exception'] = $usuario->getImageError();
                                             }
                                             $archivo = false;
@@ -158,7 +160,7 @@ if (isset($_GET['action'])) {
                                         if ($usuario->setClave($_POST['create_clave1'])) {
                                             if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
                                                 if ($usuario->setImagen($_FILES['create_archivo'], null)) {
-//                                                    if ($producto->setEstado(isset($_POST['create_estado']) ? 1 : 0)) {    
+                                                    if($_POST['create_clave1']!= $_POST['create_alias'] && $_POST['create_clave2'] != $_POST['create_alias']) {   
                                                         if ($usuario->createUsuario()) {
                                                             if ($usuario->saveFile($_FILES['create_archivo'], $usuario->getRuta(), $usuario->getImagen())) {
                                                             $result['status'] = 1;
@@ -169,9 +171,9 @@ if (isset($_GET['action'])) {
                                                         } else {
                                                             $result['exception'] = 'Operación fallida';
                                                         }
-//                                                    } else {
-//                                                        $result['exception'] = 'Estado incorrecto';
-//                                                    }
+                                                   } else {
+                                                       $result['exception'] = 'No puede poner el mismo alias con la contraseña. Escriba de nuevo la clave que desea utilizar';
+                                                    }
                                                 } else {
                                                     $result['exception'] = $usuario->getImageError();
                                                 }
@@ -330,14 +332,18 @@ if (isset($_GET['action'])) {
                                     if ($usuario->setAlias($_POST['alias'])){
                                         if ($_POST['clave1'] == $_POST['clave2']) {
                                             if ($usuario->setClave($_POST['clave1'])) {
+                                                if($_POST['clave1']!= $_POST['alias'] && $_POST['clave2'] != $_POST['alias']) {
                                                 if ($usuario->createUsuario()) {
                                                     $result['status'] = 1;
                                                             $result['message'] = 'Usuario agregado correctamente';  
                                                         } else {
                                                             $result['exception'] = 'Operación fallida';
                                                         }
+                                                    }else {
+                                                        $result['exception'] = 'No puede poner el mismo alias con la contraseña. Escriba de nuevo la clave que desea utilizar';
+                                                    }
                                             } else {
-                                                $result['exception'] = 'Clave menor a 6 caracteres';
+                                                $result['exception'] = 'Clave menor a 8 caracteres';
                                             }
                                         } else {
                                             $result['exception'] = 'Claves diferentes';
