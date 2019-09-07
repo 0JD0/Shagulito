@@ -10,10 +10,11 @@ class Dashboard
 			<html lang="es">
 				<head>
 					<meta charset="utf-8">
-					<title>Dashboard - ' . $title . '</title>
+					<title>' . $title . '</title>
 					<link type="image/png" rel="icon" href="../../resources/img/icono.png"/>
 					<link type="text/css" rel="stylesheet" href="../../resources/css/materialize.min.css"/>
 					<link type="text/css" rel="stylesheet" href="../../resources/css/icons.css"/>
+					<link type="text/css" rel="stylesheet" href="../../resources/css/fonts.css"/>
 					<link type="text/css" rel="stylesheet" href="../../resources/css/dashboard.css"/>
 					<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 				</head>
@@ -56,37 +57,40 @@ class Dashboard
 										</a>
 									</div>
 								</li>
-								<li>
+								<li class="no-padding">
 									<div class="collapsible-header">
-										<a href="home.php">
-											<i class="material-icons">home</i>Inicio
-										</a>
-									</div>	
-								</li>
-								<li>
-									<div class="collapsible-header">
-										<a href="categorias.php">
-											<i class="material-icons">description</i>Categorías
-										</a>
+										<a href="home.php"><i class="material-icons">home</i>Inicio</a>
 									</div>
 								</li>
 								<li>
-									<a href="productos.php">
-										<i class="material-icons">cake</i>Productos
-									</a>
+									<div class="collapsible-header"><i class="material-icons">cake</i>Producción</div>
+									<div class="collapsible-body">
+										<ul>
+											<li>
+												<a href="categorias.php">
+												<i class="material-icons">description</i>Categorías 
+												</a>
+											</li>
+											<li>
+												<a href="productos.php">
+													<i class="material-icons">cake</i>Productos
+												</a>
+											</li>
+											<li>
+												<a href="ventas.php">
+													<i class="material-icons">attach_money</i>Ventas
+												</a>
+											</li>
+										</ul>
+									</div>
 								</li>
 								<li>
-									<a href="ventas.php">
-										<i class="material-icons">attach_money</i>Ventas
-									</a>
-								</li>
-								<li>
-									<div class="collapsible-header" href="home.php"><i class="material-icons">person</i>Usuarios</div>
+									<div class="collapsible-header"><i class="material-icons">person</i>Usuarios</div>
 									<div class="collapsible-body">
 										<ul>
 											<li>
 												<a href="usuarios.php">
-													<i class="material-icons orange-text">person</i>Empleados 
+													<i class="material-icons">person</i>Empleados 
 												</a>
 											</li>
 											<li>

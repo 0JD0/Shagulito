@@ -352,6 +352,24 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Alias incorrecto';
                 }
                 break;
+            case 'time':
+                if(isset($_SESSION["conectado"])){
+                    $fechaGuardada = $_SESSION["ultimoAcceso"];
+                    $ahora = date("Y-n-j H:i:s");
+                    if($_SESSION["conectado"]!=true){
+                        echo '<script>index.php"</script>';
+                        return false;
+                    } else {
+                    $tiempo_transcurrido = (strtotime($ahora)-strtotime($fechaGuardada));
+                    if($tiempo_transcurrido >= 60){ // 1 x 60 x 60 = 1 horas...
+                            session_destroy();
+                            echo '<script>index.php"</script>'; // 
+                            return false;
+                        } else{$_SESSION["ultimoAcceso"] = $ahora;}
+                    }
+                } else {
+                    return false;
+                }
             default:
                 exit('Acción no disponible');
         }

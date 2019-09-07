@@ -3,6 +3,10 @@ require_once('../../core/helpers/dashboard.php');
 Dashboard::headerTemplate('Administrar productos');
 ?>
 
+<div class="dropdown">
+    
+</div>
+
 <div class="row">
     <!-- Formulario de búsqueda -->
     <form method="post" id="form-search">

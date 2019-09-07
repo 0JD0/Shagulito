@@ -130,7 +130,7 @@ class Validator
 
 	public function validatePassword($value)
 	{
-		if (strlen($value) > 8) {
+		if (strlen($value) > 5) {
 			return true;
 		} else {
 			return false;
