@@ -91,7 +91,7 @@ class Usuarios extends Validator
 
 	public function setAlias($value)
 	{
-		if ($this->validateAlphanumeric($value, 1, 50)) {
+		if ($this->validateAlphabetic($value, 1, 50)) {
 			$this->alias = $value;
 			return true;
 		} else {
@@ -156,12 +156,12 @@ class Usuarios extends Validator
 	//Métodos para manejar la sesión del usuario
 	public function checkAlias()	
 	{
-		$sql = 'SELECT id_empleado FROM empleado WHERE alias_empleado = ?';
+		$sql = 'SELECT id_empleado, intentos FROM empleado WHERE alias_empleado = ?';
 		$params = array($this->alias);
 		$data = Database::getRow($sql, $params);
 		if ($data) {
 			$this->id = $data['id_empleado'];
-			return true;
+			return $data;
 		} else {
 			return false;
 		}
@@ -188,17 +188,23 @@ class Usuarios extends Validator
 		return Database::executeRow($sql, $params);
 	}
 
-	//Metodos para manejar el CRUD
+	public function wrongPassword()
+	{
+		$sql = 'UPDATE empleado SET intentos = intentos + 1 WHERE id_empleado = ?';
+		$params = array($this->id);
+		return Database::executeRow($sql, $params);
+
+	}	//Metodos para manejar el CRUD
 	public function readUsuarios()
 	{
-		$sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado, clave_empleado, foto_empleado, estado_empleado FROM empleado ORDER BY apellido_empleado';
+		$sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado, clave_empleado, foto_empleado FROM empleado ORDER BY apellido_empleado';
 		$params = array(null);
 		return Database::getRows($sql, $params);
 	}
 
 	public function searchUsuarios($value)
 	{
-		$sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado,telefono_empleado, correo_empleado, alias_empleado, foto_empleado, estado_empleado FROM empleado WHERE apellido_empleado LIKE ? OR nombre_empleado LIKE ? ORDER BY apellido_empleado';
+		$sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado,telefono_empleado, correo_empleado, alias_empleado, foto_empleado FROM empleado WHERE apellido_empleado LIKE ? OR nombre_empleado LIKE ? ORDER BY apellido_empleado';
 		$params = array("%$value%", "%$value%");
 		return Database::getRows($sql, $params);
 	}
@@ -206,22 +212,22 @@ class Usuarios extends Validator
 	public function createUsuario()
 	{
 		$hash = password_hash($this->clave, PASSWORD_DEFAULT);
-		$sql = 'INSERT INTO empleado(nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado, foto_empleado, clave_empleado, estado_empleado) VALUES(?, ?, ?, ?, ?, ?, ?)';
-		$params = array($this->nombres, $this->apellidos, $this->telefono, $this->correo, $this->alias, $this->imagen, $hash, $this->estado);
+		$sql = 'INSERT INTO empleado(nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado, foto_empleado, clave_empleado) VALUES(?, ?, ?, ?, ?, ?, ?)';
+		$params = array($this->nombres, $this->apellidos, $this->telefono, $this->correo, $this->alias, $this->imagen, $hash);
 		return Database::executeRow($sql, $params);
 	}
 
 	public function getUsuario()
 	{
-		$sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado , clave_empleado, foto_empleado, estado_Empleado FROM empleado WHERE id_empleado = ?';
+		$sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado , clave_empleado, foto_empleado FROM empleado WHERE id_empleado = ?';
 		$params = array($this->id);
 		return Database::getRow($sql, $params);
 	}
 
 	public function updateUsuario()
 	{
-		$sql = 'UPDATE empleado SET nombre_empleado = ?, apellido_empleado = ?, telefono_empleado= ?,  correo_empleado = ?, alias_empleado = ?, foto_empleado = ?, estado_empleado = ? WHERE id_empleado = ?';
-		$params = array($this->nombres, $this->apellidos,  $this->telefono, $this->correo, $this->alias, $this->imagen, $this->estado, $this->id);
+		$sql = 'UPDATE empleado SET nombre_empleado = ?, apellido_empleado = ?, telefono_empleado= ?,  correo_empleado = ?, alias_empleado = ?, foto_empleado = ? WHERE id_empleado = ?';
+		$params = array($this->nombres, $this->apellidos,  $this->telefono, $this->correo, $this->alias, $this->imagen, $this->id);
 		return Database::executeRow($sql, $params);
 	}
 
