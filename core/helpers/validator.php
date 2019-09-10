@@ -131,7 +131,11 @@ class Validator
 	public function validatePassword($value)
 	{
 		if (strlen($value) > 5) {
-			return true;
+			if (preg_match('/^[a-zA-Z0-9]+[^’£$%^&*()}{@:’#~?><>,;@|\-=-_+-`]+$/', $value)){
+				return true;
+			} else {
+				return false;
+			}	
 		} else {
 			return false;
 		}

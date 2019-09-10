@@ -8,8 +8,6 @@
 -- Versión de PHP: 7.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -305,13 +303,11 @@ ALTER TABLE `cargos`
 --
 ALTER TABLE `categorias`
   MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
 --
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
   MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `empleado`
 --
@@ -323,6 +319,11 @@ ALTER TABLE `empleado`
 --
 ALTER TABLE `lotes`
   MODIFY `id_lote` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `permisos`
+--
+ALTER TABLE `permisos`
+  MODIFY `id_permiso` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `permisos`
@@ -335,13 +336,11 @@ ALTER TABLE `permisos`
 --
 ALTER TABLE `productos`
   MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
 --
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
   MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
 --
 -- Restricciones para tablas volcadas
 --
@@ -357,7 +356,6 @@ ALTER TABLE `lotes`
 --
 ALTER TABLE `productos`
   ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id_categoria`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

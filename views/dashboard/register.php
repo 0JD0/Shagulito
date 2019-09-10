@@ -39,6 +39,15 @@ Dashboard::headerTemplate('Registrar primer usuario');
             <input id="clave2" type="password" name="clave2" class="validate" required />
             <label for="clave2">Confirmar clave</label>
         </div>
+        <div class="file-field input-field col s12 m6">
+                    <div class="btn waves-effect">
+                        <span><i class="material-icons">image</i></span>
+                        <input id="archivo" type="file" name="archivo" required/>
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input type="text" class="file-path validate" placeholder="Seleccione una imagen"/>
+                    </div>
+            </div>
     </div>
     <div class="row center-align">
         <button type="submit" class="btn waves-effect blue tooltipped" data-tooltip="Registrar"><i

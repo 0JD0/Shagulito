@@ -46,7 +46,9 @@ if (isset($_GET['action'])) {
                                                 $archivo = false;
                                             }
                                         } else {
-                                            if (!$usuario->setImagen(null, $_POST['imagen_usuario'])) {
+                                            if ($usuario->setImagen(null, $_POST['imagen_usuario'])) {
+                                                $result['exception'] = 'No se subió ningún archivo';
+                                            } else {
                                                 $result['exception'] = $usuario->getImageError();
                                             }
                                             $archivo = false;
@@ -158,7 +160,7 @@ if (isset($_GET['action'])) {
                                         if ($usuario->setClave($_POST['create_clave1'])) {
                                             if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
                                                 if ($usuario->setImagen($_FILES['create_archivo'], null)) {
-//                                                    if ($producto->setEstado(isset($_POST['create_estado']) ? 1 : 0)) {    
+                                                    if($_POST['create_clave1']!= $_POST['create_alias'] && $_POST['create_clave2'] != $_POST['create_alias']) {   
                                                         if ($usuario->createUsuario()) {
                                                             if ($usuario->saveFile($_FILES['create_archivo'], $usuario->getRuta(), $usuario->getImagen())) {
                                                             $result['status'] = 1;
@@ -169,9 +171,9 @@ if (isset($_GET['action'])) {
                                                         } else {
                                                             $result['exception'] = 'Operación fallida';
                                                         }
-//                                                    } else {
-//                                                        $result['exception'] = 'Estado incorrecto';
-//                                                    }
+                                                   } else {
+                                                       $result['exception'] = 'No puede poner el mismo alias con la contraseña. Escriba de nuevo la clave que desea utilizar';
+                                                    }
                                                 } else {
                                                     $result['exception'] = $usuario->getImageError();
                                                 }
@@ -348,29 +350,46 @@ if (isset($_GET['action'])) {
                     if ($usuario->setApellidos($_POST['apellidos'])){
                         if($usuario->setTelefono($_POST['telefono'])){
                             if ($usuario->setCorreo($_POST['correo'])) {
-                                    if ($usuario->setAlias($_POST['alias'])){
-                                        if ($_POST['clave1'] == $_POST['clave2']) {
-                                            if ($usuario->setClave($_POST['clave1'])) {
-                                                if ($usuario->createUsuario()) {
-                                                    $result['status'] = 1;
-                                                            $result['message'] = 'Usuario agregado correctamente';  
+                                if ($usuario->setAlias($_POST['alias'])){
+                                    if ($_POST['clave1'] == $_POST['clave2']) {
+                                        if ($usuario->setClave($_POST['clave1'])) {
+                                            if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
+                                                if ($usuario->setImagen($_FILES['archivo'], null)) {
+                                                    if($_POST['clave1']!= $_POST['alias'] && $_POST['clave2'] != $_POST['alias']) {
+                                                        if ($usuario->createUsuario()) {
+                                                            if ($usuario->saveFile($_FILES['archivo'], $usuario->getRuta(), $usuario->getImagen())) {
+                                                                $result['status'] = 1;
+                                                                $result['message'] = 'Usuario agregado correctamente';  
+                                                            } else {
+                                                                $result['status'] = 2;
+                                                                $result['exception'] = 'No se guardó el archivo';
+                                                            } 
                                                         } else {
                                                             $result['exception'] = 'Operación fallida';
                                                         }
+                                                    }else {
+                                                        $result['exception'] = 'No puede poner el mismo alias con la contraseña. Escriba de nuevo la clave que desea utilizar';
+                                                    }
+                                                } else {
+                                                    $result['exception'] = $usuario->getImageError();
+                                                }
                                             } else {
-                                                $result['exception'] = 'Clave menor a 6 caracteres';
+                                                $result['exception'] = 'Seleccione una imagen';
                                             }
                                         } else {
-                                            $result['exception'] = 'Claves diferentes';
+                                            $result['exception'] = 'Clave menor a 8 caracteres';
                                         }
                                     } else {
-                                        $result['exception'] = 'Alias incorrecto';
+                                        $result['exception'] = 'Claves diferentes';
                                     }
+                                } else {
+                                   $result['exception'] = 'Alias incorrecto';
+                                }
                             } else {
                                 $result['exception'] = 'Numero mal escrito';
                             }
                         } else {
-                        $result['exception'] = 'Correo incorrecto';
+                            $result['exception'] = 'Correo incorrecto';
                         }
                     } else {
                         $result['exception'] = 'Apellidos incorrectos';
@@ -416,6 +435,24 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Alias incorrecto';
                 }
                 break;
+            case 'time':
+                if(isset($_SESSION["conectado"])){
+                    $fechaGuardada = $_SESSION["ultimoAcceso"];
+                    $ahora = date("Y-n-j H:i:s");
+                    if($_SESSION["conectado"]!=true){
+                        echo '<script>index.php"</script>';
+                        return false;
+                    } else {
+                    $tiempo_transcurrido = (strtotime($ahora)-strtotime($fechaGuardada));
+                    if($tiempo_transcurrido >= 60){ // 1 x 60 x 60 = 1 horas...
+                            session_destroy();
+                            echo '<script>index.php"</script>'; // 
+                            return false;
+                        } else{$_SESSION["ultimoAcceso"] = $ahora;}
+                    }
+                } else {
+                    return false;
+                }
             default:
                 exit('Acción no disponible');
         }

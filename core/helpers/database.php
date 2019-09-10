@@ -20,6 +20,10 @@ class Database
         $server = 'localhost';
         $database = 'shagulito';
         // Acceso laptop JD
+      //  $username = 'JD';
+        //$password = 'JD@shagulito.com';
+//        $username = 'root';
+//        $password = '';
 //        $username = 'JD';
 //        $password = 'JD@shagulito.com';
         // Acceso global

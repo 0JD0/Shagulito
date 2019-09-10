@@ -91,7 +91,7 @@ class Usuarios extends Validator
 
 	public function setAlias($value)
 	{
-		if ($this->validateAlphanumeric($value, 1, 50)) {
+		if ($this->validateAlphabetic($value, 1, 50)) {
 			$this->alias = $value;
 			return true;
 		} else {

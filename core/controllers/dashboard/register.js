@@ -40,8 +40,11 @@ $('#form-register').submit(function()
     $.ajax({
         url: apiRegister + 'register',
         type: 'post',
-        data: $('#form-register').serialize(),
-        datatype: 'json'
+        data: new FormData($('#form-register')[0]),
+        datatype: 'json',
+        cache: false,
+        contentType: false,
+        processData: false,
     })
     .done(function(response){
         //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
@@ -49,6 +52,7 @@ $('#form-register').submit(function()
             const dataset = JSON.parse(response);
             //Se comprueba si la respuesta es satisfactoria, sino se muestra la excepción
             if (dataset.status) {
+                $('#form-register')[0].reset();
                 sweetAlert(1, 'Usuario registrado correctamente', 'index.php');
             } else {
                 sweetAlert(2, dataset.exception, null);

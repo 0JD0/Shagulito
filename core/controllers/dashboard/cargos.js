@@ -142,8 +142,13 @@ function modalUpdate(id)
             const result = JSON.parse(response);
             if (result.status) {
                 $('#form-update')[0].reset();
+<<<<<<< HEAD
+                $('#id_cargo').val(result.dataset.id_producto);
+                $('#update_nombre').val(result.dataset.nombre_producto);
+=======
                 $('#id_cargo').val(result.dataset.id_cargo);
                 $('#update_nombre').val(result.dataset.nombre_cargo);
+>>>>>>> e057b4d14ba659db344329466cca1373d8409ff9
                 M.updateTextFields();
                 $('#modal-update').modal('open');
             } else {

@@ -1,6 +1,10 @@
 header nav{
     /*background: #df6a0a;*/
+<<<<<<< HEAD
+    background: #fff2e8;
+=======
     background: #ebebeb;
+>>>>>>> e057b4d14ba659db344329466cca1373d8409ff9
     border: none;
 }
 
@@ -10,7 +14,11 @@ header img{
 }
 
 header img.background{
+<<<<<<< HEAD
+    width: 300px;
+=======
     width: 330px;
+>>>>>>> e057b4d14ba659db344329466cca1373d8409ff9
     height: 165px;
 }
 
