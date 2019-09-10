@@ -1,10 +1,11 @@
 <?php
 require_once('../../core/helpers/dashboard.php');
-Dashboard::headerTemplate('Bienvenido');
+Dashboard::headerTemplate('');
 ?>
 <div class="container">
     <div class="row">
         <h4 class="center-align blue-text" id="greeting"></h4>
+        <h4 class="center-align">Sea bienvenido</h4>
     </div>
 </div>
 

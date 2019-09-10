@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-08-2019 a las 16:10:00
--- Versión del servidor: 10.1.30-MariaDB
--- Versión de PHP: 7.1.13
+-- Tiempo de generación: 03-09-2019 a las 21:57:30
+-- Versión del servidor: 10.1.37-MariaDB
+-- Versión de PHP: 7.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -39,7 +39,8 @@ CREATE TABLE `cargos` (
 
 INSERT INTO `cargos` (`id_cargo`, `nombre_cargo`) VALUES
 (1, 'Administrador'),
-(2, 'Cajero');
+(2, 'Cajero'),
+(5, 'cargado');
 
 -- --------------------------------------------------------
 
@@ -97,19 +98,20 @@ CREATE TABLE `empleado` (
   `clave_empleado` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `foto_empleado` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `estado_empleado` tinyint(1) NOT NULL,
-  `id_cargo` int(11) NOT NULL
+  `id_cargo` int(11) NOT NULL,
+  `intentos` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `empleado`
 --
 
-INSERT INTO `empleado` (`id_empleado`, `nombre_empleado`, `apellido_empleado`, `telefono_empleado`, `correo_empleado`, `alias_empleado`, `clave_empleado`, `foto_empleado`, `estado_empleado`, `id_cargo`) VALUES
-(1, 'Josue', 'Duran', 12345678, 'JD@shagulito.com', 'JD', '$2y$10$60aPhgrjwgvtY64yij9OO.7ZMYybJyxn3YrObWRVCq8STD.3A5itG', '5d2df4c0713fb.jpg', 0, 1),
-(6, 'Daniel', 'Hernandez', 12345678, 'Daniel@shagulito.com', 'Daniel', '$2y$10$R8qzEihfDKbAPbhsL3H6HOLHXNjBuCYtkmgc5Kbf24MbgqTyh9Aa2', '5d5106f21b9f1.png', 0, 1),
-(7, 'Gabriel', 'Monterrosa', 12345678, 'Gabriel@shagulito.com', 'Gabriel', '$2y$10$AnymL7hSWHSXliHBsybyEOhMyITxHwoD9IEMXSKa4IAqEfzSWDHO6', '5d510751c536b.jpg', 0, 1),
-(8, 'Steven', 'Diaz', 12345678, 'StevenBDF@shagulito.com', 'StevenBDF', '$2y$10$70QM5WSWvIBr3kU0JhUJ5uDnPdrK3zRiyLezKDHi1ZWsS3aqVO9RG', '5d5107f31cdb1.jpg', 0, 2),
-(9, 'Boris', 'Huezo', 12345678, 'Boris@shagulito.com', 'Boris', '$2y$10$5zSOzX6DjdEb4kcPDGn1.em7yADauX8h3vaEO/TIuuPEo96.OSDJ6', '5d51083c06711.jpg', 0, 2);
+INSERT INTO `empleado` (`id_empleado`, `nombre_empleado`, `apellido_empleado`, `telefono_empleado`, `correo_empleado`, `alias_empleado`, `clave_empleado`, `foto_empleado`, `estado_empleado`, `id_cargo`, `intentos`) VALUES
+(1, 'Josué', 'Durán', 12345678, 'JD@Shagulito.com', 'JD', '$2y$10$ZLr35pikwC0NZ0FfcLE3QeJfCKmx1TYMwCt0R6nfdu7WSEGQFAiIq', '5d6ec3e8ec9ee.jpg', 0, 0, 0),
+(2, 'Daniel', 'Hernandez', 12345678, 'Daniel@shagulito.com', 'Daniel', '$2y$10$R8qzEihfDKbAPbhsL3H6HOLHXNjBuCYtkmgc5Kbf24MbgqTyh9Aa2', '5d5106f21b9f1.png', 0, 1, 0),
+(3, 'Gabriel', 'Monterrosa', 12345678, 'Gabriel@shagulito.com', 'Gabriel', '$2y$10$AnymL7hSWHSXliHBsybyEOhMyITxHwoD9IEMXSKa4IAqEfzSWDHO6', '5d510751c536b.jpg', 0, 1, 0),
+(4, 'Steven', 'Diaz', 12345678, 'StevenBDF@shagulito.com', 'StevenBDF', '$2y$10$70QM5WSWvIBr3kU0JhUJ5uDnPdrK3zRiyLezKDHi1ZWsS3aqVO9RG', '5d5107f31cdb1.jpg', 0, 2, 0),
+(5, 'Boris', 'Huezo', 12345678, 'Boris@shagulito.com', 'Boris', '$2y$10$5zSOzX6DjdEb4kcPDGn1.em7yADauX8h3vaEO/TIuuPEo96.OSDJ6', '5d51083c06711.jpg', 0, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -148,6 +150,18 @@ CREATE TABLE `lotes` (
   `cantidad_xlote` int(11) NOT NULL,
   `fecha_creacion` date NOT NULL,
   `fecha_caducidad` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `permisos`
+--
+
+CREATE TABLE `permisos` (
+  `id_permiso` int(11) NOT NULL,
+  `nombre_permiso` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `id_cargo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -256,6 +270,13 @@ ALTER TABLE `lotes`
   ADD KEY `id_producto` (`id_producto`);
 
 --
+-- Indices de la tabla `permisos`
+--
+ALTER TABLE `permisos`
+  ADD PRIMARY KEY (`id_permiso`),
+  ADD KEY `id_cargo` (`id_cargo`);
+
+--
 -- Indices de la tabla `productos`
 --
 ALTER TABLE `productos`
@@ -277,7 +298,7 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT de la tabla `cargos`
 --
 ALTER TABLE `cargos`
-  MODIFY `id_cargo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_cargo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `categorias`
@@ -295,13 +316,19 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de la tabla `empleado`
 --
 ALTER TABLE `empleado`
-  MODIFY `id_empleado` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_empleado` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `lotes`
 --
 ALTER TABLE `lotes`
   MODIFY `id_lote` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `permisos`
+--
+ALTER TABLE `permisos`
+  MODIFY `id_permiso` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -318,6 +345,12 @@ ALTER TABLE `ventas`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `lotes`
+--
+ALTER TABLE `lotes`
+  ADD CONSTRAINT `lotes_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`);
 
 --
 -- Filtros para la tabla `productos`

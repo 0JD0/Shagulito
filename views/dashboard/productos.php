@@ -161,7 +161,7 @@ Dashboard::headerTemplate('Administrar productos');
                 </div>
             </div>
             <div class="row center-align">
-                <a href="#" class="modal-close btn waves-effect red tooltipped " data-tooltip="Cancelar">
+                <a href="#" class="modal-close btn waves-effect red tooltipped" data-tooltip="Cancelar">
                     <i class="material-icons">cancel</i>
                 </a>
                 <button type="submit"
