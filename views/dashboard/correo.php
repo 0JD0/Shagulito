@@ -52,7 +52,7 @@ try {
     $mail->CharSet = 'UTF-8';
     $mail->send();
     echo 'Mensaje enviado correctamente';
-    $usuario->setClave(random_password())
 } catch (Exception $e) {
     echo "Ha ocurrido un error al enviar el mensaje <br> por favor intente mas tarde: {$mail->ErrorInfo}";
 }
+?>

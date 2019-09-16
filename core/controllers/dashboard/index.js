@@ -5,6 +5,7 @@ $(document).ready(function()
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
 const apiSesion = '../../core/api/dashboard/usuarios.php?action=';
+const apiCorreo = '../../core/api/dashboard/correo.php?action=';
 
 //Función para verificar si existen usuarios en el sitio privado
 function checkUsuarios()
@@ -67,3 +68,37 @@ $('#form-sesion').submit(function()
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 })
+
+//Función para modificar un registro seleccionado previamente
+$('#form-verificar').submit(function()
+{
+    
+    event.preventDefault();
+    $.ajax({
+        url: apiCorreo + 'verificar',
+        type: 'post',
+        data: $('#form-verificar').serialize(),
+        datatype: 'json',
+    })
+    .done(function(response){
+        // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+        if (isJSONString(response)) {
+            const result = JSON.parse(response);
+            // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+            if (result.status) {
+                $('#modal-verificar').modal('close');
+                showTable();        
+                sweetAlert(1, result.message, null);
+            } else {
+                sweetAlert(2, result.exception, null);
+            }
+        } else {
+            console.log(response);
+        }
+    })
+    .fail(function(jqXHR){
+        // Se muestran en consola los posibles errores de la solicitud AJAX
+        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+    });
+})
+

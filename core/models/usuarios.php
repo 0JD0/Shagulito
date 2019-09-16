@@ -263,6 +263,14 @@ class Usuarios extends Validator
         $sql = 'SELECT COUNT(id_empleado) correo FROM empleado WHERE correo_empleado LIKE ?';
         $params = array("%$value%");
         return Database::getRows($sql, $params);
-    }
+	}
+
+	public function validarPassword()
+	{
+		$hash = password_hash($this->clave, PASSWORD_DEFAULT);
+		$sql = 'UPDATE empleado SET clave_empleado = ? WHERE correo_empleado = ?';
+		$params = array($hash, $this->correo);
+		return Database::executeRow($sql, $params);
+	}
 }
 ?>
