@@ -212,7 +212,17 @@ class Usuarios extends Validator
 		$params = array($this->id);
 		return Database::executeRow($sql, $params);
 
-	}	//Metodos para manejar el CRUD
+	}
+	
+	public function wrongPasswordFe()
+	{
+		$sql = 'UPDATE empleado SET fecha_creada = fecha_creada + 1 WHERE id_empleado = ?';
+		$params = array($this->id);
+		return Database::executeRow($sql, $params);
+
+	}
+	
+	//Metodos para manejar el CRUD
 	public function readUsuarios()
 	{
 		$sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado, clave_empleado, foto_empleado , estado_empleado , intentos  FROM empleado ORDER BY apellido_empleado';
@@ -230,8 +240,8 @@ class Usuarios extends Validator
 	public function createUsuario()
 	{
 		$hash = password_hash($this->clave, PASSWORD_DEFAULT);
-		$sql = 'INSERT INTO empleado(nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado, foto_empleado, clave_empleado) VALUES(?, ?, ?, ?, ?, ?, ?)';
-		$params = array($this->nombres, $this->apellidos, $this->telefono, $this->correo, $this->alias, $this->imagen, $hash);
+		$sql = 'INSERT INTO empleado(nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado, foto_empleado, clave_empleado, fecha_creada) VALUES(?, ?, ?, ?, ?, ?, ?)';
+		$params = array($this->nombres, $this->apellidos, $this->telefono, $this->correo, $this->alias, $this->imagen, $hash, $this->$fecha);
 		return Database::executeRow($sql, $params);
 	}
 

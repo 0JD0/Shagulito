@@ -7,7 +7,7 @@ require_once('../../models/usuarios.php');
 if (isset($_GET['action'])) {
     session_start();
     $usuario = new Usuarios;
-    $result = array('status' => 0,'message' => null, 'exception' => null, 'intentos' => 1);
+    $result = array('status' => 0,'message' => null, 'exception' => null, 'intentos' => 1, 'fecha_creada' => date('y-m-d H-i-s');, 'fecha_caducidad'=> date('y-m-d H-i-s'););
     //Se verifica si existe una sesión iniciada como administrador para realizar las operaciones correspondientes
     if (isset($_SESSION['id_empleado'])) {
         switch ($_GET['action']) {
@@ -408,27 +408,45 @@ if (isset($_GET['action'])) {
                     if ($result = $usuario->checkAlias()) {
                         $intentos = $result['intentos'];
                         if ($intentos < 3) {
-                            if ($usuario->setClave($_POST['clave'])) {
-                                if ($usuario->checkPassword()) {
-                                    $_SESSION['id_empleado'] = $usuario->getId();
-                                    $_SESSION['alias_empleado'] = $usuario->getAlias();    
-                                    $_SESSION['foto_empleado'] = $usuario->getImagen();
-                                    $result['status'] = 1;
-                                    $result['message'] = 'Autenticación correcta';
+                            $fecha = $result['fecha_creada'];
+                            $fechas = $result['fecha_caducidad'];
+                            $intervalo = date_diff(date_create($fecha), date_create($fechas));
+                            if ($intervalo < 2) {
+                                if ($usuario->setClave($_POST['clave'])) {
+                                    if ($usuario->checkPassword()) {
+                                        $_SESSION['id_empleado'] = $usuario->getId();
+                                        $_SESSION['alias_empleado'] = $usuario->getAlias();    
+                                        $_SESSION['foto_empleado'] = $usuario->getImagen();
+                                        $_SESSION['timestamp'] = time();
+                                        $result['status'] = 1;
+                                        $result['message'] = 'Autenticación correcta, le quedan: '.($intervalo + 1). 'dias de ingreso';
+                                    } else {
+                                        if ($usuario->wrongPassword()) {
+                                            $result['exception'] = 'Clave inexistente. Intento: '.($intentos + 1);
+                                        } else {
+                                            $result['exception'] = 'Clave menor a 6 caracteres. Siga intentando';
+                                        }
+                                        if ($usuario->wrongPasswordFe()) {
+                                            $result['exception'] = 'Clave inexistente.  le quedan: '.($intervalo + 1). 'dias de ingreso';
+                                        } else {
+                                            $result['exception'] = 'Clave menor a 6 caracteres. Siga intentando';
+                                        }
+                                    }
                                 } else {
                                     if ($usuario->wrongPassword()) {
-                                        $result['exception'] = 'Clave inexistente. Intento: '.($intentos + 1);
+                                        $result['exception'] = 'Clave menor a 6 caracteres. Intento: '.($intentos + 1);
+                                    } else {
+                                        $result['exception'] = 'Clave menor a 6 caracteres. Siga intentando';
+                                    }
+                                    if ($usuario->wrongPasswordFe()) {
+                                        $result['exception'] = 'Clave inexistente.  le quedan: '.($intervalo + 1). 'dias de ingreso';
                                     } else {
                                         $result['exception'] = 'Clave menor a 6 caracteres. Siga intentando';
                                     }
                                 }
                             } else {
-                                if ($usuario->wrongPassword()) {
-                                    $result['exception'] = 'Clave menor a 6 caracteres. Intento: '.($intentos + 1);
-                                } else {
-                                    $result['exception'] = 'Clave menor a 6 caracteres. Siga intentando';
-                                }
-                            }
+                                $result['exception'] = 'Le quedan: '.($intervalo + date()). ' dias de ingreso';
+                            }  
                         } else {
                             $result['exception'] = 'Has agotado tus intentos. La cuenta ha sido bloqueada';
                         }                        
@@ -439,24 +457,6 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Alias incorrecto';
                 }
                 break;
-            case 'time':
-                if(isset($_SESSION["conectado"])){
-                    $fechaGuardada = $_SESSION["ultimoAcceso"];
-                    $ahora = date("Y-n-j H:i:s");
-                    if($_SESSION["conectado"]!=true){
-                        echo '<script>index.php"</script>';
-                        return false;
-                    } else {
-                    $tiempo_transcurrido = (strtotime($ahora)-strtotime($fechaGuardada));
-                    if($tiempo_transcurrido >= 60){ // 1 x 60 x 60 = 1 horas...
-                            session_destroy();
-                            echo '<script>index.php"</script>'; // 
-                            return false;
-                        } else{$_SESSION["ultimoAcceso"] = $ahora;}
-                    }
-                } else {
-                    return false;
-                }
             default:
                 exit('Acción no disponible');
         }

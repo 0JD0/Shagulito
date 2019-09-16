@@ -3,7 +3,7 @@ require_once('../../core/helpers/dashboard.php');
 Dashboard::headerTemplate('');
 ?>
 <div class="container">
-    <div class="row card">
+    <div class="row">
     <h3 class="center-align">Iniciar sesión</h3>
     <form method="post" id="form-sesion" autocomplete="off">
             <div class="input-field col s12 m6 offset-m3">
@@ -21,9 +21,9 @@ Dashboard::headerTemplate('');
             </div>
         </form>
         <div class="center-align col s12">
-            <a href="#modal-verificar"><br>¿Olvidaste tu contraseña?</a>
+            <a href="#modal-verificar" class="modal-trigger"><br>¿Olvidaste tu contraseña?</a>
             <span><br>ó<br></span>
-            <a href="#modal-verificar">¿Eres un usuario nuevo?</a>
+            <a href="#modal-verificar" class="modal-trigger">¿Eres un usuario nuevo?</a>
         </div>
     </div>
 </div>
@@ -33,10 +33,10 @@ Dashboard::headerTemplate('');
 <!-- modal para verificar correo -->
 <div id="modal-verificar" class="modal">
     <div class="modal-content">
-        <h4 class="center-align">Verificar correo electronico</h4>
+        <h4 class="center-align">Verificar correo electrónico</h4>
         <form method="post" id="form-verificar" enctype="multipart/form-data">
             <div class="row">
-                <div class="input-field col s12 m6">
+                <div class="input-field col s12">
                     <i class="material-icons prefix">email</i>
                     <input id="update_correo" type="email" name="update_correo" class="validate" required/>
                     <label for="update_correo">Correo</label>
@@ -44,12 +44,12 @@ Dashboard::headerTemplate('');
             </div>
             <div class="row center-align">
                 <a href="#" class="modal-close btn waves-effect waves-light red tooltipped " data-tooltip="Cancelar">
-                    <i class="material-icons">cancel</i>
+                    <i class="material-icons">close</i>
                 </a>
                 <button href="#modal-correo" type="submit"
                     class="btn waves-effect waves-light green tooltipped"
                     data-tooltip="Verificar">
-                    <i class="material-icons">rigth-arrow</i>
+                    <i class="material-icons">arrow_forward</i>
                 </button>
             </div>
         </form>
