@@ -12,6 +12,7 @@ class Usuarios extends Validator
     private $imagen = null;
 	private $ruta = '../../../resources/img/usuarios/';
 	private $estado = null;
+	private $fecha = null;
 
     //Métodos para sobrecarga de propiedades
     public function setId($value)
@@ -152,11 +153,26 @@ class Usuarios extends Validator
 	public function getEstado()
 	{
 		return $this->estado;
+	}
+	
+	public function setFecha($value)
+	{
+		if ($value == '1' || $value == '0') {
+			$this->fecha = $value;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function getFecha()
+	{
+		return $this->fecha;
     }
 	//Métodos para manejar la sesión del usuario
 	public function checkAlias()	
 	{
-		$sql = 'SELECT id_empleado, intentos FROM empleado WHERE alias_empleado = ?';
+		$sql = 'SELECT id_empleado, intentos, fecha_creada FROM empleado WHERE alias_empleado = ?';
 		$params = array($this->alias);
 		$data = Database::getRow($sql, $params);
 		if ($data) {
@@ -194,7 +210,17 @@ class Usuarios extends Validator
 		$params = array($this->id);
 		return Database::executeRow($sql, $params);
 
-	}	//Metodos para manejar el CRUD
+	}
+	
+	public function wrongPasswordFe()
+	{
+		$sql = 'UPDATE empleado SET fecha_creada = fecha_creada + 1 WHERE id_empleado = ?';
+		$params = array($this->id);
+		return Database::executeRow($sql, $params);
+
+	}
+	
+	//Metodos para manejar el CRUD
 	public function readUsuarios()
 	{
 		$sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado, clave_empleado, foto_empleado FROM empleado ORDER BY apellido_empleado';
@@ -212,8 +238,8 @@ class Usuarios extends Validator
 	public function createUsuario()
 	{
 		$hash = password_hash($this->clave, PASSWORD_DEFAULT);
-		$sql = 'INSERT INTO empleado(nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado, foto_empleado, clave_empleado) VALUES(?, ?, ?, ?, ?, ?, ?)';
-		$params = array($this->nombres, $this->apellidos, $this->telefono, $this->correo, $this->alias, $this->imagen, $hash);
+		$sql = 'INSERT INTO empleado(nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado, foto_empleado, clave_empleado, fecha_creada) VALUES(?, ?, ?, ?, ?, ?, ?)';
+		$params = array($this->nombres, $this->apellidos, $this->telefono, $this->correo, $this->alias, $this->imagen, $hash, $this->$fecha);
 		return Database::executeRow($sql, $params);
 	}
 

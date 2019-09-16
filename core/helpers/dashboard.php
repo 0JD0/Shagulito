@@ -28,6 +28,10 @@ class Dashboard
 			} else {  
 				$_SESSION['timestamp'] = time();
 			}
+
+			if (localtime() -$_SESSION['localtime']){
+
+			}
             $filename = basename($_SERVER['PHP_SELF']);
             if ($filename != 'index.php') {
                 self::modals();
