@@ -214,14 +214,6 @@ class Usuarios extends Validator
 
 	}
 	
-	public function wrongPasswordFe()
-	{
-		$sql = 'UPDATE empleado SET fecha_creada = fecha_creada + 1 WHERE id_empleado = ?';
-		$params = array($this->id);
-		return Database::executeRow($sql, $params);
-
-	}
-	
 	//Metodos para manejar el CRUD
 	public function readUsuarios()
 	{
@@ -240,7 +232,7 @@ class Usuarios extends Validator
 	public function createUsuario()
 	{
 		$hash = password_hash($this->clave, PASSWORD_DEFAULT);
-		$sql = 'INSERT INTO empleado(nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado, foto_empleado, clave_empleado, fecha_creada) VALUES(?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO empleado(nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado, foto_empleado, clave_empleado) VALUES(?, ?, ?, ?, ?, ?, ?)';
 		$params = array($this->nombres, $this->apellidos, $this->telefono, $this->correo, $this->alias, $this->imagen, $hash, $this->$fecha);
 		return Database::executeRow($sql, $params);
 	}

@@ -7,7 +7,7 @@ require_once('../../models/usuarios.php');
 if (isset($_GET['action'])) {
     session_start();
     $usuario = new Usuarios;
-    $result = array('status' => 0,'message' => null, 'exception' => null, 'intentos' => 1, 'fecha_creada' => date('y-m-d H-i-s');, 'fecha_caducidad'=> date('y-m-d H-i-s'););
+    $result = array('status' => 0, 'message' => null, 'exception' => null, 'intentos' => 1);
     //Se verifica si existe una sesión iniciada como administrador para realizar las operaciones correspondientes
     if (isset($_SESSION['id_empleado'])) {
         switch ($_GET['action']) {
@@ -163,7 +163,8 @@ if (isset($_GET['action'])) {
                                                     if($_POST['create_clave1']!= $_POST['create_alias'] && $_POST['create_clave2'] != $_POST['create_alias']) {   
                                                         if ($usuario->createUsuario()) {
                                                             if ($usuario->saveFile($_FILES['create_archivo'], $usuario->getRuta(), $usuario->getImagen())) {
-                                                            $result['status'] = 1;
+                                                            $result['status'] = 1;                    
+                                                            $result['exception'] = 'Usuario creado correctamente, no se guardó el archivo';
                                                             } else {
                                                                 $result['status'] = 2;
                                                                 $result['exception'] = 'No se guardó el archivo';
@@ -243,6 +244,7 @@ if (isset($_GET['action'])) {
                                                         if ($archivo) {
                                                             if ($usuario->saveFile($_FILES['update_archivo'], $usuario->getRuta(), $usuario->getImagen())) {
                                                                 $result['status'] = 1;
+                                                                $result['message'] = 'Empleado modificado correctamente';
                                                             } else {
                                                                 $result['status'] = 2;
                                                                 $result['exception'] = 'No se guardó el archivo';
@@ -254,7 +256,7 @@ if (isset($_GET['action'])) {
                                                         $result['exception'] = 'Operación fallida';
                                                     }
                                                 } else {
-                                                    $result['exception'] = 'cambio de intento incorrecto';
+                                                    $result['exception'] = 'Cambio de intento incorrecto';
                                                 }
                                             } else {
                                                 $result['exception'] = 'Estado incorrecto';
@@ -342,7 +344,7 @@ if (isset($_GET['action'])) {
             case 'read':
                 if ($usuario->readUsuarios()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Existe al menos un usuario registrado';
+                    $result['exception'] = 'Ya existe al menos un usuario registrado';
                 } else {
                     $result['status'] = 2;
                     $result['exception'] = 'No existen usuarios registrados';
@@ -408,45 +410,29 @@ if (isset($_GET['action'])) {
                     if ($result = $usuario->checkAlias()) {
                         $intentos = $result['intentos'];
                         if ($intentos < 3) {
-                            $fecha = $result['fecha_creada'];
-                            $fechas = $result['fecha_caducidad'];
-                            $intervalo = date_diff(date_create($fecha), date_create($fechas));
-                            if ($intervalo < 2) {
-                                if ($usuario->setClave($_POST['clave'])) {
-                                    if ($usuario->checkPassword()) {
-                                        $_SESSION['id_empleado'] = $usuario->getId();
-                                        $_SESSION['alias_empleado'] = $usuario->getAlias();    
-                                        $_SESSION['foto_empleado'] = $usuario->getImagen();
-                                        $_SESSION['timestamp'] = time();
-                                        $result['status'] = 1;
-                                        $result['message'] = 'Autenticación correcta, le quedan: '.($intervalo + 1). 'dias de ingreso';
-                                    } else {
-                                        if ($usuario->wrongPassword()) {
-                                            $result['exception'] = 'Clave inexistente. Intento: '.($intentos + 1);
-                                        } else {
-                                            $result['exception'] = 'Clave menor a 6 caracteres. Siga intentando';
-                                        }
-                                        if ($usuario->wrongPasswordFe()) {
-                                            $result['exception'] = 'Clave inexistente.  le quedan: '.($intervalo + 1). 'dias de ingreso';
-                                        } else {
-                                            $result['exception'] = 'Clave menor a 6 caracteres. Siga intentando';
-                                        }
-                                    }
+                            if ($usuario->setClave($_POST['clave'])) {
+                                if ($usuario->checkPassword()) {
+                                    $_SESSION['id_empleado'] = $usuario->getId();
+                                    $_SESSION['alias_empleado'] = $usuario->getAlias();    
+                                    $_SESSION['foto_empleado'] = $usuario->getImagen();
+                                    $_SESSION['timestamp'] = time();
+                                    $result['status'] = 1;
+                                    $result['message'] = 'Autenticación correcta';
                                 } else {
-                                    if ($usuario->wrongPassword()) {
-                                        $result['exception'] = 'Clave menor a 6 caracteres. Intento: '.($intentos + 1);
-                                    } else {
-                                        $result['exception'] = 'Clave menor a 6 caracteres. Siga intentando';
-                                    }
-                                    if ($usuario->wrongPasswordFe()) {
-                                        $result['exception'] = 'Clave inexistente.  le quedan: '.($intervalo + 1). 'dias de ingreso';
+                                   if ($usuario->wrongPassword()) {
+                                        $result['exception'] = 'Clave inexistente. Intento: '.($intentos + 1);
                                     } else {
                                         $result['exception'] = 'Clave menor a 6 caracteres. Siga intentando';
                                     }
                                 }
                             } else {
-                                $result['exception'] = 'Le quedan: '.($intervalo + date()). ' dias de ingreso';
-                            }  
+                                if ($usuario->wrongPassword()) {
+                                    $result['exception'] = 'Clave menor a 6 caracteres. Intento: '.($intentos + 1);
+                                } else {
+                                    $result['exception'] = 'Clave menor a 6 caracteres. Siga intentando';
+                                }
+                            }
+                           
                         } else {
                             $result['exception'] = 'Has agotado tus intentos. La cuenta ha sido bloqueada';
                         }                        
