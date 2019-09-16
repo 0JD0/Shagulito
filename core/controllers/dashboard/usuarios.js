@@ -114,7 +114,7 @@ $('#form-create').submit(function()
             if (result.status) {
                 $('#form-create')[0].reset();
                 $('#modal-create').modal('close');
-                sweetAlert(1, 'Usuario creado correctamente', null);
+                sweetAlert(1, result.message, null);
                 showTable();
             } else {
                 sweetAlert(2, result.exception, null);

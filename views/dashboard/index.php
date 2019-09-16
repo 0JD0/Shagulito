@@ -34,12 +34,12 @@ Dashboard::headerTemplate('');
 <div id="modal-verificar" class="modal">
     <div class="modal-content">
         <h4 class="center-align">Verificar correo electrónico</h4>
-        <form method="post" id="form-verificar" enctype="multipart/form-data">
+        <form action="correo.php" method="post" id="form-verificar" enctype="multipart/form-data">
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">email</i>
-                    <input id="update_correo" type="email" name="update_correo" class="validate" required/>
-                    <label for="update_correo">Correo</label>
+                    <input id="verificar_correo" type="email" name="verificar_correo" class="validate" required/>
+                    <label for="verificar_correo">Correo</label>
                 </div>
             </div>
             <div class="row center-align">
