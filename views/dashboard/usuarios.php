@@ -29,6 +29,8 @@ Dashboard::headerTemplate('Administrar empleados');
             <th>TELÉFONO</th>
             <th>CORREO</th>
             <th>ALIAS</th>
+            <th>ESTADO</th>
+            <th>INTENTOS</th> 
             <th>ACCIÓN</th>
 
         </tr>
@@ -86,19 +88,6 @@ Dashboard::headerTemplate('Administrar empleados');
                         <input type="text" class="file-path validate" placeholder="Seleccione una imagen"/>
                     </div>
             </div>
-            <div class="col s12 m6">
-                    <p>
-                        <div class="switch">
-                            <span>Estado:</span>
-                            <label>
-                                <i class="material-icons">visibility_off</i>
-                                <input id="create_estado" type="checkbox" name="create_estado" checked />
-                                <span class="lever"></span>
-                                <i class="material-icons">visibility</i>
-                            </label>
-                        </div>
-                    </p>
-                </div>
         </div>
             <div class="row center-align">
                 <a href="#" class="btn waves-effect grey tooltipped modal-close" data-tooltip="Cancelar"><i class="material-icons">cancel</i></a>
@@ -139,6 +128,16 @@ Dashboard::headerTemplate('Administrar empleados');
                     <i class="material-icons prefix">person_pin</i>
                     <input id="update_alias" type="text" name="update_alias" class="validate" required/>
                     <label for="update_alias">Alias</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">list</i>
+                    <input id="update_estado" type="text" name="update_estado" class="validate" required/>
+                    <label for="update_estado">Estado</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">check</i>
+                    <input id="update_intentos" type="text" name="update_intentos" class="validate" required/>
+                    <label for="update_intentos">Intentos</label>
                 </div>
                 <div class="file-field input-field col s12 m6">
                     <div class="btn waves-effect">

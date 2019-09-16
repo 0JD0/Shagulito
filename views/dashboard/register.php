@@ -2,7 +2,7 @@
 require_once('../../core/helpers/dashboard.php');
 Dashboard::headerTemplate('Registrar primer usuario');
 ?>
-<form method="post" id="form-register">
+<form method="post" id="form-register"  enctype="multipart/form-data">
     <div class="row">
         <div class="input-field col s12 m6">
             <i class="material-icons prefix">person</i>
