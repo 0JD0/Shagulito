@@ -130,11 +130,11 @@ class Validator
 
 	public function validatePassword($value)
 	{
-			if (preg_match('/^.*(?=.(8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/', $value)){
-				return true;
-			} else {
-				return false;
-			}
+		if (preg_match('/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/', $value)){
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public function saveFile($file, $path, $name)

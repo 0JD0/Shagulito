@@ -21,6 +21,13 @@ class Dashboard
 				<body id="noctext">
 		');
         if (isset($_SESSION['id_empleado'])) {
+			if (time() - $_SESSION['timestamp'] >60) { //se le cambia despues porque solo da 5 seg para prueba
+				//sirve solo para cambio de pagina
+				session_destroy();
+				header('location: index.php');
+			} else {  
+				$_SESSION['timestamp'] = time();
+			}
             $filename = basename($_SERVER['PHP_SELF']);
             if ($filename != 'index.php') {
                 self::modals();
