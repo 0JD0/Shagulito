@@ -21,13 +21,29 @@ class Dashboard
 				<body id="noctext">
 		');
         if (isset($_SESSION['id_empleado'])) {
-			if (time() - $_SESSION['timestamp'] >60) { //se le cambia despues porque solo da 5 seg para prueba
+			if (time() - $_SESSION['timestamp'] > 60) { //se le cambia despues porque solo da 60 seg para prueba
 				//sirve solo para cambio de pagina
 				session_destroy();
 				header('location: index.php');
 			} else {  
 				$_SESSION['timestamp'] = time();
 			}
+			require_once('../../core/helpers/database.php');
+			require_once('../../core/helpers/validator.php');
+			require_once('../../core/models/usuarios.php');
+			$fecha = new Usuarios();
+			$ultina = $fecha->getFecha($_SESSION['id_empleado']);
+			if ($ultina[0]== true){
+				$fecha_ultima = $ultina[0]['ultima_fecha'];
+			
+				$fechaActual = date ('Y-m-d');
+				$fecha_nueva = date("Y-m-d",strtotime(date($fecha_ultima)."+ 1 days"));
+				
+				if ($fecha_nueva <= $fechaActual) {
+					// print("<script>window.location.href= '../../views/dashboard/cambiocontra.php'</script>");
+				}
+			}
+
             $filename = basename($_SERVER['PHP_SELF']);
             if ($filename != 'index.php') {
                 self::modals();

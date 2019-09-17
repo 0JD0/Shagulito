@@ -8,7 +8,7 @@ Dashboard::headerTemplate('Reportes');
         <div class="card horizontal">
             <div class="card-stacked">
                 <div class="card-content">
-                    <p>Reporte Cliente</p>
+                    <p>Reporte de Cliente</p>
                 </div>
                 <div class="card-action">
                     <a  target="_blank" href="../../PDF_Shagul/PDF_cliente.php">Mostrar</a>

@@ -42,7 +42,7 @@ Dashboard::headerTemplate('Administrar empleados');
 <div id="modal-create" class="modal">
     <div class="modal-content">
         <h4 class="center-align">Crear usuario</h4>
-        <form method="post" id="form-create" enctype="multipart/form-data">
+        <form method="post" id="form-create" enctype="multipart/form-data" autocomplete = "off">
         <div class="row">
             <div class="input-field col s12 m6">
                 <i class="material-icons prefix">person</i>
@@ -100,7 +100,7 @@ Dashboard::headerTemplate('Administrar empleados');
 <div id="modal-update" class="modal">
     <div class="modal-content">
         <h4 class="center-align">Modificar usuario</h4>
-        <form method="post" id="form-update" enctype="multipart/form-data">
+        <form method="post" id="form-update" enctype="multipart/form-data" autocomplete = "off">
             <input type="hidden" id="id_empleado" name="id_empleado"/>
             <input type="hidden" id="imagen_usuario" name="imagen_usuario"/>
             <div class="row">

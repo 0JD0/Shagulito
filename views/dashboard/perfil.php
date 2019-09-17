@@ -40,10 +40,11 @@ Dashboard::headerTemplate('Perfil');
     </div>
 </div>
 
+
 <div id="modal-profile" class="modal">
     <div class="modal-content">
         <h4 class="center-align">Editar perfil</h4>
-        <form method="post" id="form-profile">
+        <form method="post" id="form-profile" autocomplete = "off">
         <input type="hidden" id="id_empleado" name="id_empleado"/>
         <input type="hidden" id="imagen_usuario" name="imagen_usuario"/>
             <div class="row">
@@ -95,7 +96,7 @@ Dashboard::headerTemplate('Perfil');
 <div id="modal-password" class="modal">
     <div class="modal-content">
         <h4 class="center-align">Cambiar contraseña</h4>
-        <form method="post" id="form-password">
+        <form method="post" id="form-password" autocomplete = "off">
             <div class="row center-align">
                 <label>CLAVE ACTUAL</label>
             </div>

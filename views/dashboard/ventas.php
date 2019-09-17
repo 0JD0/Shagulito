@@ -3,6 +3,7 @@ require_once '../../core/helpers/dashboard.php';
 Dashboard::headerTemplate('Ventas');
 ?>
 
+
 <div class="row">
     <!-- Formulario de búsqueda -->
     <form method="post" id="form-search">
@@ -41,7 +42,7 @@ Dashboard::headerTemplate('Ventas');
 <div id="modal-create" class="modal">
     <div class="modal-content">
         <h4 class="center-align">Realizar una venta</h4>
-        <form method="post" id="form-create" enctype="multipart/form-data">
+        <form method="post" id="form-create" enctype="multipart/form-data" autocomplete = "off">
             <div class="row">
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">book</i>
@@ -77,7 +78,7 @@ Dashboard::headerTemplate('Ventas');
 <div id="modal-update" class="modal">
     <div class="modal-content">
         <h4 class="center-align">Editar Producto</h4>
-        <form method="post" id="form-update" enctype="multipart/form-data">
+        <form method="post" id="form-update" enctype="multipart/form-data" autocomplete = "off">
             <input type="hidden" id="id_venta" name="id_venta" />
             <div class="row">
                 <div class="input-field col s12 m6">

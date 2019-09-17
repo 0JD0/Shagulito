@@ -86,7 +86,7 @@ switch ($_GET['action']) {
             $mail->send();
             $result['exception'] = 'Mensaje enviado correctamente';
         } catch (Exception $e) {
-            $result['exception'] = "Ha ocurrido un error al enviar el mensaje <br> por favor intente mas tarde {$mail->ErrorInfo}";
+            echo "Ha ocurrido un error al enviar el mensaje <br> por favor intente mas tarde {$mail->ErrorInfo}";
         }
         break;
     default:

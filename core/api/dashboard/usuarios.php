@@ -10,6 +10,9 @@ if (isset($_GET['action'])) {
     $result = array('status' => 0, 'message' => null, 'exception' => null, 'intentos' => 1);
     //Se verifica si existe una sesión iniciada como administrador para realizar las operaciones correspondientes
     if (isset($_SESSION['id_empleado'])) {
+        $fecha = date('y-m-d');
+        $nuevafecha = strtotime('+ 90 day', strtotime ($fecha));
+        $nuevafecha = date('y-m-d', $nuevafecha);                                                                                                                                                                                                                                                 
         switch ($_GET['action']) {
             case 'logout':
                 if (session_destroy()) {
@@ -102,6 +105,7 @@ if (isset($_GET['action'])) {
                                             if ($usuario->setClave($_POST['clave_nueva_1'])) {
                                                 if ($usuario->changePassword()) {
                                                     $result['status'] = 1;
+                                                    $result['exception'] = 'Cambio correcto';
                                                 } else {
                                                     $result['exception'] = 'Operación fallida';
                                                 }
@@ -158,31 +162,35 @@ if (isset($_GET['action'])) {
                                 if ($usuario->setAlias($_POST['create_alias'])) {
                                     if ($_POST['create_clave1'] == $_POST['create_clave2']) {
                                         if ($usuario->setClave($_POST['create_clave1'])) {
+                                            if ($_POST['create_clave1'] != $_POST['create_alias']) {
                                             if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
                                                 if ($usuario->setImagen($_FILES['create_archivo'], null)) {
                                                     if($_POST['create_clave1']!= $_POST['create_alias'] && $_POST['create_clave2'] != $_POST['create_alias']) {   
                                                         if ($usuario->createUsuario()) {
                                                             if ($usuario->saveFile($_FILES['create_archivo'], $usuario->getRuta(), $usuario->getImagen())) {
-                                                            $result['status'] = 1;                    
-                                                            $result['exception'] = 'Usuario creado correctamente, no se guardó el archivo';
+                                                                $result['status'] = 1;                    
+                                                                $result['exception'] = 'Usuario creado correctamente, no se guardó el archivo';
+                                                                } else {
+                                                                    $result['status'] = 2;
+                                                                    $result['exception'] = 'No se guardó el archivo';
+                                                                }
                                                             } else {
-                                                                $result['status'] = 2;
-                                                                $result['exception'] = 'No se guardó el archivo';
+                                                                $result['exception'] = 'Operación fallida';
                                                             }
-                                                        } else {
-                                                            $result['exception'] = 'Operación fallida';
+                                                    } else {
+                                                        $result['exception'] = 'No puede poner el mismo alias con la contraseña. Escriba de nuevo la clave que desea utilizar';
                                                         }
-                                                   } else {
-                                                       $result['exception'] = 'No puede poner el mismo alias con la contraseña. Escriba de nuevo la clave que desea utilizar';
+                                                    } else {
+                                                        $result['exception'] = $usuario->getImageError();
                                                     }
                                                 } else {
-                                                    $result['exception'] = $usuario->getImageError();
+                                                    $result['exception'] = 'Seleccione una imagen';
                                                 }
                                             } else {
-                                                $result['exception'] = 'Seleccione una imagen';
+                                                $result['exception'] = 'Clave menor a 6 caracteres';
                                             }
                                         } else {
-                                            $result['exception'] = 'Clave menor a 6 caracteres';
+                                            $result['exception'] = 'La clave no puede ser igual al alias';
                                         }
                                     } else {
                                         $result['exception'] = 'Claves diferentes';
