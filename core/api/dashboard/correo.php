@@ -51,17 +51,17 @@ switch ($_GET['action']) {
             // Content
             $mail->isHTML(true);                                  // Set email format to HTML
             $mail->Subject = 'Nueva contraseña';
-            $mail->Body    = 'Su nueva contraseña es: ' + random_password();
+            $mail->Body    = 'Su nueva contraseña es: ' . random_password();
         //    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
             
-            $usuario->setCorreo($verificar);
             $usuario->setClave(random_password());
+            $usuario->setCorreo($verificar);
 
             $mail->CharSet = 'UTF-8';
             $mail->send();
-            echo 'Mensaje enviado correctamente';
+            $result['message'] = 'Mensaje enviado correctamente';
         } catch (Exception $e) {
-            echo "Ha ocurrido un error al enviar el mensaje <br> por favor intente mas tarde {$mail->ErrorInfo}";
+            $result['exception'] = "Ha ocurrido un error al enviar el mensaje <br> por favor intente mas tarde {$mail->ErrorInfo}";
         }
         break;
     default:
