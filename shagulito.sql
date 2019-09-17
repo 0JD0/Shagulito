@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-09-2019 a las 21:57:30
--- Versión del servidor: 10.1.37-MariaDB
--- Versión de PHP: 7.3.1
+-- Tiempo de generación: 17-09-2019 a las 21:21:06
+-- Versión del servidor: 10.1.9-MariaDB
+-- Versión de PHP: 5.6.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -97,19 +97,18 @@ CREATE TABLE `empleado` (
   `foto_empleado` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `estado_empleado` tinyint(1) NOT NULL,
   `id_cargo` int(11) NOT NULL,
-  `intentos` tinyint(1) NOT NULL DEFAULT '0'
+  `intentos` tinyint(1) NOT NULL DEFAULT '0',
+  `ultima_fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `empleado`
 --
 
-INSERT INTO `empleado` (`id_empleado`, `nombre_empleado`, `apellido_empleado`, `telefono_empleado`, `correo_empleado`, `alias_empleado`, `clave_empleado`, `foto_empleado`, `estado_empleado`, `id_cargo`, `intentos`) VALUES
-(1, 'Josué', 'Durán', 12345678, 'JD@Shagulito.com', 'JD', '$2y$10$ZLr35pikwC0NZ0FfcLE3QeJfCKmx1TYMwCt0R6nfdu7WSEGQFAiIq', '5d6ec3e8ec9ee.jpg', 0, 0, 0),
-(2, 'Daniel', 'Hernandez', 12345678, 'Daniel@shagulito.com', 'Daniel', '$2y$10$R8qzEihfDKbAPbhsL3H6HOLHXNjBuCYtkmgc5Kbf24MbgqTyh9Aa2', '5d5106f21b9f1.png', 0, 1, 0),
-(3, 'Gabriel', 'Monterrosa', 12345678, 'Gabriel@shagulito.com', 'Gabriel', '$2y$10$AnymL7hSWHSXliHBsybyEOhMyITxHwoD9IEMXSKa4IAqEfzSWDHO6', '5d510751c536b.jpg', 0, 1, 0),
-(4, 'Steven', 'Diaz', 12345678, 'StevenBDF@shagulito.com', 'StevenBDF', '$2y$10$70QM5WSWvIBr3kU0JhUJ5uDnPdrK3zRiyLezKDHi1ZWsS3aqVO9RG', '5d5107f31cdb1.jpg', 0, 2, 0),
-(5, 'Boris', 'Huezo', 12345678, 'Boris@shagulito.com', 'Boris', '$2y$10$5zSOzX6DjdEb4kcPDGn1.em7yADauX8h3vaEO/TIuuPEo96.OSDJ6', '5d51083c06711.jpg', 0, 2, 0);
+INSERT INTO `empleado` (`id_empleado`, `nombre_empleado`, `apellido_empleado`, `telefono_empleado`, `correo_empleado`, `alias_empleado`, `clave_empleado`, `foto_empleado`, `estado_empleado`, `id_cargo`, `intentos`, `ultima_fecha`) VALUES
+(12, 'gabriel', 'monterrosa', 71008820, 'monterrosa123@gmail.com', 'Gabriel', '$2y$10$FDkw9I1v5avqE2WZUQHnWOjPEJiOpCxRUv3wNcSt1fuJ0v4j55EAW', '5d78055e3e438.jpg', 0, 0, 0, '0000-00-00'),
+(13, 'Dani', 'h', 12345645, 'hdf@gmail.com', 'Dani', '$2y$10$MWGq.F8L25.2xkrYlOPlTecNYlJZ34MSens/IEAb7f6kKnU0nUaHa', '5d7fc4fdc4d6d.jpg', 0, 0, 0, '2019-09-16'),
+(14, 'Daniel', 'Hernandez', 2104520757, 'kar@gmail.com', 'Daniel', '$2y$10$jWzoIoelc96/F6/NK/yLm.bI7V6oWYi1QGSN2D/VBkz9NwPsEfG96', '5d7fdcf30ee2c.jpg', 0, 0, 2, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -223,7 +222,8 @@ INSERT INTO `ventas` (`id_venta`, `id_empleado`, `monto_venta`, `fecha_venta`) V
 (12, 1, '544.20', '2014-12-12'),
 (13, 1, '352.40', '2015-01-20'),
 (14, 1, '674.20', '2015-02-22'),
-(15, 1, '700.00', '2015-03-11');
+(15, 1, '700.00', '2015-03-11'),
+(16, 12, '300.00', '2019-09-11');
 
 --
 -- Índices para tablas volcadas
@@ -297,7 +297,6 @@ ALTER TABLE `ventas`
 --
 ALTER TABLE `cargos`
   MODIFY `id_cargo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT de la tabla `categorias`
 --
@@ -312,8 +311,7 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de la tabla `empleado`
 --
 ALTER TABLE `empleado`
-  MODIFY `id_empleado` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
+  MODIFY `id_empleado` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT de la tabla `lotes`
 --
@@ -324,13 +322,6 @@ ALTER TABLE `lotes`
 --
 ALTER TABLE `permisos`
   MODIFY `id_permiso` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `permisos`
---
-ALTER TABLE `permisos`
-  MODIFY `id_permiso` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
@@ -340,7 +331,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- Restricciones para tablas volcadas
 --
