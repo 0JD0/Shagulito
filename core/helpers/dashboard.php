@@ -37,9 +37,10 @@ class Dashboard
 				$fecha_ultima = $ultina[0]['ultima_fecha'];
 			
 				$fechaActual = date ('Y-m-d');
-				$fecha_nueva = date("Y-m-d",strtotime(date($fecha_ultima."+ 1 days")));
+				$fecha_nueva = date("Y-m-d",strtotime(date($fecha_ultima)."+ 1 days"));
+				
 				if ($fecha_nueva <= $fechaActual) {
-					print("<script>window.location.href= '../../views/dashboard/cambiocontra.php'</script>");
+					// print("<script>window.location.href= '../../views/dashboard/cambiocontra.php'</script>");
 				}
 			}
 

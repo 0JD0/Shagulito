@@ -1,8 +1,8 @@
 <?php
 require_once('../../core/helpers/dashboard.php');
-Dashboard::headerTemplate('Cambio de Contraseña Obligatorio');
+Dashboard::headerTemplate('Cambio de contraseña obligatorio');
 ?>
-<form method="post" id="form-password">
+<form method="post" id="form-password" autocomplete = "off">
     <div class="row center-align">
         <label>CLAVE ACTUAL</label>
     </div>
@@ -35,6 +35,9 @@ Dashboard::headerTemplate('Cambio de Contraseña Obligatorio');
         </div>
         <div class="row center-align">
             <a href="#" class="btn waves-effect grey tooltipped modal-close" data-tooltip="Cancelar"><i class="material-icons">cancel</i></a>
-            <button type="submit" class="btn waves-effect blue tooltipped" data-tooltip="Cambiar"><i class="material-icons">save</i></button>
-        </div>
+                <button type="submit" class="btn waves-effect blue tooltipped" data-tooltip="Cambiar"><i class="material-icons">save</i></button>
+            </div>
 </form>
+<?php
+Dashboard::footerTemplate('account.js');
+?>

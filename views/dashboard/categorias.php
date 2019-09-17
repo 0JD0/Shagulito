@@ -41,7 +41,7 @@ Dashboard::headerTemplate('Administrar categorías');
 <!-- modal para agregar -->
 <div id="modal-create" class="modal">
     <div class="modal-content">
-        <h4 class="center-align">Agregar Categoria</h4>
+        <h4 class="center-align">Agregar Categoría</h4>
         <form method="post" id="form-create">
             <div class="row">
                 <div class="input-field col s12 m6">
@@ -84,7 +84,7 @@ Dashboard::headerTemplate('Administrar categorías');
 <!-- Modal para editar -->
 <div id="modal-update" class="modal">
     <div class="modal-content">
-        <h4 class="center-align">Editar Categoria</h4>
+        <h4 class="center-align">Editar Categoría</h4>
         <form method="post" id="form-update">
             <input type="hidden" id="id_categoria" name="id_categoria" />
             <div class="row">
@@ -96,7 +96,7 @@ Dashboard::headerTemplate('Administrar categorías');
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">assignment</i>
                     <input type="text" id="update_descripcion" name="update_descripcion" class="validate" required />
-                    <label for="update_descripcion">Descripcion</label>
+                    <label for="update_descripcion">Descripción</label>
                 </div>
                 <div class="col s12 m6">
                     <p>
