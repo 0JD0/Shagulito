@@ -1,5 +1,6 @@
 <?php
 require('../libraries/fpdf181/fpdf.php');
+require('../core/helpers/database.php');
 
 if (isset($_SESSION['id_empleado'])) {
     class PDF extends FPDF
@@ -48,7 +49,7 @@ if (isset($_SESSION['id_empleado'])) {
         }
     }
 
-    require('connection.php');
+
     $consult = "SELECT * From clientes";
     $result = $mysqli->query($consult);
 
