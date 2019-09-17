@@ -17,12 +17,33 @@ $error = $_GET['action'];
 
 $result = array('status' => 0, 'message' => null, 'exception' => null);
 
-function random_password()  
-{  
-  $longitud = 8; // longitud del password  
-  $pass = substr(md5(rand()),0,$longitud);  
-  return($pass); // devuelve el password   
+
+function random_password(){
+    //Se define una cadena de caractares.
+    //Os recomiendo desordenar las minúsculas, mayúsculas y números para mejorar la probabilidad.
+    $cadena = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890@#!€%&()";
+    //Obtenemos la longitud de la cadena de caracteres
+    $longitudCadena=strlen($cadena);
+ 
+    //Definimos la variable que va a contener la contraseña
+    $pass = "";
+    //Se define la longitud de la contraseña, puedes poner la longitud que necesites
+    //Se debe tener en cuenta que cuanto más larga sea más segura será.
+    $longitudPass=10;
+ 
+    //Creamos la contraseña recorriendo la cadena tantas veces como hayamos indicado
+    for($i=1 ; $i<=$longitudPass ; $i++){
+        //Definimos numero aleatorio entre 0 y la longitud de la cadena de caracteres-1
+        $pos=rand(0,$longitudCadena-1);
+ 
+        //Vamos formando la contraseña con cada carácter aleatorio.
+        $pass .= substr($cadena,$pos,1);
+    }
+    return $pass;
 }
+
+$random = random_password();
+
 switch ($_GET['action']) {
     case 'verificar':
         try {
@@ -51,15 +72,19 @@ switch ($_GET['action']) {
             // Content
             $mail->isHTML(true);                                  // Set email format to HTML
             $mail->Subject = 'Nueva contraseña';
-            $mail->Body    = 'Su nueva contraseña es: ' . random_password();
+            $mail->Body    = 'Su nueva contraseña es: ' . $random;
         //    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        
             
-            $usuario->setClave(random_password());
+            $_POST = $usuario->validateForm($_POST);
+            $usuario->setClave($random);
             $usuario->setCorreo($verificar);
+            $usuario->validarPassword();
+            $result['status'] = 1;
 
             $mail->CharSet = 'UTF-8';
             $mail->send();
-            $result['message'] = 'Mensaje enviado correctamente';
+            $result['exception'] = 'Mensaje enviado correctamente';
         } catch (Exception $e) {
             $result['exception'] = "Ha ocurrido un error al enviar el mensaje <br> por favor intente mas tarde {$mail->ErrorInfo}";
         }

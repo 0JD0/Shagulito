@@ -79,6 +79,8 @@ $('#form-verificar').submit(function()
         type: 'post',
         data: $('#form-verificar').serialize(),
         datatype: 'json',
+        cache: false,
+        processData: false
     })
     .done(function(response){
         // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
@@ -86,6 +88,7 @@ $('#form-verificar').submit(function()
             const result = JSON.parse(response);
             // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
+                $('#form-verificar')[0].reset();
                 $('#modal-verificar').modal('close');
                 showTable();        
                 sweetAlert(1, result.message, null);
