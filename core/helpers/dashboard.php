@@ -33,18 +33,16 @@ class Dashboard
 			require_once('../../core/models/usuarios.php');
 			$fecha = new Usuarios();
 			$ultina = $fecha->getFecha($_SESSION['id_empleado']);
-			if($ultina[0]== true){
+			if ($ultina[0]== true){
 				$fecha_ultima = $ultina[0]['ultima_fecha'];
+			
 				$fechaActual = date ('Y-m-d');
 				$fecha_nueva = date("Y-m-d",strtotime(date($fecha_ultima."+ 1 days")));
-				if($fecha_nueva >= $fechaActual) {
-					print('Ya pasaron 90 dias, porfavor cambie la contraseña')
+				if ($fecha_nueva >= $fechaActual) {
+					print("<script>$('#modal-profile').modal('open');</script>");
 				}
 			}
-			
-			
-			date("d-m-Y",strtotime($fecha_ultima."+ 1 days"));
-			
+
             $filename = basename($_SERVER['PHP_SELF']);
             if ($filename != 'index.php') {
                 self::modals();
