@@ -96,7 +96,6 @@ Dashboard::headerTemplate('Administrar empleados');
         </form>
     </div>
 </div>
-
 <!-- Ventana para modificar un registro existente -->
 <div id="modal-update" class="modal">
     <div class="modal-content">

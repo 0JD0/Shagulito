@@ -2,7 +2,6 @@
 require_once('../../core/helpers/dashboard.php');
 Dashboard::headerTemplate('');
 ?>
-
 <div class="container">
     <div class="row">
     <h3 class="center-align">Iniciar sesión</h3>
@@ -28,7 +27,6 @@ Dashboard::headerTemplate('');
         </div>
     </div>
 </div>
-
 
 <!-- modal para verificar correo -->
 <div id="modal-verificar" class="modal">

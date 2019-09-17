@@ -3,7 +3,6 @@ require_once('../../core/helpers/dashboard.php');
 Dashboard::headerTemplate('Reportes');
 ?>
 
-
 <div class="row">
     <div class="col s12 m4">
         <div class="card horizontal">

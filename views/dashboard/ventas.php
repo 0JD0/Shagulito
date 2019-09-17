@@ -38,7 +38,6 @@ Dashboard::headerTemplate('Ventas');
     <tbody id="tbody-read"></tbody>
 </table>
 
-
 <!-- modal para agregar -->
 <div id="modal-create" class="modal">
     <div class="modal-content">

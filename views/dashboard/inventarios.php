@@ -105,7 +105,6 @@ Dashboard::headerTemplate('Administrar Inventario');
     </div>
 </div>
 
-
 <!-- Modal para editar -->
 <div id="modal-update" class="modal">
     <div class="modal-content">

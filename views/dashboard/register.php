@@ -3,7 +3,6 @@ require_once('../../core/helpers/dashboard.php');
 Dashboard::headerTemplate('Registrar primer usuario');
 ?>
 <!-- modal para registra usuarios-->
-
 <form method="post" id="form-register"  enctype="multipart/form-data">
     <div class="row">
         <div class="input-field col s12 m6">
