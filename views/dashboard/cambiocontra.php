@@ -2,6 +2,7 @@
 require_once('../../core/helpers/dashboard.php');
 Dashboard::headerTemplate('Cambio de contraseña obligatorio');
 ?>
+
 <form method="post" id="form-password" autocomplete = "off">
     <div class="row center-align">
         <label>CLAVE ACTUAL</label>

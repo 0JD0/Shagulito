@@ -16,6 +16,7 @@ Dashboard::headerTemplate('Administrar categorías');
 			</button>
 		</div>
 	</form>
+
 	<!-- Botón para abrir ventana de nuevo registro -->
 	<div class="input-field center-align col s2 m3">
 		<a href="#modal-create" class="btn-floating waves-effect indigo tooltipped modal-trigger" data-tooltip="Agregar">
@@ -37,6 +38,7 @@ Dashboard::headerTemplate('Administrar categorías');
 	<tbody id="tbody-read">
 	</tbody>
 </table>
+
 
 <!-- modal para agregar -->
 <div id="modal-create" class="modal">
