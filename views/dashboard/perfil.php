@@ -2,6 +2,7 @@
 require_once('../../core/helpers/dashboard.php');
 Dashboard::headerTemplate('Perfil');
 ?>
+
 <div class="row">
     <div class="col s12 m6">
         <h5 class="header center-align">Actualizar perfil</h5>
@@ -39,6 +40,7 @@ Dashboard::headerTemplate('Perfil');
         </div>
     </div>
 </div>
+
 
 <div id="modal-profile" class="modal">
     <div class="modal-content">

@@ -40,6 +40,7 @@ Dashboard::headerTemplate('Administrar Inventario');
     <tbody id="tbody-read"></tbody>
 </table>
 
+
 <!-- modal para agregar -->
 <div id="modal-create" class="modal">
     <div class="modal-content">
@@ -103,6 +104,7 @@ Dashboard::headerTemplate('Administrar Inventario');
         </form>
     </div>
 </div>
+
 
 <!-- Modal para editar -->
 <div id="modal-update" class="modal">

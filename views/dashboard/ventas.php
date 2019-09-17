@@ -3,6 +3,7 @@ require_once '../../core/helpers/dashboard.php';
 Dashboard::headerTemplate('Ventas');
 ?>
 
+
 <div class="row">
     <!-- Formulario de búsqueda -->
     <form method="post" id="form-search">
@@ -36,6 +37,7 @@ Dashboard::headerTemplate('Ventas');
     </thead>
     <tbody id="tbody-read"></tbody>
 </table>
+
 
 <!-- modal para agregar -->
 <div id="modal-create" class="modal">
