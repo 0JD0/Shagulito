@@ -105,6 +105,7 @@ if (isset($_GET['action'])) {
                                             if ($usuario->setClave($_POST['clave_nueva_1'])) {
                                                 if ($usuario->changePassword()) {
                                                     $result['status'] = 1;
+                                                    $result['exception'] = 'Cambio correcto';
                                                 } else {
                                                     $result['exception'] = 'Operación fallida';
                                                 }

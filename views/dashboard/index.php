@@ -28,13 +28,11 @@ Dashboard::headerTemplate('');
     </div>
 </div>
 
-    
-
 <!-- modal para verificar correo -->
 <div id="modal-verificar" class="modal">
     <div class="modal-content">
         <h4 class="center-align">Verificar correo electrónico</h4>
-        <form action="correo.php" method="post" id="form-verificar" enctype="multipart/form-data">
+        <form method="post" id="form-verificar" enctype="multipart/form-data">
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">email</i>
