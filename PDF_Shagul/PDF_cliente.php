@@ -7,7 +7,6 @@ class PDF extends FPDF
     function Header()
     {
       $this->image('logo.png',10,10,30);
-		+
         // Arial bold 15
         $this->SetFont('Arial','B',19);
         // Espacio hacia a la derecha
