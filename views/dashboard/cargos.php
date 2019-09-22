@@ -4,6 +4,7 @@ Dashboard::headerTemplate('Administrar cargos');
 ?>
 
 <div class="row">
+
     <!-- Formulario de búsqueda -->
     <form method="post" id="form-search">
         <div class="input-field col s8 m6">
@@ -25,6 +26,7 @@ Dashboard::headerTemplate('Administrar cargos');
         </a>
     </div>
 </div>
+
 
 <table class="highlight centered responsive-table">
     <thead>

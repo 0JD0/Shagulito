@@ -7,11 +7,13 @@ class Usuarios extends Validator
     private $apellidos = null;
     private $telefono = null;
     private $correo = null;
-    private $alias = null;
+	private $alias = null;
+	private $estado = null;
+	private $intentos = null;
     private $clave = null;
     private $imagen = null;
 	private $ruta = '../../../resources/img/usuarios/';
-	private $estado = null;
+	
 
     //Métodos para sobrecarga de propiedades
     public function setId($value)
@@ -104,6 +106,36 @@ class Usuarios extends Validator
 		return $this->alias;
 	}
 
+	public function setEstado($value)
+    {
+        if ($this->validateAlphanumeric($value, 1, 50)) {
+            $this->estado = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+
+	public function setIntentos($value)
+    {
+        if ($this->validateAlphanumeric($value, 1, 50)) {
+            $this->intentos = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getIntentos()
+    {
+        return $this->intentos;
+    }
+
 	public function setClave($value)
 	{
 		if ($this->validatePassword($value)) {
@@ -139,20 +171,6 @@ class Usuarios extends Validator
 		return $this->ruta;
 	}
 
-	public function setEstado($value)
-	{
-		if ($value == '1' || $value == '0') {
-			$this->estado = $value;
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public function getEstado()
-	{
-		return $this->estado;
-    }
 	//Métodos para manejar la sesión del usuario
 	public function checkAlias()	
 	{
@@ -183,7 +201,7 @@ class Usuarios extends Validator
 	public function changePassword()
 	{
 		$hash = password_hash($this->clave, PASSWORD_DEFAULT);
-		$sql = 'UPDATE empleado SET clave_empleado = ? WHERE id_empleado = ?';
+		$sql = 'UPDATE empleado SET clave_empleado = ?, ultima_fecha = now() WHERE id_empleado = ?';
 		$params = array($hash, $this->id);
 		return Database::executeRow($sql, $params);
 	}
@@ -194,17 +212,19 @@ class Usuarios extends Validator
 		$params = array($this->id);
 		return Database::executeRow($sql, $params);
 
-	}	//Metodos para manejar el CRUD
+	}
+	
+	//Metodos para manejar el CRUD
 	public function readUsuarios()
 	{
-		$sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado, clave_empleado, foto_empleado FROM empleado ORDER BY apellido_empleado';
+		$sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado, clave_empleado, foto_empleado , estado_empleado , intentos  FROM empleado ORDER BY apellido_empleado';
 		$params = array(null);
 		return Database::getRows($sql, $params);
 	}
 
 	public function searchUsuarios($value)
 	{
-		$sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado,telefono_empleado, correo_empleado, alias_empleado, foto_empleado FROM empleado WHERE apellido_empleado LIKE ? OR nombre_empleado LIKE ? ORDER BY apellido_empleado';
+		$sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado,telefono_empleado, correo_empleado, alias_empleado, foto_empleado , intentos  FROM empleado WHERE apellido_empleado LIKE ? OR nombre_empleado LIKE ? ORDER BY apellido_empleado';
 		$params = array("%$value%", "%$value%");
 		return Database::getRows($sql, $params);
 	}
@@ -212,22 +232,22 @@ class Usuarios extends Validator
 	public function createUsuario()
 	{
 		$hash = password_hash($this->clave, PASSWORD_DEFAULT);
-		$sql = 'INSERT INTO empleado(nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado, foto_empleado, clave_empleado) VALUES(?, ?, ?, ?, ?, ?, ?)';
-		$params = array($this->nombres, $this->apellidos, $this->telefono, $this->correo, $this->alias, $this->imagen, $hash);
+		$sql = 'INSERT INTO empleado(nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado, foto_empleado, clave_empleado, ultima_fecha) VALUES(?, ?, ?, ?, ?, ?, ?, now())';
+		$params = array($this->nombres, $this->apellidos, $this->telefono, $this->correo, $this->alias, $this->imagen, $hash, $this->$fecha);
 		return Database::executeRow($sql, $params);
 	}
 
 	public function getUsuario()
 	{
-		$sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado , clave_empleado, foto_empleado FROM empleado WHERE id_empleado = ?';
+		$sql = 'SELECT id_empleado, nombre_empleado, apellido_empleado, telefono_empleado, correo_empleado, alias_empleado , clave_empleado, foto_empleado , estado_empleado , intentos FROM empleado WHERE id_empleado = ?';
 		$params = array($this->id);
 		return Database::getRow($sql, $params);
 	}
 
 	public function updateUsuario()
 	{
-		$sql = 'UPDATE empleado SET nombre_empleado = ?, apellido_empleado = ?, telefono_empleado= ?,  correo_empleado = ?, alias_empleado = ?, foto_empleado = ? WHERE id_empleado = ?';
-		$params = array($this->nombres, $this->apellidos,  $this->telefono, $this->correo, $this->alias, $this->imagen, $this->id);
+		$sql = 'UPDATE empleado SET nombre_empleado = ?, apellido_empleado = ?, telefono_empleado= ?,  correo_empleado = ?, alias_empleado = ?, foto_empleado = ? , estado_empleado = ? , intentos = ?  WHERE id_empleado = ?';
+		$params = array($this->nombres, $this->apellidos,  $this->telefono, $this->correo, $this->alias, $this->imagen, $this->estado , $this->intentos, $this->id);
 		return Database::executeRow($sql, $params);
 	}
 
@@ -243,6 +263,21 @@ class Usuarios extends Validator
         $sql = 'SELECT COUNT(id_empleado) correo FROM empleado WHERE correo_empleado LIKE ?';
         $params = array("%$value%");
         return Database::getRows($sql, $params);
-    }
+	}
+
+	public function validarPassword()
+	{
+		$hash = password_hash($this->clave, PASSWORD_DEFAULT);
+		$sql = 'UPDATE empleado SET clave_empleado = ? WHERE correo_empleado = ?';
+		$params = array($hash, $this->correo);
+		return Database::executeRow($sql, $params);
+	}
+	
+	public function getFecha($id_empleado)
+	{
+		$sql = 'SELECT  ultima_fecha FROM empleado WHERE id_empleado = ?';
+		$params = array($id_empleado);
+		return Database::getRows($sql, $params);
+	}
 }
 ?>

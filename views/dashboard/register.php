@@ -2,7 +2,8 @@
 require_once('../../core/helpers/dashboard.php');
 Dashboard::headerTemplate('Registrar primer usuario');
 ?>
-<form method="post" id="form-register">
+<!-- modal para registra usuarios-->
+<form method="post" id="form-register"  enctype="multipart/form-data">
     <div class="row">
         <div class="input-field col s12 m6">
             <i class="material-icons prefix">person</i>
@@ -48,6 +49,7 @@ Dashboard::headerTemplate('Registrar primer usuario');
                         <input type="text" class="file-path validate" placeholder="Seleccione una imagen"/>
                     </div>
             </div>
+
     </div>
     <div class="row center-align">
         <button type="submit" class="btn waves-effect blue tooltipped" data-tooltip="Registrar"><i

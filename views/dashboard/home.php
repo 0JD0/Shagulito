@@ -1,10 +1,11 @@
 <?php
 require_once('../../core/helpers/dashboard.php');
-Dashboard::headerTemplate('Bienvenido');
+Dashboard::headerTemplate('');
 ?>
 <div class="container">
     <div class="row">
         <h4 class="center-align blue-text" id="greeting"></h4>
+        <h4 class="center-align">Sea bienvenido</h4>
     </div>
 </div>
 
@@ -41,7 +42,7 @@ Dashboard::headerTemplate('Bienvenido');
 
     <div class="col s12 m4">
         <div class="card-action center-align">
-            <a href="../../core/estadistica/index.php">Grafico</a>
+            <a href="../../core/estadistica/index.php">Gráfico</a>
         </div>
     </div>
 
@@ -49,11 +50,11 @@ Dashboard::headerTemplate('Bienvenido');
         <form method="post" id="form-vm">
             <div class="input-field col s12 m5">
                 <input id="vminicio" type="number" name="vminicio" />
-                <label for="vminicio">Monto minimo</label>
+                <label for="vminicio">Monto mínimo</label>
             </div>
             <div class="input-field col s10 m5">
                 <input id="vmfinal" type="number" name="vmfinal" />
-                <label for="vmfinal">Monto maximo</label>
+                <label for="vmfinal">Monto máximo</label>
             </div>
             <div class="input-field col s2">
                 <button type="submit" class="btn-floating waves-effect green tooltipped" data-tooltip="Mostrar"><i

@@ -1,6 +1,7 @@
 <?php
 require('fpdf/fpdf.php');
 
+
 class PDF extends FPDF{
 // Cabecera de la pgaina del reporte
     function Header(){

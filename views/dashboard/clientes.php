@@ -35,6 +35,7 @@ Dashboard::headerTemplate('Administrar clientes');
     <tbody id="tbody-read">
     </tbody>
 </table>
+
 <!-- Ventana para crear un nuevo registro -->
 <div id="modal-create" class="modal">
     <div class="modal-content">
@@ -71,6 +72,7 @@ Dashboard::headerTemplate('Administrar clientes');
         </form>
     </div>
 </div>
+
 <!-- Ventana para modificar un registro existente -->
 <div id="modal-update" class="modal">
     <div class="modal-content">
