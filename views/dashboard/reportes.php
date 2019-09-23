@@ -69,12 +69,12 @@ Dashboard::headerTemplate('Reportes');
         </div>
     </div>
 
-    <form action='../../PDF_Shagul/PDF_clientesp.php' method='post' target='_blank'>//CREAMOS UN FORMULARIO CON DESTINO A ‘listapdf.php’
+    <form action='../../PDF_Shagul/PDF_clientesp.php' method='post' target='_blank' autocomplete= 'off'> 
         <table class='tabla'>
             <tr>
-                <td>REPORTE DATOS DE ALUMNO</td>
+                <td>Reporte de Cliente</td>
                 <td>
-                    <input type='text' name='nombre' value='$array_alumnos[1]'>
+                    <input type='text' name='nombre' >
                 </td>
                 <td>
                     <input type='submit' name='submit' value='Imprimir Reporte'>
