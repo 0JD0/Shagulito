@@ -68,6 +68,20 @@ Dashboard::headerTemplate('Reportes');
             </div>
         </div>
     </div>
+
+    <form action='../../PDF_Shagul/PDF_clientesp.php' method='post' target='_blank' autocomplete= 'off'> 
+        <table class='tabla'>
+            <tr>
+                <td>Reporte de Cliente</td>
+                <td>
+                    <input type='text' name='nombre' >
+                </td>
+                <td>
+                    <input type='submit' name='submit' value='Imprimir Reporte'>
+                </td>
+            </tr>
+        </table>
+    </form>
 </div>
 
 <?php
