@@ -5,6 +5,7 @@ $(document).ready(function()
 
 //Constante para establecer la ruta y parámetros de comunicación con la API
 const apiUsuarios = '../../core/api/dashboard/usuarios.php?action=';
+const cargos = '../../core/api/dashboard/cargos.php?action=read';
 
 
 //Función para llenar tabla con los datos de los registros
@@ -24,6 +25,7 @@ function fillTable(rows)
                 <td>${row.alias_empleado}</td>
                 <td>${row.estado_empleado}</td>
                 <td>${row.intentos}</td>
+                <td>${row.nombre_cargo}</td>
                 <td>
                     <a href="#" onclick="modalUpdate(${row.id_empleado})" class="blue-text tooltipped" data-tooltip="Modificar"><i class="material-icons">mode_edit</i></a>
                     <a href="#" onclick="confirmDelete(${row.id_empleado}, '${row.foto_empleado}')" class="red-text tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
@@ -96,6 +98,13 @@ $('#form-search').submit(function()
     });
 })
 
+function modalCreate()
+{
+    $('#form-create')[0].reset();
+    fillSelect(cargos, 'create_cargo', null);
+    $('#modal-create').modal('open');
+}
+
 //Función para crear un nuevo registro
 $('#form-create').submit(function()
 {
@@ -157,6 +166,7 @@ function modalUpdate(id)
                 $('#update_alias').val(result.dataset.alias_empleado);
                 $('#update_estado').val(result.dataset.estado_empleado);
                 $('#update_intentos').val(result.dataset.intentos);
+                fillSelect(cargos, 'update_cargo', result.dataset.id_cargo);
                 $('#imagen_usuario').val(result.dataset.foto_empleado);
                 M.updateTextFields();
                 $('#modal-update').modal('open');

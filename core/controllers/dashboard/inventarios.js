@@ -13,7 +13,6 @@ function fillTable(rows)
     let content = '';
     // se agregan las partes de la tabla segun el orden q se deasea q se muestren
     rows.forEach(function(row){
-        (row.estado_producto == 1) ? icon = 'visibility' : icon = 'visibility_off';
         content += `
             <tr>
                 <td class="hide-on-med-and-down"><img src="../../resources/img/productos/${row.imagen_producto}" class="materialboxed" height="100"></td>

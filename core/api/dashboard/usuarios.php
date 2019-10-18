@@ -3,6 +3,32 @@ require_once('../../helpers/database.php');
 require_once('../../helpers/validator.php');
 require_once('../../models/usuarios.php');
 
+function random_password(){
+    //Se define una cadena de caractares.
+    //Os recomiendo desordenar las minúsculas, mayúsculas y números para mejorar la probabilidad.
+    $cadena = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890@#!€%&()";
+    //Obtenemos la longitud de la cadena de caracteres
+    $longitudCadena=strlen($cadena);
+ 
+    //Definimos la variable que va a contener la contraseña
+    $pass = "";
+    //Se define la longitud de la contraseña, puedes poner la longitud que necesites
+    //Se debe tener en cuenta que cuanto más larga sea más segura será.
+    $longitudPass=10;
+ 
+    //Creamos la contraseña recorriendo la cadena tantas veces como hayamos indicado
+    for($i=1 ; $i<=$longitudPass ; $i++){
+        //Definimos numero aleatorio entre 0 y la longitud de la cadena de caracteres-1
+        $pos=rand(0,$longitudCadena-1);
+ 
+        //Vamos formando la contraseña con cada carácter aleatorio.
+        $pass .= substr($cadena,$pos,1);
+    }
+    return $pass;
+}
+
+$random = random_password();
+
 //Se comprueba si existe una petición del sitio web y la acción a realizar, de lo contrario se muestra una página de error
 if (isset($_GET['action'])) {
     session_start();
@@ -160,40 +186,36 @@ if (isset($_GET['action'])) {
                         if ($usuario->setTelefono($_POST['create_telefono'])) {
                             if ($usuario->setCorreo($_POST['create_correo'])) {
                                 if ($usuario->setAlias($_POST['create_alias'])) {
-                                    if ($_POST['create_clave1'] == $_POST['create_clave2']) {
-                                        if ($usuario->setClave($_POST['create_clave1'])) {
-                                            if ($_POST['create_clave1'] != $_POST['create_alias']) {
-                                            if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
-                                                if ($usuario->setImagen($_FILES['create_archivo'], null)) {
-                                                    if($_POST['create_clave1']!= $_POST['create_alias'] && $_POST['create_clave2'] != $_POST['create_alias']) {   
+                                    if ($usuario->setClave($random)) {
+                                        if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
+                                            if ($usuario->setImagen($_FILES['create_archivo'], null)) {
+                                                if (isset($_POST['create_cargo'])) {
+                                                    if ($usuario->setCargo($_POST['create_cargo'])) {
                                                         if ($usuario->createUsuario()) {
                                                             if ($usuario->saveFile($_FILES['create_archivo'], $usuario->getRuta(), $usuario->getImagen())) {
                                                                 $result['status'] = 1;                    
                                                                 $result['exception'] = 'Usuario creado correctamente, no se guardó el archivo';
-                                                                } else {
-                                                                    $result['status'] = 2;
-                                                                    $result['exception'] = 'No se guardó el archivo';
-                                                                }
                                                             } else {
-                                                                $result['exception'] = 'Operación fallida';
+                                                                $result['status'] = 2;
+                                                                $result['exception'] = 'No se guardó el archivo';
                                                             }
-                                                    } else {
-                                                        $result['exception'] = 'No puede poner el mismo alias con la contraseña. Escriba de nuevo la clave que desea utilizar';
+                                                        } else {
+                                                            $result['exception'] = 'Operación fallida';
                                                         }
                                                     } else {
-                                                        $result['exception'] = $usuario->getImageError();
+                                                        $result['exception'] = 'Cargo incorrecto';
                                                     }
                                                 } else {
-                                                    $result['exception'] = 'Seleccione una imagen';
+                                                    $result['exception'] = 'Selecciona un cargo';
                                                 }
                                             } else {
-                                                $result['exception'] = 'Clave menor a 6 caracteres';
+                                                $result['exception'] = $usuario->getImageError();
                                             }
                                         } else {
-                                            $result['exception'] = 'La clave no puede ser igual al alias';
+                                            $result['exception'] = 'Seleccione una imagen';
                                         }
                                     } else {
-                                        $result['exception'] = 'Claves diferentes';
+                                        $result['exception'] = 'Clave incorrecta';
                                     }
                                 } else {
                                     $result['exception'] = 'Alias incorrecto';
@@ -232,36 +254,40 @@ if (isset($_GET['action'])) {
                                     if ($usuario->setCorreo($_POST['update_correo'])) {
                                         if ($usuario->setAlias($_POST['update_alias'])) {
                                             if ($usuario->setEstado($_POST['update_estado'])) {  
-                                                if ($usuario->setIntentos($_POST['update_intentos'])) {     
-                                                    if (is_uploaded_file($_FILES['update_archivo']['tmp_name'])) {
-                                                        if ($usuario->setImagen($_FILES['update_archivo'], $_POST['imagen_usuario'])) {
-                                                            $archivo = true;
-                                                        } else {
-                                                            $result['exception'] = $usuario->getImageError();
-                                                            $archivo = false;
-                                                        }
-                                                    } else {
-                                                        if ($usuario->setImagen(null, $_POST['imagen_usuario'])) {
-                                                            $result['exception'] = 'No se subió ningún archivo';
-                                                        } else {
-                                                            $result['exception'] = $usuario->getImageError();
-                                                        }
-                                                        $archivo = false;
-                                                    }
-                                                    if ($usuario->updateUsuario()) {
-                                                        if ($archivo) {
-                                                            if ($usuario->saveFile($_FILES['update_archivo'], $usuario->getRuta(), $usuario->getImagen())) {
-                                                                $result['status'] = 1;
-                                                                $result['message'] = 'Empleado modificado correctamente';
+                                                if ($usuario->setIntentos($_POST['update_intentos'])) {
+                                                    if ($usuario->setCargo($_POST['update_cargo'])) {    
+                                                        if (is_uploaded_file($_FILES['update_archivo']['tmp_name'])) {
+                                                            if ($usuario->setImagen($_FILES['update_archivo'], $_POST['imagen_usuario'])) {
+                                                                $archivo = true;
                                                             } else {
-                                                                $result['status'] = 2;
-                                                                $result['exception'] = 'No se guardó el archivo';
+                                                                $result['exception'] = $usuario->getImageError();
+                                                                $archivo = false;
                                                             }
                                                         } else {
-                                                            $result['status'] = 3;
+                                                            if ($usuario->setImagen(null, $_POST['imagen_usuario'])) {
+                                                                $result['exception'] = 'No se subió ningún archivo';
+                                                            } else {
+                                                                $result['exception'] = $usuario->getImageError();
+                                                            }
+                                                            $archivo = false;
+                                                        }
+                                                        if ($usuario->updateUsuario()) {
+                                                            if ($archivo) {
+                                                                if ($usuario->saveFile($_FILES['update_archivo'], $usuario->getRuta(), $usuario->getImagen())) {
+                                                                    $result['status'] = 1;
+                                                                    $result['message'] = 'Empleado modificado correctamente';
+                                                                } else {
+                                                                    $result['status'] = 2;
+                                                                    $result['exception'] = 'No se guardó el archivo';
+                                                                }
+                                                            } else {
+                                                                $result['status'] = 3;
+                                                            }
+                                                        } else {
+                                                            $result['exception'] = 'Operación fallida';
                                                         }
                                                     } else {
-                                                        $result['exception'] = 'Operación fallida';
+                                                        $result['exception'] = 'Selecciona un cargo';
                                                     }
                                                 } else {
                                                     $result['exception'] = 'Cambio de intento incorrecto';
@@ -369,20 +395,24 @@ if (isset($_GET['action'])) {
                                         if ($usuario->setClave($_POST['clave1'])) {
                                             if (is_uploaded_file($_FILES['archivo']['tmp_name'])) {
                                                 if ($usuario->setImagen($_FILES['archivo'], null)) {
-                                                    if($_POST['clave1']!= $_POST['alias'] && $_POST['clave2'] != $_POST['alias']) {
-                                                        if ($usuario->createUsuario()) {
-                                                            if ($usuario->saveFile($_FILES['archivo'], $usuario->getRuta(), $usuario->getImagen())) {
-                                                                $result['status'] = 1;
-                                                                $result['message'] = 'Usuario agregado correctamente';  
+                                                    if($usuario->setCargo(1)){
+                                                        if($_POST['clave1']!= $_POST['alias'] && $_POST['clave2'] != $_POST['alias']) {
+                                                            if ($usuario->createUsuario()) {
+                                                                if ($usuario->saveFile($_FILES['archivo'], $usuario->getRuta(), $usuario->getImagen())) {
+                                                                    $result['status'] = 1;
+                                                                    $result['message'] = 'Usuario agregado correctamente';  
+                                                                } else {
+                                                                    $result['status'] = 2;
+                                                                    $result['exception'] = 'No se guardó el archivo';
+                                                                } 
                                                             } else {
-                                                                $result['status'] = 2;
-                                                                $result['exception'] = 'No se guardó el archivo';
-                                                            } 
-                                                        } else {
-                                                            $result['exception'] = 'Operación fallida';
+                                                                $result['exception'] = 'Operación fallida';
+                                                            }
+                                                        }else {
+                                                            $result['exception'] = 'No puede poner el mismo alias con la contraseña. Escriba de nuevo la clave que desea utilizar';
                                                         }
-                                                    }else {
-                                                        $result['exception'] = 'No puede poner el mismo alias con la contraseña. Escriba de nuevo la clave que desea utilizar';
+                                                    } else {
+                                                        $result['exception'] = 'Cargo incorrecto';
                                                     }
                                                 } else {
                                                     $result['exception'] = $usuario->getImageError();
@@ -400,10 +430,10 @@ if (isset($_GET['action'])) {
                                    $result['exception'] = 'Alias incorrecto';
                                 }
                             } else {
-                                $result['exception'] = 'Numero mal escrito';
+                                $result['exception'] = 'Correo incorrecto';
                             }
                         } else {
-                            $result['exception'] = 'Correo incorrecto';
+                            $result['exception'] = 'Numero incorrecto';
                         }
                     } else {
                         $result['exception'] = 'Apellidos incorrectos';
@@ -420,12 +450,20 @@ if (isset($_GET['action'])) {
                         if ($intentos < 3) {
                             if ($usuario->setClave($_POST['clave'])) {
                                 if ($usuario->checkPassword()) {
+                                    $_SESSION['id_cargo'] = $usuario->getCargo();
+                                    $_SESSION['permisos'] = $usuario->readPermisos();
                                     $_SESSION['id_empleado'] = $usuario->getId();
                                     $_SESSION['alias_empleado'] = $usuario->getAlias();    
                                     $_SESSION['foto_empleado'] = $usuario->getImagen();
                                     $_SESSION['timestamp'] = time();
                                     $result['status'] = 1;
                                     $result['message'] = 'Autenticación correcta';
+                                    $result['estado'] = $usuario->getEstado();
+                                    if($usuario->setCargo(1)){
+                                        $usuario->resetIntentos();
+                                    } else {
+                                        $result['exception'] = 'Sus intentos no han sido reiniciados';
+                                    }
                                 } else {
                                    if ($usuario->wrongPassword()) {
                                         $result['exception'] = 'Clave inexistente. Intento: '.($intentos + 1);

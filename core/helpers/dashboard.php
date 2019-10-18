@@ -21,7 +21,8 @@ class Dashboard
 				<body id="noctext">
 		');
         if (isset($_SESSION['id_empleado'])) {
-			if (time() - $_SESSION['timestamp'] > 60) { //se le cambia despues porque solo da 60 seg para prueba
+			//print_r($_SESSION);
+			if (time() - $_SESSION['timestamp'] > 1200) { //se le cambia despues porque solo da 60 seg para prueba
 				//sirve solo para cambio de pagina
 				session_destroy();
 				header('location: index.php');
@@ -37,16 +38,109 @@ class Dashboard
 				$fecha_ultima = $ultina[0]['ultima_fecha'];
 			
 				$fechaActual = date ('Y-m-d');
-				$fecha_nueva = date("Y-m-d",strtotime(date($fecha_ultima)."+ 1 days"));
+				$fecha_nueva = date("Y-m-d",strtotime(date($fecha_ultima)."+ 90 days"));
 				
 				if ($fecha_nueva <= $fechaActual) {
-					// print("<script>window.location.href= '../../views/dashboard/cambiocontra.php'</script>");
+					//print("<script>window.location.href= '../../views/dashboard/cambiocontra.php'</script>");
 				}
 			}
 
             $filename = basename($_SERVER['PHP_SELF']);
-            if ($filename != 'index.php') {
-                self::modals();
+            if ($filename != 'index.php' && $filename != 'register.php' && $filename != 'cambiocontra.php') {
+				$menu = '';
+				if ($_SESSION['permisos']['produccion']) {
+					$menu .= '
+					<li>
+						<a class="collapsible-header"><i class="material-icons">cake</i>Producción</a>
+						<div class="collapsible-body">
+							<ul>
+								<li>
+									<a href="categorias.php">
+										<i class="material-icons">description</i>Categorías 
+									</a>
+								</li>
+								<li>
+									<a href="productos.php">
+										<i class="material-icons">cake</i>Productos
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					';
+				} else {
+					if ($filename == 'productos.php' && $filename == 'categorias.php') {
+						header('location: home.php');
+					}
+				}
+				if ($_SESSION['permisos']['usuarios']) {
+					$menu .= '
+					<li>
+						<a class="collapsible-header"><i class="material-icons">person</i>Usuarios</a>
+						<div class="collapsible-body">
+							<ul>
+								<li>
+									<a href="usuarios.php">
+										<i class="material-icons">person</i>Empleados 
+									</a>
+								</li>
+								<li>
+									<a href="cargos.php">
+										<i class="material-icons">person</i>Cargos
+									</a>
+								</li>
+								<li>
+									<a href="clientes.php">
+										<i class="material-icons">person</i>Clientes
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>';
+				} else {
+					if ($filename == 'empleados.php' && $filename == 'cargos.php' && $filename == 'clientes.php') {
+						header('location: home.php');
+					}
+				}
+				if ($_SESSION['permisos']['transacciones']) {
+					$menu .= '
+						<li>
+							<a class="collapsible-header"><i class="material-icons">attach_money</i>Transacciones</a>
+							<div class="collapsible-body">
+								<ul>
+									<li>
+										<a href="ventas.php">
+											<i class="material-icons">attach_money</i>Ventas
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>';
+				} else {
+					if ($filename == 'ventas.php') {
+						header('location: home.php');
+					}
+				}
+				if ($_SESSION['permisos']['reportes']) {
+					$menu .= '
+					<li class="no-padding">
+						<a class="collapsible-header" href="reportes.php"><i class="material-icons">list</i><span class="black-text">Reportes</span></a>
+					</li>';
+				} else {
+					if ($filename == 'reportes.php') {
+						header('location: home.php');
+					}
+				}
+				if ($_SESSION['permisos']['graficos']) {
+					$menu .= '
+					<li class="no-padding">
+						<a class="collapsible-header" href="graficos.php"><i class="material-icons">list</i><span class="black-text">Gráficos</span></a>
+					</li>';
+				} else {
+					if ($filename == 'graficos.php') {
+						header('location: home.php');
+					}
+				}
                 print('
 					<header>
 						<div class="navbar-fixed">
@@ -63,93 +157,40 @@ class Dashboard
 						</div>
 
 					<!--El menu desplegable-->
-							<ul id="slide-out" class="sidenav collapsible">
-								<li>
-									<div class="user-view">
-										<div class="background">
-											<img class="background" id="mode">
-										</div>
-										<a href="perfil.php">
-											<i class="material-icons right black-text">settings</i>
-										</a>
-										<a href="perfil.php">
-											<img class="circle" src="../../resources/img/usuarios/' . $_SESSION['foto_empleado'] . '">
-										</a>
-										<a href="perfil.php">
-											<span class="black-text">' . $_SESSION['alias_empleado'] . '</span>
-										</a>
+						<ul id="slide-out" class="sidenav collapsible">
+							<li>
+								<div class="user-view">
+									<div class="background">
+										<img class="background" id="mode">
 									</div>
-								</li>
-								<li class="no-padding">
-										<a href="home.php" class="collapsible-header"><i class="material-icons">home</i>Inicio</a>
-								</li>
-								<li>
-									<a class="collapsible-header"><i class="material-icons">cake</i>Producción</a>
-									<div class="collapsible-body">
-										<ul>
-											<li>
-												<a href="categorias.php">
-												<i class="material-icons">description</i>Categorías 
-												</a>
-											</li>
-											<li>
-												<a href="productos.php">
-													<i class="material-icons">cake</i>Productos
-												</a>
-											</li>
-											<li>
-												<a href="ventas.php">
-													<i class="material-icons">attach_money</i>Ventas
-												</a>
-											</li>
-										</ul>
-									</div>
-								</li>
-								<li>
-									<a class="collapsible-header"><i class="material-icons">person</i>Usuarios</a>
-									<div class="collapsible-body">
-										<ul>
-											<li>
-												<a href="usuarios.php">
-													<i class="material-icons">person</i>Empleados 
-												</a>
-											</li>
-											<li>
-												<a href="cargos.php">
-													<i class="material-icons">person</i>Cargos
-												</a>
-											</li>
-											<li>
-												<a href="clientes.php">
-													<i class="material-icons">person</i>Clientes
-												</a>
-											</li>
-										</ul>
-									</div>
-								</li>
-								<li class="no-padding">
-									<a class="collapsible-header" href="reportes.php"><i class="material-icons">list</i><span class="black-text">Reportes</span></a>
-								</li>
-								<li>
-									<div class="divider"></div>
-								</li>
-								<li>
-									<a class="waves-effect" href="#" onclick="signOff()">
-											<i class="material-icons">exit_to_app</i>Cerrar Sesión
+									<a href="perfil.php">
+										<i class="material-icons right black-text">settings</i>
 									</a>
-								</li>
-							</ul>
+									<a href="perfil.php">
+										<img class="circle" src="../../resources/img/usuarios/' . $_SESSION['foto_empleado'] . '">
+									</a>
+									<a href="perfil.php">
+										<span class="black-text">' . $_SESSION['alias_empleado'] . '</span>
+									</a>
+								</div>
+							</li>
+							<li class="no-padding">
+								<a href="home.php" class="collapsible-header"><i class="material-icons">home</i>Inicio</a>
+							</li>
+							'.$menu.'
+							<li>
+								<div class="divider"></div>
+							</li>
+							<li>
+								<a class="waves-effect" href="#" onclick="signOff()">
+									<i class="material-icons">exit_to_app</i>Cerrar Sesión
+								</a>
+							</li>
+						</ul>
 					</header>
 					<main class="container">
 						<h3 class="center-align">' . $title . '</h3>
 				');
-                /*
-            <li>
-            <a href="inventario.php">
-            <i class="material-icons">book</i>Inventario
-            </a>
-            </li>
-             */
             } else {
                 header('location: home.php');
             }
@@ -183,23 +224,11 @@ class Dashboard
     public static function footerTemplate($controller)
     {
         print('
-					</main>
-					<footer class="page-footer">
-						<div class="container">
-							<div class="row">
-								<div class="col s12 m6 l6">
-									<h5 class="white-text">Dashboard</h5>
-									<a class="white-text" href="mailto:daniel.hdez2018@gmail.com"><i class="material-icons left">email</i>Ayuda</a>
-								</div>
-								<div class="col s12 m6 l6">
-									<h5 class="white-text">Enlaces</h5>
-									<a class="white-text" href="http://localhost/phpmyadmin/" target="_blank"><i class="material-icons left">cloud</i>phpMyAdmin</a>
-								</div>
-							</div>
-						</div>
+				</main>
+					<footer>
 						<div class="footer-copyright">
 							<div class="container">
-								<span>© Shagulito, todos los derechos reservados.</span>
+								<span class="white-text">© Shagulito, todos los derechos reservados.</span>
 								<span class="white-text right">Diseñado con <a class="red-text text-accent-1" href="http://materializecss.com/" target="_blank"><b>Materialize</b></a></span>
 							</div>
 						</div>
@@ -216,13 +245,6 @@ class Dashboard
 					<script type="text/javascript" src="../../core/controllers/dashboard/' . $controller . '"></script>
 				</body>
 			</html>
-		');
-    }
-
-    private function modals()
-    {
-        print('
-			
 		');
     }
 }

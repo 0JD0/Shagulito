@@ -16,6 +16,7 @@ function showGreeting()
         greeting = 'Buenas noches';
     }
     $('#greeting').text(greeting);
+    
 // las funciones se inicializan aqui para que ouedan ser mostrados
     grafCPV();
     grafCPP();

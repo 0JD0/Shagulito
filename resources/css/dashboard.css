@@ -25,14 +25,11 @@ main {
     flex: 1 0 auto;
 }
 
-footer.page-footer{
-    background: #233142;
-    border: none;
-}
-
 footer div.footer-copyright{
     background: #233142;
     border: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 @media only screen and (max-width: 500px) {

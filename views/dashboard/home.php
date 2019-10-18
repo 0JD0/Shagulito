@@ -1,11 +1,11 @@
 <?php
 require_once('../../core/helpers/dashboard.php');
-Dashboard::headerTemplate('');
+Dashboard::headerTemplate('Bienvenido');
 ?>
+
 <div class="container">
     <div class="row">
         <h4 class="center-align blue-text" id="greeting"></h4>
-        <h4 class="center-align">Sea bienvenido</h4>
     </div>
 </div>
 
@@ -39,13 +39,9 @@ Dashboard::headerTemplate('');
             <canvas id="chartCPI"></canvas>
         </div>
     </div>
+</div>
 
-    <div class="col s12 m4">
-        <div class="card-action center-align">
-            <a href="../../core/estadistica/index.php">Gráfico</a>
-        </div>
-    </div>
-
+<div class="row">
     <div class="col s12 card">
         <form method="post" id="form-vm">
             <div class="input-field col s12 m5">
@@ -57,8 +53,9 @@ Dashboard::headerTemplate('');
                 <label for="vmfinal">Monto máximo</label>
             </div>
             <div class="input-field col s2">
-                <button type="submit" class="btn-floating waves-effect green tooltipped" data-tooltip="Mostrar"><i
-                        class="material-icons">check</i></button>
+                <button type="submit" class="btn-floating waves-effect green tooltipped" data-tooltip="Mostrar">
+                    <i class="material-icons">check</i>
+                </button>
             </div>
         </form>
         <canvas id="chartVM"></canvas>
@@ -75,8 +72,9 @@ Dashboard::headerTemplate('');
                 <label for="vffinal">Fecha final</label>
             </div>
             <div class="input-field col s2">
-                <button type="submit" class="btn-floating waves-effect green tooltipped" data-tooltip="Mostrar"><i
-                        class="material-icons">check</i></button>
+                <button type="submit" class="btn-floating waves-effect green tooltipped" data-tooltip="Mostrar">
+                    <i class="material-icons">check</i>
+                </button>
             </div>
         </form>
         <canvas id="chartVF"></canvas>
@@ -84,13 +82,14 @@ Dashboard::headerTemplate('');
 
     <div class="col s12 card">
         <form method="post" id="form-ve">
-        <div class="input-field col s10 m5">
+            <div class="input-field col s10 m5">
                 <input id="empleadove" type="text" name="empleadove" />
                 <label for="empleadove">Empleado</label>
             </div>
             <div class="input-field col s2">
-                <button type="submit" class="btn-floating waves-effect green tooltipped" data-tooltip="Mostrar"><i
-                        class="material-icons">check</i></button>
+                <button type="submit" class="btn-floating waves-effect green tooltipped" data-tooltip="Mostrar">
+                    <i class="material-icons">check</i>
+                </button>
             </div>
         </form>
         <canvas id="chartVE"></canvas>
@@ -98,21 +97,19 @@ Dashboard::headerTemplate('');
 
     <div class="col s12 card">
         <form method="post" id="form-ce">
-        <div class="input-field col s10 m5">
+            <div class="input-field col s10 m5">
                 <input id="empleadoce" type="text" name="empleadoce" />
                 <label for="empleadoce">Dominio</label>
             </div>
             <div class="input-field col s2">
-                <button type="submit" class="btn-floating waves-effect green tooltipped" data-tooltip="Mostrar"><i
-                        class="material-icons">check</i></button>
+                <button type="submit" class="btn-floating waves-effect green tooltipped" data-tooltip="Mostrar">
+                    <i class="material-icons">check</i>
+                </button>
             </div>
         </form>
         <canvas id="chartCE"></canvas>
     </div>
 </div>
-
-
-
 <?php
 Dashboard::footerTemplate('main.js');
 ?>
