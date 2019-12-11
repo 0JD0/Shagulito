@@ -10,16 +10,13 @@ function fillTable(rows) {
     let content = '';
     //Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
     rows.forEach(function (row) {
-        (row.estado_categoria == 1) ? icon = 'visibility': icon = 'visibility_off';
         content += `
             <tr>
-                
                 <td>${row.nombre_categoria}</td>
                 <td>${row.descripcion_categoria}</td>
-                <td><i class="material-icons">${icon}</i></td>
                 <td>
-                    <a href="#" onclick="modalUpdate(${row.id_categoria})" class="blue-text tooltipped" data-tooltip="Modificar"><i class="material-icons">mode_edit</i></a>
-                    <a href="#" onclick="confirmDelete(${row.id_categoria})" class="red-text tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
+                    <a href="#" onclick="modalUpdate(${row.id_categoria})" class="tooltipped" data-tooltip="Modificar"><i class="material-icons blue-text">mode_edit</i></a>
+                    <a href="#" onclick="confirmDelete(${row.id_categoria})" class="tooltipped" data-tooltip="Eliminar"><i class="material-icons red-text">delete</i></a>
                 </td>
             </tr>
         `;
@@ -105,7 +102,7 @@ $('#form-create').submit(function () {
                     $('#form-create')[0].reset();
                     $('#modal-create').modal('close');
                     if (result.status == 1) {
-                        sweetAlert(1, 'Categoría creada correctamente', null);
+                        sweetAlert(1, result.message, null);
                     } else {
                         sweetAlert(3, 'Categoría creada. ' + result.exception, null);
                     }
@@ -143,7 +140,6 @@ function modalUpdate(id) {
                     $('#id_categoria').val(result.dataset.id_categoria);
                     $('#update_nombre').val(result.dataset.nombre_categoria);
                     $('#update_descripcion').val(result.dataset.descripcion_categoria);
-                    (result.dataset.estado_categoria == 1) ? $('#update_estado').prop('checked', true): $('#update_estado').prop('checked', false);
                     M.updateTextFields();
                     $('#modal-update').modal('open');
                 } else {
@@ -176,7 +172,7 @@ $('#form-update').submit(function () {
                 if (result.status) {
                     $('#modal-update').modal('close');
                     if (result.status == 1) {
-                        sweetAlert(1, 'Categoría modificada correctamente', null);
+                        sweetAlert(1, result.message, null);
                     } else if (result.status == 2) {
                         sweetAlert(3, 'Categoría modificada. ' + result.exception, null);
                     } else {
@@ -198,48 +194,48 @@ $('#form-update').submit(function () {
 
 //Función para eliminar un registro seleccionado
 function confirmDelete(id, file) {
-    swal({
-            title: 'Advertencia',
-            text: '¿Quiere eliminar la categoría?',
-            icon: 'warning',
-            buttons: ['Cancelar', 'Aceptar'],
-            closeOnClickOutside: false,
-            closeOnEsc: false
-        })
-        .then(function (value) {
-            if (value) {
-                $.ajax({
-                        url: apiCategorias + 'delete',
-                        type: 'post',
-                        data: {
-                            id_categoria: id,
-                            imagen_categoria: file
-                        },
-                        datatype: 'json'
-                    })
-                    .done(function (response) {
-                        //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
-                        if (isJSONString(response)) {
-                            const result = JSON.parse(response);
-                            //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
-                            if (result.status) {
-                                if (result.status == 1) {
-                                    sweetAlert(1, 'Categoría eliminada correctamente', null);
-                                } else {
-                                    sweetAlert(3, 'Categoría eliminada. ' + result.exception, null);
-                                }
-                                showTable();
-                            } else {
-                                sweetAlert(2, result.exception, null);
-                            }
+swal({
+        title: 'Advertencia',
+        text: '¿Quiere eliminar la categoría?',
+        icon: 'warning',
+        buttons: ['Cancelar', 'Aceptar'],
+        closeOnClickOutside: false,
+        closeOnEsc: false
+    })
+    .then(function (value) {
+        if (value) {
+            $.ajax({
+                url: apiCategorias + 'delete',
+                type: 'post',
+                data: {
+                    id_categoria: id,
+                    imagen_categoria: file
+                },
+                datatype: 'json'
+            })
+            .done(function (response) {
+                //Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+                if (isJSONString(response)) {
+                    const result = JSON.parse(response);
+                    //Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+                    if (result.status) {
+                        if (result.status == 1) {
+                            sweetAlert(1, result.message, null);
                         } else {
-                            console.log(response);
+                            sweetAlert(3, 'Categoría eliminada. ' + result.exception, null);
                         }
-                    })
-                    .fail(function (jqXHR) {
-                        //Se muestran en consola los posibles errores de la solicitud AJAX
-                        console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
-                    });
-            }
-        });
+                        showTable();
+                    } else {
+                        sweetAlert(2, result.exception, null);
+                    }
+                } else {
+                    console.log(response);
+                }
+            })
+            .fail(function (jqXHR) {
+                //Se muestran en consola los posibles errores de la solicitud AJAX
+                console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+            });
+        }
+    });
 }

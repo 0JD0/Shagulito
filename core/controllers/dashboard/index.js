@@ -52,7 +52,11 @@ $('#form-sesion').submit(function()
         if (result.intentos) {
             // Se comprueba si la respuesta es satisfactoria, sino se muestra la excepción
             if (result.status) {
-                sweetAlert(1, result.message, 'home.php');
+                if(result.estado == 0){
+                    sweetAlert(1, result.message, 'cambiocontra.php');
+                }else{
+                    sweetAlert(1, result.message, 'home.php');
+                }
             } else {
                 sweetAlert(2, result.exception, null);
             }
@@ -79,8 +83,6 @@ $('#form-verificar').submit(function()
         type: 'post',
         data: $('#form-verificar').serialize(),
         datatype: 'json',
-        cache: false,
-        processData: false
     })
     .done(function(response){
         // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola

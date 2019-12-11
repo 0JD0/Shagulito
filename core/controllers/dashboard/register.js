@@ -53,7 +53,7 @@ $('#form-register').submit(function()
             //Se comprueba si la respuesta es satisfactoria, sino se muestra la excepción
             if (dataset.status) {
                 $('#form-register')[0].reset();
-                sweetAlert(1, 'Usuario registrado correctamente', 'index.php');
+                sweetAlert(1, 'Usuario creado con éxito', 'index.php');
             } else {
                 sweetAlert(2, dataset.exception, null);
             }

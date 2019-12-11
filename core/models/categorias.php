@@ -5,7 +5,6 @@ class Categorias extends Validator
 	private $id = null;
 	private $nombre = null;
 	private $descripcion = null;
-	private $estado = null;
 
 	//Métodos para sobrecarga de propiedades
 	public function setId($value)	
@@ -58,53 +57,39 @@ class Categorias extends Validator
 		return $this->descripcion;
 	}
 
-	public function setEstado($value)
-	{
-		if ($value == '1' || $value == '0') {
-			$this->estado = $value;
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public function getEstado()
-	{
-		return $this->estado;
-    }
 	//Metodos para el manejo del CRUD
 	public function readCategorias()
 	{
-		$sql = 'SELECT id_categoria, nombre_categoria, descripcion_categoria, estado_categoria FROM categorias ORDER BY nombre_categoria';
+		$sql = 'SELECT id_categoria, nombre_categoria, descripcion_categoria FROM categorias ORDER BY nombre_categoria';
 		$params = array(null);
 		return Database::getRows($sql, $params);
 	}
 
 	public function searchCategorias($value)
 	{
-		$sql = 'SELECT * FROM categorias WHERE nombre_categoria LIKE ? OR descripcion_categoria LIKE ? ORDER BY nombre_categoria';
-		$params = array("%$value%", "%$value%");
+		$sql = 'SELECT * FROM categorias WHERE nombre_categoria LIKE ? ORDER BY nombre_categoria';
+		$params = array("%$value%");
 		return Database::getRows($sql, $params);
 	}
 
 	public function createCategoria()
 	{
-		$sql = 'INSERT INTO categorias(nombre_categoria, descripcion_categoria, estado_categoria) VALUES(?, ?, ?)';
-		$params = array($this->nombre, $this->descripcion, $this->estado);
+		$sql = 'INSERT INTO categorias(nombre_categoria, descripcion_categoria) VALUES(?, ?)';
+		$params = array($this->nombre, $this->descripcion);
 		return Database::executeRow($sql, $params);
 	}
 
 	public function getCategoria()
 	{
-		$sql = 'SELECT id_categoria, nombre_categoria, descripcion_categoria, estado_categoria FROM categorias WHERE id_categoria = ?';
+		$sql = 'SELECT id_categoria, nombre_categoria, descripcion_categoria FROM categorias WHERE id_categoria = ?';
 		$params = array($this->id);
 		return Database::getRow($sql, $params);
 	}
 
 	public function updateCategoria()
 	{
-		$sql = 'UPDATE categorias SET nombre_categoria = ?,  descripcion_categoria = ?, estado_categoria= ? WHERE id_categoria = ?';
-		$params = array($this->nombre, $this->descripcion, $this->estado, $this->id);
+		$sql = 'UPDATE categorias SET nombre_categoria = ?,  descripcion_categoria = ? WHERE id_categoria = ?';
+		$params = array($this->nombre, $this->descripcion, $this->id);
 		return Database::executeRow($sql, $params);
 	}
 

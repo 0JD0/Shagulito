@@ -17,8 +17,8 @@ function fillTable(rows) {
                 <td>${row.monto_venta}</td>
                 <td>${row.fecha_venta}</td>
                 <td>
-                    <a href="#" onclick="modalUpdate(${row.id_venta})" class="blue-text waves-effect waves-blue tooltipped" data-tooltip="editar"><i class="material-icons">edit</i></a>
-                    <a href="#" onclick="confirmDelete('${apiVentas}', ${row.id_venta}, '${row.monto_venta}')" class="red-text waves-effect waves-orange tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
+                    <a href="#" onclick="modalUpdate(${row.id_venta})" class="waves-effect waves-blue tooltipped" data-tooltip="editar"><i class="material-icons blue-text">edit</i></a>
+                    <a href="#" onclick="confirmDelete('${apiVentas}', ${row.id_venta}, '${row.monto_venta}')" class="waves-effect waves-orange tooltipped" data-tooltip="Eliminar"><i class="material-icons red-text">delete</i></a>
                 </td>
             </tr>
         `;

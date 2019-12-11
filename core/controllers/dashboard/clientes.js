@@ -17,8 +17,8 @@ function fillTable(rows) {
                 <td>${row.telefono_cliente}</td>
                 <td>${row.correo_cliente}</td>
                 <td>
-                    <a href="#" onclick="modalUpdate(${row.id_cliente})" class="blue-text tooltipped" data-tooltip="Modificar"><i class="material-icons">mode_edit</i></a>
-                    <a href="#" onclick="confirmDelete(${row.id_cliente})" class="red-text tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
+                    <a href="#" onclick="modalUpdate(${row.id_cliente})" class="tooltipped" data-tooltip="Modificar"><i class="material-icons blue-text">mode_edit</i></a>
+                    <a href="#" onclick="confirmDelete(${row.id_cliente})" class="tooltipped" data-tooltip="Eliminar"><i class="material-icons red-text">delete</i></a>
                 </td>
             </tr>
         `;

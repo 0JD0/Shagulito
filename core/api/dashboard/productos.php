@@ -43,7 +43,6 @@ if (isset($_GET['action'])) {
                         if ($producto->setPrecio($_POST['create_precio'])) {
                             if (isset($_POST['create_categoria'])) {
                                 if ($producto->setCategoria($_POST['create_categoria'])) {
-                                    if ($producto->setEstado(isset($_POST['create_estado']) ? 1 : 0)) {
                                         if (is_uploaded_file($_FILES['create_archivo']['tmp_name'])) {
                                             if ($producto->setImage($_FILES['create_archivo'], null)) {
                                                 if ($producto->createProducto()) {
@@ -62,9 +61,6 @@ if (isset($_GET['action'])) {
                                         } else {
                                             $result['exception'] = 'Selecciona una imagen de 500x500';
                                         }
-                                    } else {
-                                        $result['exception'] = 'Estado incorrecto';
-                                    }
                                 } else {
                                     $result['exception'] = 'Categoría incorrecta';
                                 }
@@ -100,7 +96,6 @@ if (isset($_GET['action'])) {
                             if ($producto->setDescripcion($_POST['update_descripcion'])) {
                                 if ($producto->setPrecio($_POST['update_precio'])) {
                                     if ($producto->setCategoria($_POST['update_categoria'])) {
-                                        if ($producto->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
                                             if (is_uploaded_file($_FILES['update_archivo']['tmp_name'])) {
                                                 if ($producto->setImage($_FILES['update_archivo'], $_POST['imagen_producto'])) {
                                                     $archivo = true;
@@ -128,9 +123,6 @@ if (isset($_GET['action'])) {
                                             } else {
                                                 $result['exception'] = 'Operación fallida';
                                             }
-                                        } else {
-                                            $result['exception'] = 'Estado incorrecto';
-                                        }
                                     } else {
                                         $result['exception'] = 'Selecciona una categoría';
                                     }
@@ -168,27 +160,6 @@ if (isset($_GET['action'])) {
                     }
                 } else {
                     $result['exception'] = 'Producto incorrecto';
-                }
-                break;
-            case 'graficoCPV':
-                if ($result['dataset'] = $producto->cantidadPV()) {
-                    $result['status'] = 1;
-                } else {
-                    $result['exception'] = 'No hay datos disponibles';
-                }
-                break;
-            case 'graficoCPP':
-                if ($result['dataset'] = $producto->cantidadPP()) {
-                    $result['status'] = 1;
-                } else {
-                    $result['exception'] = 'No hay datos disponibles';
-                }
-                break;
-            case 'graficoCPI':
-                if ($result['dataset'] = $producto->cantidadPI()) {
-                    $result['status'] = 1;
-                } else {
-                    $result['exception'] = 'No hay datos disponibles';
                 }
                 break;
             default:

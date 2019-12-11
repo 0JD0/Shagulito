@@ -3,31 +3,35 @@ $(document).ready(function()
     showTable();
 })
 
-//  constantes que comunican con la API
+// Constante para establecer la ruta y parámetros de comunicación con la API
 const apiCargos = '../../core/api/dashboard/cargos.php?action=';
 
-// funcion para llenar la tabla
+// Función para llenar tabla con los datos de los registros
 function fillTable(rows)
 {
     let content = '';
-    // se agregan las partes de la tabla segun el orden q se deasea q se muestren
+    // Se recorren las filas para armar el cuerpo de la tabla y se utiliza comilla invertida para escapar los caracteres especiales
     rows.forEach(function(row){
         content += `
             <tr>
                 <td>${row.nombre_cargo}</td>
+                <td><i class="material-icons indigo-text">${(row.produccion == 1) ? 'check' : 'clear'}</i></td>
+                <td><i class="material-icons indigo-text">${(row.usuarios == 1) ? 'check' : 'clear'}</i></td>
+                <td><i class="material-icons indigo-text">${(row.transacciones == 1) ? 'check' : 'clear'}</i></td>
+                <td><i class="material-icons indigo-text">${(row.reportes == 1) ? 'check' : 'clear'}</i></td>
+                <td><i class="material-icons indigo-text">${(row.graficos == 1) ? 'check' : 'clear'}</i></td>
                 <td>
-                    <a href="#" onclick="modalUpdate(${row.id_cargo})" class="blue-text waves-effect waves-blue tooltipped" data-tooltip="editar"><i class="material-icons">edit</i></a>
-                    <a href="#" onclick="confirmDelete('${apiCargos}', ${row.id_cargo})" class="red-text waves-effect waves-orange tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
+                    <a href="#" onclick="modalUpdate(${row.id_cargo})" class="waves-effect waves-blue tooltipped" data-tooltip="Modificar"><i class="material-icons blue-text">edit</i></a>
+                    <a href="#" onclick="confirmDelete(${row.id_cargo})" class="waves-effect waves-orange tooltipped" data-tooltip="Eliminar"><i class="material-icons red-text">delete</i></a>
                 </td>
             </tr>
         `;
     });
     $('#tbody-read').html(content);
-    $('.materialboxed').materialbox();
     $('.tooltipped').tooltip();
 }
 
-// Función q muestra los registros diponibls
+// Función para obtener y mostrar los registros disponibles
 function showTable()
 {
     $.ajax({
@@ -55,7 +59,7 @@ function showTable()
     });
 }
 
-// Función para mostrar las busquedas
+// Función para mostrar los resultados de una búsqueda
 $('#form-search').submit(function()
 {
     event.preventDefault();
@@ -66,9 +70,10 @@ $('#form-search').submit(function()
         datatype: 'json'
     })
     .done(function(response){
-        // Se verifica si la api responde una cadena JSON
+        // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
         if (isJSONString(response)) {
             const result = JSON.parse(response);
+            // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
                 fillTable(result.dataset);
                 sweetAlert(1, result.message, null);
@@ -80,16 +85,10 @@ $('#form-search').submit(function()
         }
     })
     .fail(function(jqXHR){
-        // Se muestra en la consola los posibles eerores
+        // Se muestran en consola los posibles errores de la solicitud AJAX
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 })
-
-function modalCreate()
-{
-    $('#form-create')[0].reset();
-    $('#modal-create').modal('open');
-}
 
 // Función para crear un nuevo registro
 $('#form-create').submit(function()
@@ -98,17 +97,16 @@ $('#form-create').submit(function()
     $.ajax({
         url: apiCargos + 'create',
         type: 'post',
-        data: new FormData($('#form-create')[0]),
-        datatype: 'json',
-        cache: false,
-        contentType: false,
-        processData: false
+        data: $('#form-create').serialize(),
+        datatype: 'json'
     })
     .done(function(response){
-        // Se verifica si la api responde una cadena JSON
+        // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
         if (isJSONString(response)) {
             const result = JSON.parse(response);
+            // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
+                $('#form-create')[0].reset();
                 $('#modal-create').modal('close');
                 showTable();
                 sweetAlert(1, result.message, null);
@@ -120,12 +118,12 @@ $('#form-create').submit(function()
         }
     })
     .fail(function(jqXHR){
-        // Se muestra en la consola los posibles eerores
+        // Se muestran en consola los posibles errores de la solicitud AJAX
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 })
 
-// Función para modificar
+// Función para mostrar formulario con registro a modificar
 function modalUpdate(id)
 {
     $.ajax({
@@ -137,18 +135,19 @@ function modalUpdate(id)
         datatype: 'json'
     })
     .done(function(response){
-        // Se verifica si la api responde una cadena JSON
+        // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado consola
         if (isJSONString(response)) {
             const result = JSON.parse(response);
+            // Se comprueba si el resultado es satisfactorio para mostrar los valores en el formulario, sino se muestra la excepción
             if (result.status) {
-                $('#form-update')[0].reset();
-<<<<<<< HEAD
-                $('#id_cargo').val(result.dataset.id_producto);
-                $('#update_nombre').val(result.dataset.nombre_producto);
-=======
-                $('#id_cargo').val(result.dataset.id_cargo);
-                $('#update_nombre').val(result.dataset.nombre_cargo);
->>>>>>> e057b4d14ba659db344329466cca1373d8409ff9
+                const cargo = result.dataset;
+                $('#id_cargo').val(cargo.id_cargo);
+                $('#update_nombre').val(cargo.nombre_cargo);
+                (cargo.produccion == 1) ? $('#update_produccion').prop('checked', true) : $('#update_produccion').prop('checked', false);
+                (cargo.usuarios == 1) ? $('#update_usuarios').prop('checked', true) : $('#update_usuarios').prop('checked', false);
+                (cargo.transacciones == 1) ? $('#update_transacciones').prop('checked', true) : $('#update_transacciones').prop('checked', false);
+                (cargo.reportes == 1) ? $('#update_reportes').prop('checked', true) : $('#update_reportes').prop('checked', false);
+                (cargo.graficos == 1) ? $('#update_graficos').prop('checked', true) : $('#update_graficos').prop('checked', false);
                 M.updateTextFields();
                 $('#modal-update').modal('open');
             } else {
@@ -159,7 +158,7 @@ function modalUpdate(id)
         }
     })
     .fail(function(jqXHR){
-        // Se muestra en la consola los posibles eerores
+        // Se muestran en consola los posibles errores de la solicitud AJAX
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 }
@@ -171,20 +170,18 @@ $('#form-update').submit(function()
     $.ajax({
         url: apiCargos + 'update',
         type: 'post',
-        data: new FormData($('#form-update')[0]),
-        datatype: 'json',
-        cache: false,
-        contentType: false,
-        processData: false
+        data: $('#form-update').serialize(),
+        datatype: 'json'
     })
     .done(function(response){
-        // Se verifica si la api responde una cadena JSON
+        // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
         if (isJSONString(response)) {
             const result = JSON.parse(response);
+            // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
             if (result.status) {
                 $('#modal-update').modal('close');
                 showTable();
-                sweetAlert(1, result.message, null);
+                sweetAlert(1, result.message, 'cargos.php');
             } else {
                 sweetAlert(2, result.exception, null);
             }
@@ -193,7 +190,51 @@ $('#form-update').submit(function()
         }
     })
     .fail(function(jqXHR){
-        // Se muestra en la consola los posibles eerores
+        // Se muestran en consola los posibles errores de la solicitud AJAX
         console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
     });
 })
+
+// Función para eliminar un registro seleccionado
+function confirmDelete(id)
+{
+    swal({
+        title: 'Advertencia',
+        text: '¿Desea eliminar este cargo?',
+        icon: 'warning',
+        buttons: ['Cancelar', 'Aceptar'],
+        closeOnClickOutside: false,
+        closeOnEsc: false
+    })
+    .then(function(value){
+        if (value) {
+            $.ajax({
+                url: apiCargos + 'delete',
+                type: 'post',
+                data:{
+                    id_cargo: id
+                },
+                datatype: 'json'
+            })
+            .done(function(response){
+                // Se verifica si la respuesta de la API es una cadena JSON, sino se muestra el resultado en consola
+                if (isJSONString(response)) {
+                    const result = JSON.parse(response);
+                    // Se comprueba si el resultado es satisfactorio, sino se muestra la excepción
+                    if (result.status) {
+                        showTable();
+                        sweetAlert(1, result.message, null);
+                    } else {
+                        sweetAlert(2, result.exception, null);
+                    }
+                } else {
+                    console.log(response);
+                }
+            })
+            .fail(function(jqXHR){
+                // Se muestran en consola los posibles errores de la solicitud AJAX
+                console.log('Error: ' + jqXHR.status + ' ' + jqXHR.statusText);
+            });
+        }
+    });
+}

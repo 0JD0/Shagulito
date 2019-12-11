@@ -128,7 +128,7 @@ class Ventas extends Validator
 
     public function ventasMonto($value1, $value2)
     {
-        $sql = 'SELECT monto_venta, fecha_venta FROM ventas WHERE monto_venta BETWEEN ? AND ? ORDER BY `ventas`.`monto_venta`  ASC';
+        $sql = 'SELECT monto_venta, fecha_venta FROM ventas WHERE monto_venta BETWEEN ? AND ? ORDER BY `ventas`.`monto_venta` ASC';
 		$params = array($value1, $value2);
         return Database::getRows($sql, $params);
     }

@@ -34,14 +34,11 @@ if (isset($_GET['action'])) {
 				$_POST = $categoria->validateForm($_POST);
         		if ($categoria->setNombre($_POST['create_nombre'])) {
 					if ($categoria->setDescripcion($_POST['create_descripcion'])) {
-						if ($categoria->setEstado(isset($_POST['create_estado']) ? 1 : 0)) {
-							if ($categoria->createCategoria()) {
-								$result['status'] = 1;
-							} else {
-								$result['exception'] = 'Operación fallida';
-							}
+						if ($categoria->createCategoria()) {
+							$result['status'] = 1;
+							$result['message'] = 'Categoría creada correctamente';
 						} else {
-							$result['exception'] = 'Estado incorrecto';
+							$result['exception'] = 'Operación fallida';
 						}
 					} else {
 						$result['exception'] = 'Descripción incorrecta';
@@ -67,15 +64,12 @@ if (isset($_GET['action'])) {
 					if ($categoria->getCategoria()) {
 		                if ($categoria->setNombre($_POST['update_nombre'])) {
 							if ($categoria->setDescripcion($_POST['update_descripcion'])) {
-								if ($categoria->setEstado(isset($_POST['update_estado']) ? 1 : 0)) {
 								if ($categoria->updateCategoria()) {
 										$result['status'] = 1;
+										$result['message'] = 'Categoría actualizada correctamente';
 								} else {
 									$result['exception'] = 'Operación fallida';
 								}
-							} else {
-								$result['exception'] = 'Estado incorrecto';
-							}
 							} else {
 								$result['exception'] = 'Descripción incorrecta';
 							}
@@ -94,6 +88,7 @@ if (isset($_GET['action'])) {
 					if ($categoria->getCategoria()) {
 						if ($categoria->deleteCategoria()) {
 								$result['status'] = 1;
+								$result['message'] = 'Categoría eliminada correctamente';
 						} else {
 							$result['exception'] = 'Operación fallida';
 						}

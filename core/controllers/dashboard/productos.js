@@ -13,17 +13,15 @@ function fillTable(rows)
     let content = '';
     // se agregan las partes de la tabla segun el orden q se deasea q se muestren
     rows.forEach(function(row){
-        (row.estado_producto == 1) ? icon = 'visibility' : icon = 'visibility_off';
         content += `
             <tr>
                 <td class="hide-on-med-and-down"><img src="../../resources/img/productos/${row.imagen_producto}" class="materialboxed" height="75"></td>
                 <td>${row.nombre_producto}</td>
                 <td>${row.precio_producto}</td>
                 <td>${row.nombre_categoria}</td>
-                <td><i class="material-icons">${icon}</i></td>
                 <td>
-                    <a href="#" onclick="modalUpdate(${row.id_producto})" class="blue-text waves-effect waves-blue tooltipped" data-tooltip="editar"><i class="material-icons">edit</i></a>
-                    <a href="#" onclick="confirmDelete('${apiProductos}', ${row.id_producto}, '${row.imagen_producto}')" class="red-text waves-effect waves-orange tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
+                    <a href="#" onclick="modalUpdate(${row.id_producto})" class="waves-effect waves-blue tooltipped" data-tooltip="editar"><i class="material-icons blue-text">edit</i></a>
+                    <a href="#" onclick="confirmDelete('${apiProductos}', ${row.id_producto}, '${row.imagen_producto}')" class="waves-effect waves-orange tooltipped" data-tooltip="Eliminar"><i class="material-icons red-text">delete</i></a>
                 </td>
             </tr>
         `;
@@ -116,6 +114,7 @@ $('#form-create').submit(function()
         if (isJSONString(response)) {
             const result = JSON.parse(response);
             if (result.status) {
+                $('#form-create')[0].reset();
                 $('#modal-create').modal('close');
                 showTable();
                 sweetAlert(1, result.message, null);
@@ -154,7 +153,6 @@ function modalUpdate(id)
                 $('#update_nombre').val(result.dataset.nombre_producto);
                 $('#update_precio').val(result.dataset.precio_producto);
                 $('#update_descripcion').val(result.dataset.descripcion_producto);
-                (result.dataset.estado_producto == 1) ? $('#update_estado').prop('checked', true) : $('#update_estado').prop('checked', false);
                 fillSelect(categorias, 'update_categoria', result.dataset.id_categoria);
                 M.updateTextFields();
                 $('#modal-update').modal('open');
