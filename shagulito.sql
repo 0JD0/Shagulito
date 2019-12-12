@@ -64,6 +64,15 @@ CREATE TABLE `clientes` (
   `correo_cliente` varchar(100) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `clientes`
+--
+
+INSERT INTO `clientes` (`id_cliente`, `nombre_cliente`, `apellido_cliente`, `telefono_cliente`, `correo_cliente`) VALUES
+(1, 'Maria', 'Monterrosa', 71018820, 'Gabriel@shagulito.com'),
+(2, 'FABIOLA', 'MARTINEZ', 71018820, 'Gabriel@shagulito.com'),
+(3, 'PREDRO', 'MARTINEZ', 71018820, 'Gabriel@shagulito.com');
+
 -- --------------------------------------------------------
 
 --
@@ -212,6 +221,7 @@ ALTER TABLE `empleado`
 --
 ALTER TABLE `productos`
   ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id_categoria`);
+COMMIT;
 
 --
 -- Filtros para la tabla `ventas`

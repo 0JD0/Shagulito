@@ -43,7 +43,7 @@ Dashboard::headerTemplate('Administrar productos');
 <div id="modal-create" class="modal">
     <div class="modal-content">
         <h4 class="center-align">Agregar Producto</h4>
-        <form method="post" id="form-create" enctype="multipart/form-data" autocomplete = "off">
+        <form method="post" id="form-create" enctype="multipart/form-data" autocomplete="off">
             <div class="row">
                 <div class="input-field col s12 m6">
                     <i class="material-icons blue-text prefix">cake</i>
@@ -80,8 +80,7 @@ Dashboard::headerTemplate('Administrar productos');
                 <a href="#" class="modal-close btn waves-effect waves-light red tooltipped " data-tooltip="Cancelar">
                     <i class="material-icons white-text">close</i>
                 </a>
-                <button href="#modal-exito" type="submit"
-                    class="btn waves-effect waves-light green tooltipped"
+                <button href="#" type="submit" class="btn waves-effect waves-light green tooltipped"
                     data-tooltip="Crear">
                     <i class="material-icons white-text">save</i>
                 </button>
@@ -94,7 +93,7 @@ Dashboard::headerTemplate('Administrar productos');
 <div id="modal-update" class="modal">
     <div class="modal-content">
         <h4 class="center-align">Editar Producto</h4>
-        <form method="post" id="form-update" enctype="multipart/form-data" autocomplete = "off">
+        <form method="post" id="form-update" enctype="multipart/form-data" autocomplete="off">
             <input type="hidden" id="id_producto" name="id_producto" />
             <input type="hidden" id="imagen_producto" name="imagen_producto" />
             <div class="row">

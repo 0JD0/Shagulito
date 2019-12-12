@@ -4,6 +4,32 @@ require_once('../../helpers/validator.php');
 require_once('../../models/usuarios.php');
 require_once('../../models/cargos.php');
 
+function random_password(){
+    //Se define una cadena de caractares.
+    //Os recomiendo desordenar las minúsculas, mayúsculas y números para mejorar la probabilidad.
+    $cadena = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890@#!€%&()";
+    //Obtenemos la longitud de la cadena de caracteres
+    $longitudCadena=strlen($cadena);
+ 
+    //Definimos la variable que va a contener la contraseña
+    $pass = "";
+    //Se define la longitud de la contraseña, puedes poner la longitud que necesites
+    //Se debe tener en cuenta que cuanto más larga sea más segura será.
+    $longitudPass=10;
+ 
+    //Creamos la contraseña recorriendo la cadena tantas veces como hayamos indicado
+    for($i=1 ; $i<=$longitudPass ; $i++){
+        //Definimos numero aleatorio entre 0 y la longitud de la cadena de caracteres-1
+        $pos=rand(0,$longitudCadena-1);
+ 
+        //Vamos formando la contraseña con cada carácter aleatorio.
+        $pass .= substr($cadena,$pos,1);
+    }
+    return $pass;
+}
+
+$random = random_password();
+
 //Se comprueba si existe una petición del sitio web y la acción a realizar, de lo contrario se muestra una página de error
 if (isset($_GET['action'])) {
     session_start();
@@ -191,19 +217,19 @@ if (isset($_GET['action'])) {
                                                             $result['exception'] = 'No puede poner el mismo alias con la contraseña. Escriba de nuevo la clave que desea utilizar';
                                                         }
                                                     } else {
-                                                        $result['exception'] = $usuario->getImageError();
+                                                        $result['exception'] = 'Cargo incorrecto';
                                                     }
                                                 } else {
-                                                    $result['exception'] = 'Seleccione una imagen';
+                                                    $result['exception'] = 'Selecciona un cargo';
                                                 }
                                             } else {
-                                                $result['exception'] = 'Clave menor a 6 caracteres';
+                                                $result['exception'] = $usuario->getImageError();
                                             }
                                         } else {
-                                            $result['exception'] = 'La clave no puede ser igual al alias';
+                                            $result['exception'] = 'Seleccione una imagen';
                                         }
                                     } else {
-                                        $result['exception'] = 'Claves diferentes';
+                                        $result['exception'] = 'Clave incorrecta';
                                     }
                                 } else {
                                     $result['exception'] = 'Alias incorrecto';
